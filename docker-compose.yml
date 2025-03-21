@@ -1,18 +1,11 @@
 services:
-  service:
+  backend:
     build:
       context: .
     ports:
       - "4000:4000"
     working_dir: &PROJECT_ROOT_DIR /app
-    # linux permissions / vscode support: we must explicitly run as the development user
     volumes:
-      # mount working directory
-      # https://code.visualstudio.com/docs/remote/containers-advanced#_update-the-mount-consistency-to-delegated-for-macos
-      # https://docs.docker.com/docker-for-mac/osxfs-caching/#delegated
-      # the container’s view is authoritative (permit delays before updates on the container appear in the host)
-      - .:/app:delegated
-
       # mount cached vscode container extensions
       # https://code.visualstudio.com/docs/remote/containers-advanced#_avoiding-extension-reinstalls-on-container-rebuild
       - vscode-extensions:/home/development/.vscode-server/extensions
@@ -25,12 +18,9 @@ services:
     depends_on:
       - postgres
     environment:
-      # required: env for main working database, service
-      # default for sql-migrate (target development) and psql cli tool
-
       POSTGRES_PASSWORD: "dbpass"
-      POSTGRES_USER: "dbuser"
-      POSTGRES_DB: "development"
+      POSTGRES_USER: "postgres"
+      POSTGRES_DB: "CourseFlow"
 
       # optional: project root directory, used for relative path resolution (e.g. fixtures)
       PROJECT_ROOT_DIR: *PROJECT_ROOT_DIR
@@ -41,7 +31,7 @@ services:
       SERVER_LOGGER_PRETTY_PRINT_CONSOLE: "true"
 
   postgres:
-    image: postgres:12.4-alpine # should be the same version as used in .drone.yml, .github/workflows, Dockerfile and live
+    image: postgres:latest
     # ATTENTION
     # fsync=off, synchronous_commit=off and full_page_writes=off
     # gives us a major speed up during local development and testing (~30%),
@@ -57,10 +47,11 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: "dbpass"
-      POSTGRES_USER: "dbuser"
-      POSTGRES_DB: "development"
+      POSTGRES_USER: "postgres"
+      POSTGRES_DB: "CourseFlow"
     volumes:
       - pgvolume:/var/lib/postgresql/data
+      - ./sql/dump.sql:/docker-entrypoint-initdb.d/dump.sql # Mount the SQL dump file
 
   frontend:
     image: kgruca7747/courseflow-web

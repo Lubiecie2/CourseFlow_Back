@@ -21,7 +21,7 @@ WORKDIR /app
 # Expose the port the application will run on
 EXPOSE 4000
 
-ENV DB_CONNECTION_STRING=postgres://dbuser:dbpass@postgres:5432/development
+ENV DB_CONNECTION_STRING=postgres://postgres:dbpass@postgres:5432/CourseFlow
 
 
 # Install pm2
