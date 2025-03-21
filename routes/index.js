@@ -1,9 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
-const pool = require("./../db");
+const pool = require("./../models/db");
 
-/* GET home page. */
 router.get("/", async (req, res, next) => {
   const result = await pool.query("SELECT NOW()");
   const currentTime = result.rows[0].now;

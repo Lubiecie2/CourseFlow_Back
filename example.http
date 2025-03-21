@@ -1,8 +1,26 @@
-POST http://localhost:4000/api/users
+### Register a new user
+POST http://localhost:4000/api/auth/register
 Content-Type: application/json
 
 {
-  "username": "john_doe",
-  "email": "john@exa123123mple.com",
-  "password": "P@ssw0rd!"
+  "email": "test@example.com",
+  "password": "password123",
+  "firstName": "Andrzej",
+  "lastName": "Nowak"
 }
+### Register a new user
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### Get user data (requires authentication)
+# Replace the token below with a valid token received from login or register
+GET http://localhost:4000/api/auth/me
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..-_0vNv_dbu0Fd17Q.XfGTardnZhAjZhO-VyG7snZThS0LvgQNuaaXgy8X_bmLdvRzjKkqMzTqKnOCuBvDbaP9Cg9FQJuR348te0M3u9R2ib6nFhUB2Nvch_rX_4ovAUR0AmvwVRgcyRFVxMjDlRxS1gTvO9SQxgy0N2CN0LnMPc2I.CPxM61vvzdofvRsHrqnuWg
+Content-Type: application/json
+
+
