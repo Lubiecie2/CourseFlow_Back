@@ -10,6 +10,7 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const pool = require("./models/db");
 
+const adminRouter = require("./routes/admin");
 var indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
 
@@ -22,7 +23,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ["http://localhost", "http://localhost:3000/"],
+    origin: ["http://localhost", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -50,6 +51,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api", indexRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/admin", adminRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

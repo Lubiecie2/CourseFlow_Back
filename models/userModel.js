@@ -17,6 +17,23 @@ const User = {
     return result.rows[0];
   },
 
+  findAll: async () => {
+    const result = await db.query(
+      " SELECT id, email, first_name, last_name, role FROM users"
+    );
+    return result.rows;
+  },
+  deleteById: async (id) => {
+    const result = await db.query("DELETE FROM users WHERE id = $1", [id]);
+  },
+  updateRole: async (id, newRole) => {
+    const result = await db.query(
+      "UPDATE users SET role = $1 WHERE id = $2 RETURNING id, email, first_name, last_name, role",
+      [newRole, id]
+    );
+    return result.rows[0];
+  },
+
   exists: async (email) => {
     const result = await db.query("SELECT * FROM users WHERE email = $1", [
       email,

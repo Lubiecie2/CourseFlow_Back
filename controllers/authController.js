@@ -52,8 +52,14 @@ const authController = {
       const token = await jweToken.createToken({
         id: user.id,
         email: user.email,
+        role: user.role,
       });
 
+      console.log("Dupa 1:", {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      });
       res
         .cookie("access_token", token, {
           httpOnly: false,
@@ -66,6 +72,7 @@ const authController = {
             firstName: user.first_name,
             lastName: user.last_name,
             email: user.email,
+            role: user.role,
           },
           token,
         });

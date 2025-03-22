@@ -9,6 +9,7 @@ const config = {
 };
 
 async function createToken(payload) {
+  console.log("Dupa2:", payload);
   const encryptionKey = createSecretKey(Buffer.from(config.secret));
 
   const expiresIn = config.expiresIn;

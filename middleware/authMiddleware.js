@@ -10,7 +10,6 @@ const config = {
 
 const authMiddleware = async (req, res, next) => {
   try {
-    // Get token from Authorization header
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -21,16 +20,12 @@ const authMiddleware = async (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
 
-    // Create encryption key from environment variable
     const encryptionKey = createSecretKey(Buffer.from(config.secret));
 
-    // Decrypt and verify the JWE token
     const { payload } = await jwtDecrypt(token, encryptionKey, {
       issuer: config.issuer,
       audience: config.audience,
     });
-
-    // Add user from payload to request object
     req.user = payload;
     next();
   } catch (err) {

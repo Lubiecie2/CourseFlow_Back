@@ -3,24 +3,41 @@ POST http://localhost:4000/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "test@example.com",
+  "email": "JakubTTT@example.com",
   "password": "password123",
-  "firstName": "Andrzej",
-  "lastName": "Nowak"
+  "firstName": "Marcin",
+  "lastName": "Dudek"
 }
 ### Register a new user
 POST http://localhost:4000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "test@example.com",
-  "password": "password123"
+  "email": "test@testowy.pl",
+  "password": "123456"
 }
 
 ### Get user data (requires authentication)
 # Replace the token below with a valid token received from login or register
 GET http://localhost:4000/api/auth/me
-Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..-_0vNv_dbu0Fd17Q.XfGTardnZhAjZhO-VyG7snZThS0LvgQNuaaXgy8X_bmLdvRzjKkqMzTqKnOCuBvDbaP9Cg9FQJuR348te0M3u9R2ib6nFhUB2Nvch_rX_4ovAUR0AmvwVRgcyRFVxMjDlRxS1gTvO9SQxgy0N2CN0LnMPc2I.CPxM61vvzdofvRsHrqnuWg
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lPQKxngXlWWDdaTj.LNGNjGLswlPxQ68W6q7sHL8BuN8BMzhWEZBHVz4JiuJ_wN-LBCwiDyZ3ZBjSYkQ7ICDTYO0tdbsH-PbU0VJB13D1rxo8tXYH2fiPmzad23q1Tea27YgXlFeULrbRt3LD9xGs493DZXrY24XdDN1oN_CB_dnTEXt7Q1ykjWMx1pCS4Z8.6cyx672l3zwlqQLk7_E_jw
 Content-Type: application/json
 
+### Get all users (requires admin authentication)
+GET http://localhost:4000/api/admin/users
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..bRYtPhzo7BYSw3_z.fX71tzU989snbO2zB0V5fw31pA9-gyD2BzrS4k66VK1-we2Y0GZTy5pnM_yRusruybtDyCiclgXthvaNWhy2hFb7S4JfrUXbcyYms4D1dUgBwtMGoHtEQnlwZvtxWhdS377yKIKrMGRryqghT7BkUo3WC5BzvuMZBwoQFiArnbJC8Qk.aHc2ngX9fY3ntRUAJjgx_Q
+Content-Type: application/json
 
+### Change user role (requires admin authentication)
+PUT http://localhost:4000/api/admin/users/1/role
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..bRYtPhzo7BYSw3_z.fX71tzU989snbO2zB0V5fw31pA9-gyD2BzrS4k66VK1-we2Y0GZTy5pnM_yRusruybtDyCiclgXthvaNWhy2hFb7S4JfrUXbcyYms4D1dUgBwtMGoHtEQnlwZvtxWhdS377yKIKrMGRryqghT7BkUo3WC5BzvuMZBwoQFiArnbJC8Qk.aHc2ngX9fY3ntRUAJjgx_Q
+Content-Type: application/json
+
+{
+  "role": "user"
+}
+### Delete user from database (requires admin authentication)
+
+DELETE http://localhost:4000/api/admin/users/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..bRYtPhzo7BYSw3_z.fX71tzU989snbO2zB0V5fw31pA9-gyD2BzrS4k66VK1-we2Y0GZTy5pnM_yRusruybtDyCiclgXthvaNWhy2hFb7S4JfrUXbcyYms4D1dUgBwtMGoHtEQnlwZvtxWhdS377yKIKrMGRryqghT7BkUo3WC5BzvuMZBwoQFiArnbJC8Qk.aHc2ngX9fY3ntRUAJjgx_Q
+Content-Type: application/json
