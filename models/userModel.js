@@ -19,7 +19,7 @@ const User = {
 
   findAll: async () => {
     const result = await db.query(
-      " SELECT id, email, first_name, last_name, role FROM users"
+      " SELECT id, email, first_name, last_name, role FROM users ORDER by id"
     );
     return result.rows;
   },

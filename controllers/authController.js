@@ -55,15 +55,12 @@ const authController = {
         role: user.role,
       });
 
-      console.log("Dupa 1:", {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-      });
+      const hours = 24;
       res
         .cookie("access_token", token, {
           httpOnly: false,
           secure: true,
+          maxAge: hours * 60 * 1000 * 60,
         })
         .json({
           message: "Login successful",
