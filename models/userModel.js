@@ -56,6 +56,15 @@ const User = {
   verifyPassword: async (plainPassword, hashedPassword) => {
     return await bcrypt.compare(plainPassword, hashedPassword);
   },
+
+  searchUsers: async (searchQuery) => {
+    const query = `
+      SELECT id, email, first_name, last_name, role FROM users WHERE email LIKE $1 OR first_name LIKE $1 OR last_name LIKE $1
+      ORDER BY id;
+    `;
+    const result = await db.query(query, [`%${searchQuery}%`]);
+    return result.rows;
+  },
 };
 
 module.exports = User;

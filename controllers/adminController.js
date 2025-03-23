@@ -38,6 +38,21 @@ const adminController = {
       res.status(500).json({ message: "Server error" });
     }
   },
+
+  searchUsers: async (req, res) => {
+    try {
+      const { query } = req.query; // tutaj pobierany jest parametr wyszukiwania
+      if (!query) {
+        return res.status(400).json({ message: "Search query is required" });
+      }
+
+      const users = await User.searchUsers(query);
+      res.json(users);
+    } catch (err) {
+      console.error("Error searching users:", err.message);
+      res.status(500).json({ message: "Server error" });
+    }
+  },
 };
 
 module.exports = adminController;

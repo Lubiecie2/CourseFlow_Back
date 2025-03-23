@@ -118,4 +118,56 @@ router.put(
   adminController.updateUserRole
 );
 
+/**
+ * @swagger
+ * /api/admin/users/search:
+ *   get:
+ *     summary: Wyszukuje użytkowników na podstawie zapytania
+ *     description: Zwraca listę użytkowników na podstawie zapytania (np. email, imię, nazwisko).
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Zapytanie wyszukiwania użytkowników
+ *     responses:
+ *       200:
+ *         description: Lista użytkowników pasujących do zapytania
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   email:
+ *                     type: string
+ *                     example: "user@example.com"
+ *                   firstName:
+ *                     type: string
+ *                     example: "John"
+ *                   lastName:
+ *                     type: string
+ *                     example: "Doe"
+ *       400:
+ *         description: Brak zapytania do wyszukiwania
+ *       401:
+ *         description: Brak autoryzacji - nieprawidłowy token
+ *       403:
+ *         description: Brak dostępu - wymagane uprawnienia administratora
+ */
+router.get(
+  "/users/search",
+  authMiddleware,
+  checkAdmin,
+  adminController.searchUsers
+);
+
 module.exports = router;
