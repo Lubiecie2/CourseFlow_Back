@@ -62,8 +62,10 @@ const authController = {
           secure: true,
           maxAge: hours * 60 * 1000 * 60,
         })
+        .status(200)
         .json({
           message: "Login successful",
+          token,
           user: {
             id: user.id,
             firstName: user.first_name,
@@ -80,6 +82,12 @@ const authController = {
   },
   getUser: async (req, res) => {
     try {
+      if (!req.user || !req.user.id) {
+        return res
+          .status(401)
+          .json({ message: "Unauthorized - Invalid or missing token" });
+      }
+
       const user = await User.findById(req.user.id);
 
       if (!user) {

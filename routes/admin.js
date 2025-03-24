@@ -6,16 +6,31 @@ const checkAdmin = require("../middleware/checkAdmin");
 
 /**
  * @swagger
+ * tags:
+ *   name: Admin
+ *   description: Endpoints for admin panel
+ */
+
+/**
+ * @swagger
  * /api/admin/users:
  *   get:
- *     summary: Pobiera listę wszystkich użytkowników
- *     description: Zwraca listę użytkowników. Wymaga autoryzacji administratora.
- *     tags: [Admin]
+ *     summary: Retrieve a list of users
+ *     description: Returns a list of users. Requires administrator privileges. If the `query` parameter is provided, the results will be filtered accordingly.
+ *     tags:
+ *       - Admin
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Search term for filtering users. Must be a string.
  *     responses:
  *       200:
- *         description: Lista użytkowników pobrana pomyślnie
+ *         description: Successfully retrieved the list of users.
  *         content:
  *           application/json:
  *             schema:
@@ -28,6 +43,7 @@ const checkAdmin = require("../middleware/checkAdmin");
  *                     example: 1
  *                   email:
  *                     type: string
+ *                     format: email
  *                     example: "user@example.com"
  *                   firstName:
  *                     type: string
@@ -35,10 +51,42 @@ const checkAdmin = require("../middleware/checkAdmin");
  *                   lastName:
  *                     type: string
  *                     example: "Doe"
+ *       400:
+ *         description: Invalid query parameter. `query` must be a string.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: integer
+ *                       example: 400
+ *                     message:
+ *                       type: string
+ *                       example: "Invalid query parameter. 'query' must be a string."
  *       401:
- *         description: Brak autoryzacji - nieprawidłowy token
+ *         description: Unauthorized - invalid token.
  *       403:
- *         description: Brak dostępu - wymagane uprawnienia administratora
+ *         description: Forbidden - administrator privileges required.
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: integer
+ *                       example: 500
+ *                     message:
+ *                       type: string
+ *                       example: "Internal server error. Please try again later."
  */
 router.get("/users", authMiddleware, checkAdmin, adminController.getAllUsers);
 
@@ -46,9 +94,10 @@ router.get("/users", authMiddleware, checkAdmin, adminController.getAllUsers);
  * @swagger
  * /api/admin/users/{id}:
  *   delete:
- *     summary: Usuwa użytkownika
- *     description: Usuwa użytkownika na podstawie jego ID. Wymaga autoryzacji administratora.
- *     tags: [Admin]
+ *     summary: Delete a user by ID
+ *     description: Deletes a user from the system. Requires administrator privileges.
+ *     tags:
+ *       - Admin
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -57,16 +106,70 @@ router.get("/users", authMiddleware, checkAdmin, adminController.getAllUsers);
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID użytkownika do usunięcia
+ *         description: The unique ID of the user to be deleted.
  *     responses:
  *       200:
- *         description: Użytkownik został pomyślnie usunięty
+ *         description: User successfully deleted.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User deleted successfully."
+ *       400:
+ *         description: Invalid user ID.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: integer
+ *                       example: 400
+ *                     message:
+ *                       type: string
+ *                       example: "Invalid user ID. It must be a numeric value."
  *       401:
- *         description: Brak autoryzacji - nieprawidłowy token
+ *         description: Unauthorized - invalid token.
  *       403:
- *         description: Brak dostępu - wymagane uprawnienia administratora
+ *         description: Forbidden - administrator privileges required.
  *       404:
- *         description: Użytkownik nie znaleziony
+ *         description: User not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: integer
+ *                       example: 404
+ *                     message:
+ *                       type: string
+ *                       example: "User not found."
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: integer
+ *                       example: 500
+ *                     message:
+ *                       type: string
+ *                       example: "Internal server error. Please try again later."
  */
 router.delete(
   "/users/:id",
@@ -78,10 +181,11 @@ router.delete(
 /**
  * @swagger
  * /api/admin/users/{id}/role:
- *   put:
- *     summary: Aktualizuje rolę użytkownika
- *     description: Zmienia rolę użytkownika na podstawie jego ID. Wymaga autoryzacji administratora.
- *     tags: [Admin]
+ *   patch:
+ *     summary: Update a user's role
+ *     description: Updates the role of a user. Requires administrator privileges.
+ *     tags:
+ *       - Admin
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -90,7 +194,7 @@ router.delete(
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID użytkownika, którego rola ma zostać zmieniona
+ *         description: The unique ID of the user whose role will be updated.
  *     requestBody:
  *       required: true
  *       content:
@@ -100,74 +204,86 @@ router.delete(
  *             properties:
  *               role:
  *                 type: string
+ *                 enum: [user, admin]
  *                 example: "admin"
+ *             required:
+ *               - role
  *     responses:
  *       200:
- *         description: Rola użytkownika została pomyślnie zmieniona
+ *         description: User role successfully updated.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 email:
+ *                   type: string
+ *                   format: email
+ *                   example: "user@example.com"
+ *                 role:
+ *                   type: string
+ *                   example: "admin"
+ *       400:
+ *         description: Invalid request data.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: integer
+ *                       example: 400
+ *                     message:
+ *                       type: string
+ *                       example: "Invalid role. Allowed values: 'user', 'admin'."
  *       401:
- *         description: Brak autoryzacji - nieprawidłowy token
+ *         description: Unauthorized - invalid token.
  *       403:
- *         description: Brak dostępu - wymagane uprawnienia administratora
+ *         description: Forbidden - administrator privileges required.
  *       404:
- *         description: Użytkownik nie znaleziony
+ *         description: User not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: integer
+ *                       example: 404
+ *                     message:
+ *                       type: string
+ *                       example: "User not found."
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: integer
+ *                       example: 500
+ *                     message:
+ *                       type: string
+ *                       example: "Internal server error. Please try again later."
  */
-router.put(
+router.patch(
   "/users/:id/role",
   authMiddleware,
   checkAdmin,
   adminController.updateUserRole
-);
-
-/**
- * @swagger
- * /api/admin/users/search:
- *   get:
- *     summary: Wyszukuje użytkowników na podstawie zapytania
- *     description: Zwraca listę użytkowników na podstawie zapytania (np. email, imię, nazwisko).
- *     tags: [Admin]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: query
- *         required: true
- *         schema:
- *           type: string
- *         description: Zapytanie wyszukiwania użytkowników
- *     responses:
- *       200:
- *         description: Lista użytkowników pasujących do zapytania
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   email:
- *                     type: string
- *                     example: "user@example.com"
- *                   firstName:
- *                     type: string
- *                     example: "John"
- *                   lastName:
- *                     type: string
- *                     example: "Doe"
- *       400:
- *         description: Brak zapytania do wyszukiwania
- *       401:
- *         description: Brak autoryzacji - nieprawidłowy token
- *       403:
- *         description: Brak dostępu - wymagane uprawnienia administratora
- */
-router.get(
-  "/users/search",
-  authMiddleware,
-  checkAdmin,
-  adminController.searchUsers
 );
 
 module.exports = router;

@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: ["http://localhost", "http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
 );
@@ -33,18 +33,25 @@ const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "CourseFlow dokumentacja",
+      title: "CourseFlow API",
       version: "1.0.0",
-      description: "Dokumentacja API dla platformy szkoleniowej CourseFlow",
+      description: "API Documentation for CourseFlow Learning Platform",
     },
-    servers: [
-      {
-        url: "http://localhost:4000",
+    servers: [{ url: "http://localhost:4000" }],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWE",
+        },
       },
-    ],
+    },
   },
   apis: ["./routes/*.js"],
 };
+
+module.exports = swaggerOptions;
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

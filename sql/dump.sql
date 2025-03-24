@@ -5,7 +5,7 @@
 -- Dumped from database version 17.4
 -- Dumped by pg_dump version 17.4
 
--- Started on 2025-03-21 11:29:32
+-- Started on 2025-03-23 19:05:24
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -682,13 +682,14 @@ COPY public.user_courses (id, user_id, course_id, progress, status, created_at) 
 --
 
 COPY public.users (id, first_name, last_name, email, password, role, created_at, updated_at) FROM stdin;
-1	Adam	Nowaczkiewicz	anowak@interia.pl	$2b$10$.kjpz8XvQfTCnGapcRKz5eUxzp03XY1sgXvI1R4aI2h5b6mOG6zIu	user	2025-03-19 10:06:38.291869	2025-03-19 10:06:38.291869
-2	test	asd	test@test.pl	$2b$10$rGQ7v0f.OGvsekHEzA4b8OEjf538DWyMxIpjohU6dWHzMamrNkLlC	user	2025-03-19 10:15:22.429431	2025-03-19 10:15:22.429431
 3	Bartosz	Kurek	bkurek@interia.pl	$2b$10$uWVvgzpzHVtX8QafhPlAXuW2en7wVnx1ZiHdkmGst/HD78cFSXY.O	user	2025-03-19 11:04:24.708583	2025-03-19 11:04:24.708583
-4	test	test	test@testowy.pl	$2b$10$SwG5BqbDIwPoUEHP02URzOp0DEyw/cZiaVQEOVT2HpBNTEwDs2k1W	user	2025-03-19 11:04:55.725331	2025-03-19 11:04:55.725331
 5	Marcin	Chodakowski	marcin@interia.pl	$2b$10$PdAVMjhAK7Pw30B1nEj7WuR.1FjSjYcP4vYZKAS4xi3qURY2IXNR2	user	2025-03-20 17:29:45.761749	2025-03-20 17:29:45.761749
 6	Bartosz	Milik	bartek@milik.pl	$2b$10$lCYCCt7s/hMjq6CUnRX/gubvx4argPDxqyaiMHwBj0YX.siw.2sly	user	2025-03-20 17:42:31.311148	2025-03-20 17:42:31.311148
+2	test	asd	test@test.pl	$2b$10$rGQ7v0f.OGvsekHEzA4b8OEjf538DWyMxIpjohU6dWHzMamrNkLlC	admin	2025-03-19 10:15:22.429431	2025-03-19 10:15:22.429431
 7	Jakub	Hajduk	jakubh@gmail.com	$2b$10$jf1V0K096BQHC88UJQUz.umSYNNYF4FVyC5udl1OtkMsZio/ud7om	user	2025-03-21 10:07:17.793786	2025-03-21 10:07:17.793786
+4	test	test	test@testowy.pl	$2b$10$SwG5BqbDIwPoUEHP02URzOp0DEyw/cZiaVQEOVT2HpBNTEwDs2k1W	admin	2025-03-19 11:04:55.725331	2025-03-19 11:04:55.725331
+9	Kacper	Kowalik	kowalik@test.pl	$2b$10$sBNQFFymBo3vwS9WNXf5X.qtHnjCCq6AlrYRdI129Pk1uhsnVouaW	user	2025-03-23 13:44:41.270681	2025-03-23 13:44:41.270681
+10	adam	nowak	aa@test.pl	$2b$10$/szjzOEy.BcSHbOvQHKiTOOvfycovtbqSwb.q.l551UCUI9Lvvm5.	user	2025-03-23 13:45:27.862695	2025-03-23 13:45:27.862695
 \.
 
 
@@ -788,7 +789,7 @@ SELECT pg_catalog.setval('public.user_courses_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 7, true);
+SELECT pg_catalog.setval('public.users_id_seq', 10, true);
 
 
 --
@@ -1079,7 +1080,7 @@ ALTER TABLE ONLY public.user_courses
     ADD CONSTRAINT user_courses_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
--- Completed on 2025-03-21 11:29:33
+-- Completed on 2025-03-23 19:05:25
 
 --
 -- PostgreSQL database dump complete
