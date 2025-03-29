@@ -3,15 +3,22 @@ const bcrypt = require("bcryptjs");
 
 const User = {
   findByEmail: async (email) => {
-    const result = await db.query("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
+    const result = await db.query(
+      `SELECT users.*, roles.name AS role
+       FROM users
+       LEFT JOIN roles ON users.role_id = roles.id
+       WHERE users.email = $1`,
+      [email]
+    );
     return result.rows[0];
   },
 
   findById: async (id) => {
     const result = await db.query(
-      "SELECT id, email, first_name, role, last_name FROM users WHERE id = $1",
+      `SELECT u.id, u.email, u.first_name, u.last_name, r.name AS role, r.id AS role_id
+       FROM users u
+       LEFT JOIN roles r ON u.role_id = r.id
+       WHERE u.id = $1`,
       [id]
     );
     return result.rows[0];
@@ -19,7 +26,10 @@ const User = {
 
   findAll: async () => {
     const result = await db.query(
-      " SELECT id, email, first_name, last_name, role FROM users ORDER by id"
+      `SELECT users.id, users.email, users.first_name, users.last_name, roles.name AS role
+       FROM users
+       LEFT JOIN roles ON users.role_id = roles.id
+       ORDER BY users.id`
     );
     return result.rows;
   },
@@ -59,8 +69,14 @@ const User = {
 
   searchUsers: async (searchQuery) => {
     const query = `
-      SELECT id, email, first_name, last_name, role FROM users WHERE email LIKE $1 OR first_name LIKE $1 OR last_name LIKE $1
-      ORDER BY id;
+      SELECT u.id, u.email, u.first_name, u.last_name, r.name AS role
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.email LIKE $1
+         OR u.first_name LIKE $1
+         OR u.last_name LIKE $1
+         OR r.name LIKE $1
+      ORDER BY u.id;
     `;
     const result = await db.query(query, [`%${searchQuery}%`]);
     return result.rows;

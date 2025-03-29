@@ -88,7 +88,7 @@ const checkAdmin = require("../middleware/checkAdmin");
  *                       type: string
  *                       example: "Internal server error. Please try again later."
  */
-router.get("/users", authMiddleware, checkAdmin, adminController.getAllUsers);
+router.get("/users", authMiddleware, adminController.getAllUsers);
 
 /**
  * @swagger
@@ -171,12 +171,7 @@ router.get("/users", authMiddleware, checkAdmin, adminController.getAllUsers);
  *                       type: string
  *                       example: "Internal server error. Please try again later."
  */
-router.delete(
-  "/users/:id",
-  authMiddleware,
-  checkAdmin,
-  adminController.deleteUser
-);
+router.delete("/users/:id", authMiddleware, adminController.deleteUser);
 
 /**
  * @swagger
@@ -279,11 +274,6 @@ router.delete(
  *                       type: string
  *                       example: "Internal server error. Please try again later."
  */
-router.patch(
-  "/users/:id/role",
-  authMiddleware,
-  checkAdmin,
-  adminController.updateUserRole
-);
+router.patch("/users/:id/role", authMiddleware, adminController.updateUserRole);
 
 module.exports = router;

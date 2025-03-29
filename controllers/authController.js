@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const Role = require("../models/roleModel");
 const jweToken = require("../utils/jweToken");
 
 const authController = {
@@ -94,12 +95,15 @@ const authController = {
         return res.status(404).json({ message: "User not found" });
       }
 
+      const permissions = await Role.getPermissionByRole(user.role_id);
+
       res.json({
         id: user.id,
         firstName: user.first_name,
         lastName: user.last_name,
         email: user.email,
         role: user.role,
+        permissions: permissions.map((p) => p.name),
       });
     } catch (err) {
       console.error("Get user error:", err.message);

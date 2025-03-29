@@ -2,7 +2,6 @@ const { EncryptJWT } = require("jose");
 const { createSecretKey } = require("node:crypto");
 const config = {
   secret: process.env.JWE_SECRET,
-  jwtSecret: process.env.JWT_SECRET,
   expiresIn: process.env.JWT_EXPIRES_IN || "24h",
   issuer: "express-jwt-api",
   audience: "express-jwt-app",

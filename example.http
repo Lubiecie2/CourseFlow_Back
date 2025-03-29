@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "email": "test@testowy.pl",
-  "password": "123456"
+  "password": "123"
 }
 
 ### Get user data (requires authentication)
@@ -41,3 +41,19 @@ Content-Type: application/json
 DELETE http://localhost:4000/api/admin/users/1
 Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..bRYtPhzo7BYSw3_z.fX71tzU989snbO2zB0V5fw31pA9-gyD2BzrS4k66VK1-we2Y0GZTy5pnM_yRusruybtDyCiclgXthvaNWhy2hFb7S4JfrUXbcyYms4D1dUgBwtMGoHtEQnlwZvtxWhdS377yKIKrMGRryqghT7BkUo3WC5BzvuMZBwoQFiArnbJC8Qk.aHc2ngX9fY3ntRUAJjgx_Q
 Content-Type: application/json
+
+### GET ROLES FROM DATABASE (requires admin authentication)
+GET http://localhost:4000/api/role/getrole
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..v8zFw0CzIBbGYKxB.komag-Ibm4h7uLVk-ax7dOU10CMXwp-Zt4oPDxXEX32QVD4RRHEOLm6KthNi4vt6tAzejmXcs-R9ARyfX7_VKlciTAG2ZBnTLk9PCCD-P8bwnmZwO_WoXYuo_UAyCY5bIckWRQFDtC0R0BsKAR6Fu4cqyAeIR6CdrjxRizLHLEJp3-13.Qyz20t_6wsbB-MOhdRAQ8w
+Content-Type: application/json
+
+### Update Role (requires admin authentication)
+PATCH http://localhost:4000/api/role/updaterole/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BR_P17xhHHN8NAtZ.FsBzcYTxuZ33rZjdjDyRzxAsq-9bBraFbLuzGG3Fo4wnEkBY7im4uO0KD85mB5Ue5mDVQ3maw5mvX8m4i8Shy2TGG0LhGe2OlIubGyzjSG4twQZ9XdXhl2Ap5KNkXzWcXmkpTCMak92zzXBpFXQFke3QSKQ6Jw5P8Kcc4YHfhCv2hZ0.49UHQpSFcKSQm4DsbALZ7g
+Content-Type: application/json
+
+{
+  "roleName": "admin",
+  "permissions": [4,6 ]
+}
+
