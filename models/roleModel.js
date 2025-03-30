@@ -44,8 +44,7 @@ GROUP BY roles.id;
     return result.rows;
   },
   getPermission: async () => {
-    const query =
-      "SELECT permissions.id, permissions.name FROM permissions WHERE permissions.name != 'PANEL_CREATE_ROLE' ";
+    const query = "SELECT permissions.id, permissions.name FROM permissions; ";
     const result = await db.query(query);
     return result.rows;
   },

@@ -26,22 +26,20 @@ const User = {
 
   findAll: async () => {
     const result = await db.query(
-      `SELECT users.id, users.email, users.first_name, users.last_name, roles.name AS role, roles.id AS role_id
+      `SELECT users.id, users.email, users.first_name, users.last_name, roles.name AS role
        FROM users
        LEFT JOIN roles ON users.role_id = roles.id
        ORDER BY users.id`
     );
     return result.rows;
   },
-
   deleteById: async (id) => {
     const result = await db.query("DELETE FROM users WHERE id = $1", [id]);
   },
-
-  updateRole: async (id, newRoleId) => {
+  updateRole: async (id, newRole) => {
     const result = await db.query(
-      "UPDATE users SET role_id = $1 WHERE id = $2 RETURNING id, email, first_name, last_name, role_id",
-      [newRoleId, id]
+      "UPDATE users SET role = $1 WHERE id = $2 RETURNING id, email, first_name, last_name, role",
+      [newRole, id]
     );
     return result.rows[0];
   },
@@ -71,7 +69,7 @@ const User = {
 
   searchUsers: async (searchQuery) => {
     const query = `
-      SELECT u.id, u.email, u.first_name, u.last_name, r.name AS role, r.id AS role_id
+      SELECT u.id, u.email, u.first_name, u.last_name, r.name AS role
       FROM users u
       LEFT JOIN roles r ON u.role_id = r.id
       WHERE u.email LIKE $1
@@ -81,11 +79,6 @@ const User = {
       ORDER BY u.id;
     `;
     const result = await db.query(query, [`%${searchQuery}%`]);
-    return result.rows;
-  },
-
-  getAllRoles: async () => {
-    const result = await db.query("SELECT id, name FROM roles");
     return result.rows;
   },
 };
