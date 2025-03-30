@@ -16,7 +16,8 @@ const checkAdmin = require("../middleware/checkAdmin");
  * /api/admin/users:
  *   get:
  *     summary: Retrieve a list of users
- *     description: Returns a list of users. Requires administrator privileges. If the `query` parameter is provided, the results will be filtered accordingly.
+ *     description: Returns a list of users and their roles. Requires administrator privileges.
+ *                  If the `query` parameter is provided, the results will be filtered accordingly.
  *     tags:
  *       - Admin
  *     security:
@@ -27,30 +28,47 @@ const checkAdmin = require("../middleware/checkAdmin");
  *         schema:
  *           type: string
  *         required: false
- *         description: Search term for filtering users. Must be a string.
+ *         description: Search term for filtering users by email or other attributes. Must be a string.
  *     responses:
  *       200:
- *         description: Successfully retrieved the list of users.
+ *         description: Successfully retrieved the list of users along with roles.
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   email:
- *                     type: string
- *                     format: email
- *                     example: "user@example.com"
- *                   firstName:
- *                     type: string
- *                     example: "John"
- *                   lastName:
- *                     type: string
- *                     example: "Doe"
+ *               type: object
+ *               properties:
+ *                 users:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       email:
+ *                         type: string
+ *                         format: email
+ *                         example: "user@example.com"
+ *                       first_name:
+ *                         type: string
+ *                         example: "John"
+ *                       last_name:
+ *                         type: string
+ *                         example: "Doe"
+ *                       role:
+ *                         type: string
+ *                         example: "user"
+ *                 roles:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       name:
+ *                         type: string
+ *                         example: "admin"
  *       400:
  *         description: Invalid query parameter. `query` must be a string.
  *         content:
