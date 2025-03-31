@@ -44,7 +44,7 @@ Content-Type: application/json
 
 ### GET ROLES FROM DATABASE (requires admin authentication)
 GET http://localhost:4000/api/role/getrole
-Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..v8zFw0CzIBbGYKxB.komag-Ibm4h7uLVk-ax7dOU10CMXwp-Zt4oPDxXEX32QVD4RRHEOLm6KthNi4vt6tAzejmXcs-R9ARyfX7_VKlciTAG2ZBnTLk9PCCD-P8bwnmZwO_WoXYuo_UAyCY5bIckWRQFDtC0R0BsKAR6Fu4cqyAeIR6CdrjxRizLHLEJp3-13.Qyz20t_6wsbB-MOhdRAQ8w
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..OCuHzO-3fgi6mQ5E.QZv1DSv3EsucZD6EyI9z3LWA01A7Xp8UaE2l1Whibt_3BAUc7YT-d5B_3eiKZ5M7m87WkLsZl3JSDZx7iWRY3vBZzO4oxhoyds1SnZHs-9aShIwz0figDsg9y84lEQAUe8iUHTV92v1Ln4ycCpYzSR8n_vYYSDY_UaJ2wmaWH6zqzhhs.y21ZJyq4LaXInqpC3rkIOg
 Content-Type: application/json
 
 ### Update Role (requires admin authentication)
@@ -54,6 +54,6 @@ Content-Type: application/json
 
 {
   "roleName": "admin",
-  "permissions": [4,6 ]
+  "permissions": [4,6,7,8,9,10 ]
 }
 

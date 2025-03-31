@@ -4,6 +4,18 @@ const roleController = {
   createRole: async (req, res) => {
     const { roleName, permission } = req.body;
 
+    if (!roleName || typeof roleName !== "string") {
+      return res.status(400).json({
+        message: "Nazwa roli jest wymagana i musi być tekstem.",
+      });
+    }
+
+    if (!Array.isArray(permission)) {
+      return res.status(400).json({
+        message: "Uprawnienia muszą być tablicą identyfikatorów.",
+      });
+    }
+
     try {
       const role = await Role.addRole(roleName);
 
@@ -24,7 +36,13 @@ const roleController = {
   getRolesWithPermissions: async (req, res) => {
     try {
       const roles = await Role.getRole();
-      console.log(roles);
+
+      if (!roles || roles.length === 0) {
+        return res
+          .status(404)
+          .json({ message: "No roles found in the system." });
+      }
+
       const rolesWithPermissions = roles.map((role) => ({
         id: role.id,
         name: role.name,
@@ -36,15 +54,24 @@ const roleController = {
 
       return res.status(200).json(rolesWithPermissions);
     } catch (error) {
-      console.error("Błąd podczas pobierania ról:", error);
+      console.error("Error fetching roles:", error);
       return res
         .status(500)
-        .json({ message: "Wystąpił błąd podczas pobierania ról." });
+        .json({ message: "An error occurred while fetching roles." });
     }
   },
   getPermissions: async (req, res) => {
     try {
       const permission = await Role.getPermission();
+
+      console.log("Pobrane uprawnienia:", permission);
+
+      if (!permission || permission.length === 0) {
+        return res.status(404).json({
+          message: "No permissions found.",
+        });
+      }
+
       res.status(200).json(permission);
     } catch (error) {
       console.error("Błąd podczas pobierania ról:", error);
@@ -54,31 +81,38 @@ const roleController = {
     }
   },
   updateRole: async (req, res) => {
-    const { roleId } = req.params;
-    const { roleName, permissions } = req.body;
+    try {
+      const { roleId } = req.params;
+      const { roleName, permissions } = req.body;
 
-    const role = await Role.getRoleById(roleId);
+      const role = await Role.getRoleById(roleId);
 
-    console.log("Znaleziona rola", role);
-    if (!role) {
-      return res.status(404).json({ message: "Rola nie znaleziona." });
+      console.log("Znaleziona rola", role);
+      if (!role) {
+        return res.status(404).json({ message: "Role not found." });
+      }
+
+      if (roleName) {
+        console.log("Aktualizacja nazwy roli na:", roleName);
+        await Role.updateRoleName(roleId, roleName);
+      }
+
+      if (permissions && Array.isArray(permissions)) {
+        console.log("Usuwanie starych uprawnień...");
+        await Role.deleteRolePermissions(roleId);
+        console.log("Dodawanie nowych uprawnień:", permissions);
+        await Role.addRolePermissions(roleId, permissions);
+      }
+
+      return res.status(200).json({
+        message: "Role successfully updated.",
+      });
+    } catch (error) {
+      console.error("Error updating role:", error);
+      return res.status(500).json({
+        message: "An error occurred while updating the role.",
+      });
     }
-
-    if (roleName) {
-      console.log("Aktualizacja nazwy roli na:", roleName);
-      await Role.updateRoleName(roleId, roleName);
-    }
-
-    if (permissions && Array.isArray(permissions)) {
-      console.log("Usuwanie starych uprawnień...");
-      await Role.deleteRolePermissions(roleId);
-      console.log("Dodawanie nowych uprawnień:", permissions);
-      await Role.addRolePermissions(roleId, permissions);
-    }
-
-    return res.status(200).json({
-      message: "Rola została zaktualizowana pomyślnie.",
-    });
   },
 };
 

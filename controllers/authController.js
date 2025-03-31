@@ -50,6 +50,8 @@ const authController = {
         return res.status(401).json({ error: "Invalid email or password" });
       }
 
+      console.log("User found:", user);
+
       const token = await jweToken.createToken({
         id: user.id,
         email: user.email,
@@ -96,6 +98,8 @@ const authController = {
       }
 
       const permissions = await Role.getPermissionByRole(user.role_id);
+
+      console.log("User permissions:", user.role);
 
       res.json({
         id: user.id,
