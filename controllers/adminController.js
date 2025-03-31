@@ -9,18 +9,16 @@ const adminController = {
         return res.status(400).json({
           error: {
             status: 400,
-            message: "Invalid query parameter. 'query' must be a string.",
+            message:
+              "Invalid query parameter, because 'query' must be a string.",
           },
         });
       }
 
-      if (!query) {
-        const users = await User.findAll();
-        return res.json(users);
-      }
+      let users = query ? await User.searchUsers(query) : await User.findAll();
+      const roles = await User.getAllRoles();
 
-      const users = await User.searchUsers(query);
-      return res.json(users);
+      return res.json({ users, roles });
     } catch (err) {
       console.error("Error fetching users:", err.message);
       res.status(500).json({
@@ -82,11 +80,14 @@ const adminController = {
         });
       }
 
-      if (!["user", "admin"].includes(role)) {
+      const roles = await User.getAllRoles();
+      const roleId = roles.find((r) => r.name === role)?.id;
+
+      if (!roleId) {
         return res.status(400).json({
           error: {
             status: 400,
-            message: "Invalid role. Allowed values: 'user', 'admin'.",
+            message: "Invalid role. Role not found.",
           },
         });
       }
@@ -101,8 +102,8 @@ const adminController = {
         });
       }
 
-      const updatedUser = await User.updateRole(id, role);
-      res.status(200).json(updatedUser);
+      await User.updateRole(id, roleId);
+      res.status(200).json({ message: "User role updated successfully." });
     } catch (err) {
       console.error("Error updating user role:", err.message);
       res.status(500).json({
