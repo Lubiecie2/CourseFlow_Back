@@ -16,7 +16,7 @@ const roleController = require("../controllers/roleController");
  * @swagger
  * /api/role/createrole:
  *   post:
- *     summary: Tworzy nową rolę
+ *     summary: Create a new role
  *     description: Endpoint do tworzenia nowej roli z opcjonalnymi uprawnieniami.
  *     tags:
  *       - Role

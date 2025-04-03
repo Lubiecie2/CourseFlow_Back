@@ -57,3 +57,34 @@ Content-Type: application/json
   "permissions": [4,6,7,8,9,10 ]
 }
 
+### Tworzenie kursu
+POST http://localhost:4000/api/courses
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..kIjnfOb_hw2gQ7kB.CMBveJxlsVtTibcgjSSdklxJWgBvkB5NCDKt_KPJUdONIIcZf6ylzP3Vet2P30Oy7Zuqj4obmEXEd7XjUfm_0-oQt-i-jC-B6HhG6bem4GMnx-rcUcoKBl-GNppiNBW9oJw_zZgoeWgppd7AcupaEZH9jnU50vBWSbs_zeb0uhoMEGXG.YJWea7WIaSXXnljh3siEmQ
+Content-Type: application/json
+
+{
+  "title": "React dla początkujących",
+  "category": "Programowanie",
+  "description": "Podstawowy kurs Reacta dla osób, które dopiero zaczynają."
+}
+
+
+### Pobieranie wszystkich kursów
+GET http://localhost:4000/api/courses
+Content-Type: application/json
+
+### Pobieranie pojedynczego kursu 
+GET http://localhost:4000/api/courses/17
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+### Aktualizacja kursu
+PATCH http://localhost:4000/api/courses/17
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+{
+  "title": "Test Endpointu do akutalizacji",
+  "category": "Programowanie",
+  "description": "Podstawowy kurs Reacta dla osób, które dopiero zaczynają."
+}

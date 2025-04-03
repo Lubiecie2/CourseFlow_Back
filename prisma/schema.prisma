@@ -1,0 +1,177 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model answers {
+  id           Int            @id @default(autoincrement())
+  question_id  Int?
+  answer_text  String
+  is_correct   Boolean?       @default(false)
+  questions    questions?     @relation(fields: [question_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  test_answers test_answers[]
+}
+
+model certificates {
+  id               Int       @id @default(autoincrement())
+  user_id          Int?
+  course_id        Int?
+  certificate_code String    @unique @db.VarChar(20)
+  issued_at        DateTime? @default(now()) @db.Timestamp(6)
+  pdf_url          String?
+  status           String?   @default("issued") @db.VarChar(20)
+  courses          courses?  @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users            users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model chapters {
+  id           Int            @id @default(autoincrement())
+  course_id    Int?
+  title        String         @db.VarChar(255)
+  wysiwyg_code String?
+  created_at   DateTime?      @default(now()) @db.Timestamp(6)
+  updated_at   DateTime?      @default(now()) @db.Timestamp(6)
+  courses      courses?       @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_chapter user_chapter[]
+}
+
+model courses {
+  id                Int            @id @default(autoincrement())
+  user_id           Int?
+  title             String         @db.VarChar(255)
+  short_description String?
+  course_image      String?
+  category          String?        @db.VarChar(255)
+  is_published      Boolean?       @default(false)
+  created_at        DateTime?      @default(now()) @db.Timestamp(6)
+  updated_at        DateTime?      @default(now()) @db.Timestamp(6)
+  certificates      certificates[]
+  chapters          chapters[]
+  users             users?         @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tests             tests[]
+  user_courses      user_courses[]
+}
+
+model permissions {
+  id               Int                @id @default(autoincrement())
+  name             String             @db.VarChar(100)
+  description      String?
+  created_at       DateTime?          @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?          @default(now()) @db.Timestamp(6)
+  role_permissions role_permissions[]
+}
+
+model questions {
+  id            Int            @id @default(autoincrement())
+  test_id       Int?
+  question_text String
+  answers       answers[]
+  tests         tests?         @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  test_answers  test_answers[]
+}
+
+model role_permissions {
+  role_id       Int
+  permission_id Int
+  created_at    DateTime?   @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?   @default(now()) @db.Timestamp(6)
+  permissions   permissions @relation(fields: [permission_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  roles         roles       @relation(fields: [role_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([role_id, permission_id])
+}
+
+model roles {
+  id               Int                @id @default(autoincrement())
+  name             String             @db.VarChar(100)
+  description      String?
+  created_at       DateTime?          @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?          @default(now()) @db.Timestamp(6)
+  role_permissions role_permissions[]
+  users            users[]
+}
+
+model test_answers {
+  id                 Int            @id @default(autoincrement())
+  attempt_id         Int?
+  question_id        Int?
+  selected_answer_id Int?
+  is_correct         Boolean?       @default(false)
+  test_attempts      test_attempts? @relation(fields: [attempt_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  questions          questions?     @relation(fields: [question_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  answers            answers?       @relation(fields: [selected_answer_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model test_attempts {
+  id              Int            @id @default(autoincrement())
+  user_id         Int?
+  test_id         Int?
+  score           Int?           @default(0)
+  total_questions Int?           @default(0)
+  passed          Boolean?       @default(false)
+  created_at      DateTime?      @default(now()) @db.Timestamp(6)
+  test_answers    test_answers[]
+  tests           tests?         @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users           users?         @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model tests {
+  id            Int             @id @default(autoincrement())
+  course_id     Int?
+  author_id     Int?
+  title         String          @db.VarChar(255)
+  created_at    DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?       @default(now()) @db.Timestamp(6)
+  questions     questions[]
+  test_attempts test_attempts[]
+  users         users?          @relation(fields: [author_id], references: [id], onUpdate: NoAction)
+  courses       courses?        @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model user_chapter {
+  id           Int       @id @default(autoincrement())
+  user_id      Int?
+  chapter_id   Int?
+  is_completed Boolean?  @default(false)
+  last_viewed  DateTime? @default(now()) @db.Timestamp(6)
+  chapters     chapters? @relation(fields: [chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users        users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, chapter_id])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model user_courses {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  course_id  Int?
+  progress   Decimal?  @default(0) @db.Decimal(5, 2)
+  status     String?   @default("not_started") @db.VarChar(50)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  courses    courses?  @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, course_id])
+}
+
+model users {
+  id            Int             @id @default(autoincrement())
+  first_name    String          @db.VarChar(100)
+  last_name     String          @db.VarChar(100)
+  email         String          @unique @db.VarChar(255)
+  password      String
+  created_at    DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?       @default(now()) @db.Timestamp(6)
+  role_id       Int?            @default(2)
+  certificates  certificates[]
+  courses       courses[]
+  test_attempts test_attempts[]
+  tests         tests[]
+  user_chapter  user_chapter[]
+  user_courses  user_courses[]
+  roles         roles?          @relation(fields: [role_id], references: [id], onUpdate: NoAction, map: "fk_role_id")
+}

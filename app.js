@@ -14,6 +14,7 @@ const adminRouter = require("./routes/admin");
 var indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
 const roleRouter = require("./routes/role");
+const courseRouter = require("./routes/course");
 
 var app = express();
 
@@ -21,6 +22,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(
   cors({
@@ -61,6 +64,7 @@ app.use("/api", indexRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/role", roleRouter);
+app.use("/api/courses", courseRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
