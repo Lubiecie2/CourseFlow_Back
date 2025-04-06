@@ -90,9 +90,9 @@ const User = {
     return result.rows;
   },
 
-  verifyUser: async (userId) => {
+  verifyUser: async (email) => {
     const result = await db.query(
-      "UPDATE users SET is_verified = true WHERE id = $1 RETURNING id, email, is_verified",
+      "UPDATE users SET is_verified = true WHERE id = $1 RETURNING id, email, is_verified, is_verified",
       [userId]
     );
     return result.rows[0];

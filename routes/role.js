@@ -266,4 +266,70 @@ router.get("/permissions", authMiddleware, adminController.getPermissions);
  *                   example: "An error occurred while updating the role."
  */
 router.patch("/updaterole/:roleId", authMiddleware, adminController.updateRole);
+
+/**
+ * @swagger
+ * /api/role/deleterole/{roleId}:
+ *   delete:
+ *     summary: Delete a role
+ *     description: Deletes a role from the system by its ID. This operation will remove the role and its associated permissions.
+ *     tags:
+ *       - Role
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: roleId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the role to be deleted.
+ *     responses:
+ *       200:
+ *         description: Role deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Role deleted successfully."
+ *       400:
+ *         description: Invalid role ID.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid role ID."
+ *       404:
+ *         description: Role not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Role not found."
+ *       500:
+ *         description: Server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error."
+ */
+router.delete(
+  "/deleterole/:roleId",
+  authMiddleware,
+  adminController.deleteRole
+);
+
 module.exports = router;

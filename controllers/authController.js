@@ -67,6 +67,17 @@ const authController = {
 
       console.log("User found:", user);
 
+      if (!user.is_verified) {
+        return res.status(200).json({
+          message: "User not verified",
+          user: {
+            id: user.id,
+            email: user.email,
+            is_verified: false,
+          },
+        });
+      }
+
       const token = await jweToken.createToken({
         id: user.id,
         email: user.email,
@@ -90,6 +101,7 @@ const authController = {
             lastName: user.last_name,
             email: user.email,
             role: user.role,
+            is_verified: true,
           },
           token,
         });
@@ -195,35 +207,39 @@ const authController = {
         return res.status(400).json({ error: "User not found" });
       }
 
-      const plainToken = generateVerificationToken();
-      const tokenSalt = await bcrypt.genSalt(10);
-      const tokenHash = await bcrypt.hash(plainToken, tokenSalt);
-      const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+      if (!user.is_verified) {
+        const plainToken = generateVerificationToken();
+        const tokenSalt = await bcrypt.genSalt(10);
+        const tokenHash = await bcrypt.hash(plainToken, tokenSalt);
+        const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
-      const existingToken = await db.query(
-        "SELECT id FROM verification_tokens WHERE user_id = $1",
-        [user.id]
-      );
-
-      if (existingToken.rows.length > 0) {
-        await db.query(
-          "UPDATE verification_tokens SET verification_token = $1, expires_at = $2, created_at = NOW() WHERE id = $3",
-          [tokenHash, expiresAt, existingToken.rows[0].id]
+        const existingToken = await db.query(
+          "SELECT id FROM verification_tokens WHERE user_id = $1",
+          [user.id]
         );
+
+        if (existingToken.rows.length > 0) {
+          await db.query(
+            "UPDATE verification_tokens SET verification_token = $1, expires_at = $2, created_at = NOW() WHERE id = $3",
+            [tokenHash, expiresAt, existingToken.rows[0].id]
+          );
+        } else {
+          const newToken = await db.query(
+            `INSERT INTO verification_tokens (user_id, verification_token, expires_at, created_at) 
+             VALUES ($1, $2, $3, NOW()) RETURNING id`,
+            [user.id, tokenHash, expiresAt]
+          );
+          await User.updateVerificationTokenId(user.id, newToken.rows[0].id);
+        }
+
+        await sendVerificationEmail(email, plainToken);
+
+        res
+          .status(200)
+          .json({ message: "Verification code resent successfully" });
       } else {
-        const newToken = await db.query(
-          `INSERT INTO verification_tokens (user_id, verification_token, expires_at, created_at) 
-           VALUES ($1, $2, $3, NOW()) RETURNING id`,
-          [user.id, tokenHash, expiresAt]
-        );
-        await User.updateVerificationTokenId(user.id, newToken.rows[0].id);
+        res.status(400).json({ error: "User is already verified" });
       }
-
-      await sendVerificationEmail(email, plainToken);
-
-      res
-        .status(200)
-        .json({ message: "Verification code resent successfully" });
     } catch (err) {
       console.error("Error resending verification code:", err);
       res.status(500).json({ error: "Internal Server Error" });

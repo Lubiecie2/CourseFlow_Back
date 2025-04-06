@@ -74,5 +74,10 @@ GROUP BY roles.id;
     );
     await Promise.all(insertPromises);
   },
+
+  deleteRole: async (roleId) => {
+    await db.query("DELETE FROM role_permissions WHERE role_id = $1", [roleId]);
+    await db.query("DELETE FROM roles WHERE id = $1", [roleId]);
+  },
 };
 module.exports = Role;

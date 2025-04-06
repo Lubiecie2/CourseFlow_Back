@@ -114,6 +114,30 @@ const roleController = {
       });
     }
   },
+
+  deleteRole: async (req, res) => {
+    try {
+      const { roleId } = req.params;
+
+      if (!roleId || isNaN(Number(roleId))) {
+        return res.status(400).json({ message: "Invalid role ID." });
+      }
+
+      const role = await Role.getRoleById(roleId);
+      if (!role) {
+        return res.status(404).json({ message: "Role not found." });
+      }
+
+      await Role.deleteRolePermissions(roleId);
+
+      await Role.deleteRole(roleId);
+
+      return res.status(200).json({ message: "Role deleted successfully." });
+    } catch (error) {
+      console.error("Error deleting role:", error);
+      return res.status(500).json({ message: "Internal server error." });
+    }
+  },
 };
 
 module.exports = roleController;
