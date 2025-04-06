@@ -15,6 +15,7 @@ var indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
 const roleRouter = require("./routes/role");
 const courseRouter = require("./routes/course");
+const chapterRouter = require("./routes/chapter");
 
 var app = express();
 
@@ -65,6 +66,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/role", roleRouter);
 app.use("/api/courses", courseRouter);
+app.use("/api/courses", chapterRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

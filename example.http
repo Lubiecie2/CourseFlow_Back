@@ -88,3 +88,24 @@ Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.
   "category": "Programowanie",
   "description": "Podstawowy kurs Reacta dla osób, które dopiero zaczynają."
 }
+
+###Tworzenie nowego rozdziału 
+POST http://localhost:4000/api/courses/22/chapters
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+{
+  "title": "Podstawy HTML i CSS",
+  "wysiwyg_code" : "<p1>asdasdasdsa</p1>"
+}
+
+
+###Pobieranie wszystkich rozdziałów do danego kursu 
+GET http://localhost:4000/api/courses/22/chapters
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+###Pobieranie rozdziału po danym id 
+GET http://localhost:4000/api/courses/22/chapters/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
