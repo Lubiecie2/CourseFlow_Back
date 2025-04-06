@@ -56,12 +56,13 @@ const User = {
   create: async (email, password, firstName, lastName) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
-    const result = await db.query(
-      "INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING id, email",
-      [email, hashedPassword, firstName, lastName]
-    );
-
+    const query = `
+      INSERT INTO users (email, password, first_name, last_name, is_verified)
+      VALUES ($1, $2, $3, $4, false)
+      RETURNING id, email, is_verified
+    `;
+    const values = [email, hashedPassword, firstName, lastName];
+    const result = await db.query(query, values);
     return result.rows[0];
   },
 
@@ -87,6 +88,32 @@ const User = {
   getAllRoles: async () => {
     const result = await db.query("SELECT id, name FROM roles");
     return result.rows;
+  },
+
+  verifyUser: async (userId) => {
+    const result = await db.query(
+      "UPDATE users SET is_verified = true WHERE id = $1 RETURNING id, email, is_verified",
+      [userId]
+    );
+    return result.rows[0];
+  },
+
+  createVerificationToken: async (userId, token) => {
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+    const result = await db.query(
+      `INSERT INTO verification_tokens (user_id, verification_token, expires_at) 
+       VALUES ($1, $2, $3) RETURNING id`,
+      [userId, token, expiresAt]
+    );
+    return result.rows[0].id;
+  },
+
+  updateVerificationTokenId: async (userId, tokenId) => {
+    const result = await db.query(
+      "UPDATE users SET verification_token_id = $1 WHERE id = $2 RETURNING id, email",
+      [tokenId, userId]
+    );
+    return result.rows[0];
   },
 };
 

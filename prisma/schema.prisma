@@ -159,19 +159,33 @@ model user_courses {
 }
 
 model users {
-  id            Int             @id @default(autoincrement())
-  first_name    String          @db.VarChar(100)
-  last_name     String          @db.VarChar(100)
-  email         String          @unique @db.VarChar(255)
-  password      String
-  created_at    DateTime?       @default(now()) @db.Timestamp(6)
-  updated_at    DateTime?       @default(now()) @db.Timestamp(6)
-  role_id       Int?            @default(2)
-  certificates  certificates[]
-  courses       courses[]
-  test_attempts test_attempts[]
-  tests         tests[]
-  user_chapter  user_chapter[]
-  user_courses  user_courses[]
-  roles         roles?          @relation(fields: [role_id], references: [id], onUpdate: NoAction, map: "fk_role_id")
+  id                                                                   Int                   @id @default(autoincrement())
+  first_name                                                           String                @db.VarChar(100)
+  last_name                                                            String                @db.VarChar(100)
+  email                                                                String                @unique @db.VarChar(255)
+  password                                                             String
+  created_at                                                           DateTime?             @default(now()) @db.Timestamp(6)
+  updated_at                                                           DateTime?             @default(now()) @db.Timestamp(6)
+  role_id                                                              Int?                  @default(2)
+  is_verified                                                          Boolean?              @default(false)
+  verification_token_id                                                Int?
+  certificates                                                         certificates[]
+  courses                                                              courses[]
+  test_attempts                                                        test_attempts[]
+  tests                                                                tests[]
+  user_chapter                                                         user_chapter[]
+  user_courses                                                         user_courses[]
+  roles                                                                roles?                @relation(fields: [role_id], references: [id], onUpdate: NoAction, map: "fk_role_id")
+  verification_tokens_users_verification_token_idToverification_tokens verification_tokens?  @relation("users_verification_token_idToverification_tokens", fields: [verification_token_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_id_verificationtoken_fkey")
+  verification_tokens_verification_tokens_user_idTousers               verification_tokens[] @relation("verification_tokens_user_idTousers")
+}
+
+model verification_tokens {
+  id                                                     Int       @id(map: "verificationtokens_pkey") @default(autoincrement())
+  user_id                                                Int?
+  verification_token                                     String    @db.VarChar(255)
+  created_at                                             DateTime? @default(now()) @db.Timestamp(6)
+  expires_at                                             DateTime? @db.Timestamp(6)
+  users_users_verification_token_idToverification_tokens users[]   @relation("users_verification_token_idToverification_tokens")
+  users_verification_tokens_user_idTousers               users?    @relation("verification_tokens_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "verificationtokens_user_id_fkey")
 }
