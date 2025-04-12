@@ -135,6 +135,7 @@ const authController = {
         lastName: user.last_name,
         email: user.email,
         role: user.role,
+        createdAt: user.created_at,
         permissions: permissions.map((p) => p.name),
       });
     } catch (err) {
