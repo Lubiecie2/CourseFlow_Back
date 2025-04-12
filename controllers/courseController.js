@@ -154,5 +154,56 @@ const courseController = {
       });
     }
   },
+  deleteCourse: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      if (!id || isNaN(parseInt(id))) {
+        return res.status(400).json({
+          success: false,
+          message: "Nieprawidłowe ID kursu",
+        });
+      }
+      const existingCourse = await courseModel.getCourseById(parseInt(id));
+      if (!existingCourse) {
+        return res.status(404).json({
+          success: false,
+          message: "Kurs nie został znaleziony",
+        });
+      }
+      if (existingCourse.course_image) {
+        const imagePath = path.join(
+          __dirname,
+          "../uploads",
+          existingCourse.course_image
+        );
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
+      }
+
+      const result = await courseModel.deleteCourse(id);
+
+      if (!result.success) {
+        return res.status(500).json({
+          success: false,
+          message: result.message,
+          error: result.error,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: "Kurs został pomyślnie usunięty",
+      });
+    } catch (error) {
+      console.error("Błąd podczas usuwania kursu:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas usuwania kursu",
+        error: error.message,
+      });
+    }
+  },
 };
 module.exports = courseController;

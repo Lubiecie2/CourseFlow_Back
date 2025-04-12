@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "email": "test@testowy.pl",
-  "password": "123"
+  "password": "Seaways2410"
 }
 
 ### Get user data (requires authentication)
@@ -109,3 +109,90 @@ Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.
 GET http://localhost:4000/api/courses/22/chapters/3
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+
+
+### 1. Utworzenie nowego rozdziału z blokami treści
+### 1. Utwórz nowy rozdział z blokami
+POST http://localhost:4000/api/courses/4/chapters
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..cIcP1hNtnc7BLCj_.2UlRVSxgOavRmiuaIzC8UojBtCsy_Yp8jFWEbArgN_TvtWz32tekQ8IwwiFh3O-yP8Bqy4hVw2VnxyxRdu86F8tM5p2wboYxLASUObQUIf6GG0mfKG3bCvnOa-EuxmIgtJTwCRkqzu02kJU1WzU_93LB7rozpJ0gpwUBAUbWi8hg36Q.xqxep6WG2CpyHrCAKqXmmg
+
+{
+  "title": "Wprowadzenie do JavaScript",
+  "content": [
+    {
+      "type": "heading",
+      "params": {
+        "content": "dddddddddddddddddddddddddddddddd"
+      },
+      "id": "item-0"
+    },
+    {
+      "type": "text",
+      "params": {
+        "content": "Jwqeeeeeeeeeeraktywnych elementów na stronach internetowych."
+      },
+      "id": "item-1"
+    }
+  ]
+}
+
+### 2. Pobierz rozdział z ID 1
+GET http://localhost:4000/api/courses/4/chapters/28
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..cIcP1hNtnc7BLCj_.2UlRVSxgOavRmiuaIzC8UojBtCsy_Yp8jFWEbArgN_TvtWz32tekQ8IwwiFh3O-yP8Bqy4hVw2VnxyxRdu86F8tM5p2wboYxLASUObQUIf6GG0mfKG3bCvnOa-EuxmIgtJTwCRkqzu02kJU1WzU_93LB7rozpJ0gpwUBAUbWi8hg36Q.xqxep6WG2CpyHrCAKqXmmg
+
+### 3. Zaktualizuj rozdział z ID 1
+PATCH http://localhost:4000/api/courses/4/chapters/28
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..cIcP1hNtnc7BLCj_.2UlRVSxgOavRmiuaIzC8UojBtCsy_Yp8jFWEbArgN_TvtWz32tekQ8IwwiFh3O-yP8Bqy4hVw2VnxyxRdu86F8tM5p2wboYxLASUObQUIf6GG0mfKG3bCvnOa-EuxmIgtJTwCRkqzu02kJU1WzU_93LB7rozpJ0gpwUBAUbWi8hg36Q.xqxep6WG2CpyHrCAKqXmmg
+
+{
+  "content": [
+    {
+      "type": "heading",
+      "params": {
+        "content": "Podstawy JavaScript - zaktualizowany tytuł"
+      },
+      "id": "item-0"
+    },
+    {
+      "type": "text",
+      "params": {
+        "content": "JavaScript to język programowania, który pozwala na tworzenie interaktywnych elementów na stronach internetowych."
+      },
+      "id": "item-1"
+    },
+    {
+      "type": "text",
+      "params": {
+        "content": "Jest to jeden z najpopularniejszych języków programowania na świecie."
+      },
+      "id": "item-2"
+    }
+  ]
+}
+
+### 4. Aktualizacja tylko tytułu rozdziału
+PATCH http://localhost:4000/api/courses/4/chapters/28
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..uoHcfjwPfuoAVtox.AI5z7H_jx_VQL-5hDsv7X5Kj5CSJtxZbmx8D_Qy5iUa5nXeh1zwOnomjAoonMkDOH9CHNdtBMDz_dBRtx2shMEtPe_I9rqDsD2vl-bMzlI1y_CnylOUA5H6LtXD5oy-Dul1Ow8PzF19l2VuK565LaJka2gvo0531R2bem-Kue55vTZE.NquPla2fqT4GVwLtIzTBbQ
+
+{
+  "title": "Nowy tytuł rozdziału"
+}
+
+### 5. Pobieranie wszystkich rozdziałów kursu
+GET http://localhost:4000/api/courses/1/chapters
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..uoHcfjwPfuoAVtox.AI5z7H_jx_VQL-5hDsv7X5Kj5CSJtxZbmx8D_Qy5iUa5nXeh1zwOnomjAoonMkDOH9CHNdtBMDz_dBRtx2shMEtPe_I9rqDsD2vl-bMzlI1y_CnylOUA5H6LtXD5oy-Dul1Ow8PzF19l2VuK565LaJka2gvo0531R2bem-Kue55vTZE.NquPla2fqT4GVwLtIzTBbQ
+
+
+### Usuwanie rozdziału
+DELETE http://localhost:4000/api/courses/1/chapters/26
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..ctThAvpeEBPeF_g-.i8jJt-ixyOl76KxmBJJZAEZZsfxICWw7nfC6cYlcSzJUT4GNqjIyLqOtmipQ07bLYSBd2oLZzZxH3OJi0qsRPH6XsiQILP95BNc5VyJJMid6Jvirbb4W4KYQSbE1ynuQ5a6D6Tlouy_5XhWjZYTubeAyWgTYhTu3jw6rk_44c8DzwkM.xfu9t2zwmuD6VIRHx2jEZA
+
+### Usuń kurs
+DELETE http://localhost:4000/api/courses/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..FSw9RrciF-CM8dya.7ZfUOSRGpmoUMWQpQHsrF19cbEOpkot9E5IRu1FMsUwxaWk8RwTkhxAI4tm4jUnbMwY-XomdKsH_zpoAciWnJrp11M482cZQAYIQFhyzEL85Dc4nQyZH-EQniFNPjNC29J4HERdcp5qkwtuS_8OuvgCTC_O-K1a5yslMg2nZzqhnZ5E.Hyz8_GEd56we_jJXYwDNsw

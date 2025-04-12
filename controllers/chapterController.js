@@ -1,3 +1,4 @@
+// Zastąp istniejący kontroler tym kodem
 const chapterModel = require("../models/chapterModel");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -6,12 +7,11 @@ const chapterController = {
   createChapter: async (req, res) => {
     try {
       const { courseId } = req.params;
-      const { title, description } = req.body;
+      const { title, content } = req.body;
 
       console.log("Rozpoczęto tworzenie rozdziału:", {
         courseId,
         title,
-        description,
       });
 
       if (!title || title.trim() === "") {
@@ -32,12 +32,26 @@ const chapterController = {
       const newChapter = await chapterModel.createChapter(
         courseId,
         title,
-        description || null
+        content || []
       );
+
+      if (content && Array.isArray(content) && content.length > 0) {
+        const chapterWithBlocks = await chapterModel.getChapter(
+          newChapter.id,
+          courseId
+        );
+        return res.status(201).json({
+          success: true,
+          chapter: chapterWithBlocks,
+        });
+      }
 
       console.log("Utworzono rozdział:", newChapter);
 
-      return res.status(201).json(newChapter);
+      return res.status(201).json({
+        success: true,
+        chapter: newChapter,
+      });
     } catch (error) {
       console.error("Błąd podczas tworzenia rozdziału:", error);
       return res.status(500).json({
@@ -50,30 +64,45 @@ const chapterController = {
 
   updateChapter: async (req, res) => {
     try {
-      const { chapterId } = req.params;
+      const { chapterId, courseId } = req.params;
+      const { title, content } = req.body;
 
-      const wysiwyg_code = req.body.wysiwyg_code || null;
+      console.log(`Aktualizacja rozdziału ${chapterId}:`, {
+        title,
+        contentLength: content?.length,
+      });
 
-      if (wysiwyg_code) {
-        const updatedChapter = await chapterModel.updateChapterWysiwygCode(
-          chapterId,
-          wysiwyg_code
-        );
-
-        return res.status(200).json({
-          success: true,
-          message: "Rozdział został zaktualizowany",
-          chapter: updatedChapter,
+      if (title) {
+        await prisma.chapters.update({
+          where: { id: parseInt(chapterId) },
+          data: {
+            title: title.trim(),
+            updated_at: new Date(),
+          },
         });
       }
+
+      if (content && Array.isArray(content)) {
+        await chapterModel.saveChapterBlocks(chapterId, content);
+      }
+
+      const updatedChapter = await chapterModel.getChapter(chapterId, courseId);
+
+      return res.status(200).json({
+        success: true,
+        message: "Rozdział został zaktualizowany",
+        chapter: updatedChapter,
+      });
     } catch (error) {
       console.error("Błąd podczas aktualizacji rozdziału:", error);
       return res.status(500).json({
         success: false,
         message: "Wystąpił błąd podczas aktualizacji rozdziału",
+        error: error.message,
       });
     }
   },
+
   getChapters: async (req, res) => {
     try {
       const { courseId } = req.params;
@@ -97,7 +126,6 @@ const chapterController = {
       });
 
       console.log("Pobrano rozdziały:", chapters.length);
-
       return res.status(200).json(chapters);
     } catch (error) {
       console.error("Błąd podczas pobierania rozdziałów:", error);
@@ -130,6 +158,34 @@ const chapterController = {
       return res.status(500).json({
         success: false,
         message: "Wystąpił błąd podczas pobierania rozdziału",
+      });
+    }
+  },
+  deleteChapter: async (req, res) => {
+    try {
+      const { courseId, chapterId } = req.params;
+
+      console.log(`Próba usunięcia rozdziału ${chapterId} z kursu ${courseId}`);
+
+      const result = await chapterModel.deleteChapter(chapterId, courseId);
+
+      if (!result.success) {
+        return res.status(404).json({
+          success: false,
+          message: result.message || "Wystąpił błąd podczas usuwania rozdziału",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: "Rozdział został pomyślnie usunięty",
+      });
+    } catch (error) {
+      console.error("Błąd podczas usuwania rozdziału:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas usuwania rozdziału",
+        error: error.message,
       });
     }
   },

@@ -12,6 +12,12 @@ COPY ./package-lock.json /app/
 ## Install dependencies
 RUN npm install
 
+# Copy prisma folder so we can generate the client
+COPY ./prisma ./prisma
+
+# Generate Prisma client
+RUN npx prisma generate
+
 # Copy the rest of the application files to the working directory
 COPY . ./
 
@@ -21,8 +27,8 @@ WORKDIR /app
 # Expose the port the application will run on
 EXPOSE 4000
 
-ENV DB_CONNECTION_STRING=postgres://postgres:dbpass@postgres:5432/CourseFlow
 
+ENV DB_CONNECTION_STRING=postgres://postgres:dbpass@postgres:5432/CourseFlow
 
 # Install pm2
 RUN npm install pm2@latest -g

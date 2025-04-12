@@ -84,6 +84,28 @@ const courseModel = {
       throw error;
     }
   },
+  deleteCourse: async (id) => {
+    try {
+      const deletedCourse = await prisma.courses.delete({
+        where: {
+          id: parseInt(id),
+        },
+      });
+
+      return {
+        success: true,
+        message: "Kurs został pomyślnie usunięty",
+        course: deletedCourse,
+      };
+    } catch (error) {
+      console.error("Błąd w modelu deleteCourse:", error);
+      return {
+        success: false,
+        message: "Wystąpił błąd podczas usuwania kursu",
+        error: error.message,
+      };
+    }
+  },
 };
 
 module.exports = courseModel;

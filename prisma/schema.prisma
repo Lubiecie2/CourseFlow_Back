@@ -29,14 +29,15 @@ model certificates {
 }
 
 model chapters {
-  id           Int            @id @default(autoincrement())
-  course_id    Int?
-  title        String         @db.VarChar(255)
-  wysiwyg_code String?
-  created_at   DateTime?      @default(now()) @db.Timestamp(6)
-  updated_at   DateTime?      @default(now()) @db.Timestamp(6)
-  courses      courses?       @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  user_chapter user_chapter[]
+  id             Int              @id @default(autoincrement())
+  course_id      Int?
+  title          String           @db.VarChar(255)
+  wysiwyg_code   String?
+  created_at     DateTime?        @default(now()) @db.Timestamp(6)
+  updated_at     DateTime?        @default(now()) @db.Timestamp(6)
+  chapter_blocks chapter_blocks[]
+  courses        courses?         @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_chapter   user_chapter[]
 }
 
 model courses {
@@ -188,4 +189,24 @@ model verification_tokens {
   expires_at                                             DateTime? @db.Timestamp(6)
   users_users_verification_token_idToverification_tokens users[]   @relation("users_verification_token_idToverification_tokens")
   users_verification_tokens_user_idTousers               users?    @relation("verification_tokens_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "verificationtokens_user_id_fkey")
+}
+
+model chapter_block_attributes {
+  id             Int            @id @default(autoincrement())
+  block_id       Int
+  name           String         @db.VarChar(50)
+  value          String
+  chapter_blocks chapter_blocks @relation(fields: [block_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model chapter_blocks {
+  id                       Int                        @id @default(autoincrement())
+  chapter_id               Int
+  type                     String                     @db.VarChar(50)
+  content                  String?
+  sort_order               Int                        @default(0)
+  created_at               DateTime?                  @default(now()) @db.Timestamp(6)
+  updated_at               DateTime?                  @default(now()) @db.Timestamp(6)
+  chapter_block_attributes chapter_block_attributes[]
+  chapters                 chapters                   @relation(fields: [chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
