@@ -306,10 +306,10 @@ router.patch(
  * @swagger
  * /api/courses/{id}:
  *   delete:
- *     summary: Usuń kurs
+ *     summary: Delete Course
  *     description: Usuwa kurs i wszystkie powiązane z nim rozdziały
  *     tags:
- *       - Kursy
+ *       - Courses
  *     parameters:
  *       - in: path
  *         name: id

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const chapterController = require("../controllers/chapterController");
 const authMiddleware = require("../middleware/authMiddleware");
+const upload = require("../middleware/upload");
 
 /**
  * @swagger
@@ -294,5 +295,86 @@ router.delete(
   authMiddleware,
   chapterController.deleteChapter
 );
+/**
+ * @swagger
+ * /api/courses/{courseId}/chapters/upload-image:
+ *   post:
+ *     summary: Upload image for chapter content
+ *     tags:
+ *       - Chapters
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         description: ID of the course
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Image uploaded successfully
+ *       400:
+ *         description: No file uploaded
+ *       500:
+ *         description: Server error
+ */
+router.post(
+  "/:courseId/chapters/upload-image",
+  authMiddleware,
+  upload.single("image"),
+  chapterController.uploadChapterImage
+);
 
+/**
+ * @swagger
+ * /api/courses/{courseId}/chapters/{chapterId}/upload-video:
+ *   post:
+ *     summary: Upload a video for a chapter
+ *     description: Upload a video that can be used in chapter content.
+ *     tags:
+ *       - Chapters
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         description: ID of the course.
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: chapterId
+ *         required: true
+ *         description: ID of the chapter.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               video:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Video uploaded successfully
+ */
+router.post(
+  "/:courseId/chapters/:chapterId/upload-video",
+  authMiddleware,
+  upload.single("video"),
+  chapterController.uploadChapterVideo
+);
 module.exports = router;

@@ -189,6 +189,58 @@ const chapterController = {
       });
     }
   },
+  uploadChapterImage: async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Nie przesłano pliku",
+        });
+      }
+
+      const filePath = req.file.path;
+      const fileName = req.file.filename;
+
+      return res.status(200).json({
+        success: true,
+        message: "Zdjęcie zostało pomyślnie przesłane",
+        imageUrl: `http://localhost:4000/uploads/${fileName}`,
+      });
+    } catch (error) {
+      console.error("Błąd podczas przesyłania zdjęcia:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas przesyłania zdjęcia",
+        error: error.message,
+      });
+    }
+  },
+  uploadChapterVideo: async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Nie przesłano pliku wideo",
+        });
+      }
+
+      const filePath = req.file.path;
+      const fileName = req.file.filename;
+
+      return res.status(200).json({
+        success: true,
+        message: "Film został pomyślnie przesłany",
+        videoUrl: `http://localhost:4000/uploads/${fileName}`,
+      });
+    } catch (error) {
+      console.error("Błąd podczas przesyłania filmu:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas przesyłania filmu",
+        error: error.message,
+      });
+    }
+  },
 };
 
 module.exports = chapterController;

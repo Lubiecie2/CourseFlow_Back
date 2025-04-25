@@ -8,7 +8,7 @@ Content-Type: application/json
   "firstName": "Marcin",
   "lastName": "Dudek"
 }
-### Register a new user
+### login
 POST http://localhost:4000/api/auth/login
 Content-Type: application/json
 
@@ -196,3 +196,104 @@ Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..ctThAvpeEBPeF_g-.
 DELETE http://localhost:4000/api/courses/5
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..FSw9RrciF-CM8dya.7ZfUOSRGpmoUMWQpQHsrF19cbEOpkot9E5IRu1FMsUwxaWk8RwTkhxAI4tm4jUnbMwY-XomdKsH_zpoAciWnJrp11M482cZQAYIQFhyzEL85Dc4nQyZH-EQniFNPjNC29J4HERdcp5qkwtuS_8OuvgCTC_O-K1a5yslMg2nZzqhnZ5E.Hyz8_GEd56we_jJXYwDNsw
+
+
+
+# ----------------------------------------------------------- TESTY ----------------------------------------------------------------
+# ----------------------------------------------------------- TESTY ----------------------------------------------------------------
+# ----------------------------------------------------------- TESTY ----------------------------------------------------------------
+# ----------------------------------------------------------- TESTY ----------------------------------------------------------------
+
+### login
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@testowy.pl",
+  "password": "Seaways2410"
+}
+
+### Pobieranie wszystkich testów dla rozdziału
+GET http://localhost:4000/api/chapterTest/4/chapters/28/tests
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+### Tworzenie nowego testu
+POST http://localhost:4000/api/chapterTest/4/chapters/28/tests
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+{
+  "title": "dddd",
+  "description": "dddd",
+  "pass_threshold": 70,
+  "time_limit": 30
+}
+
+### Pobieranie szczegółów testu
+GET http://localhost:4000/api/tests/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+### Aktualizacja testu
+PATCH http://localhost:4000/api/tests/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+{
+  "title": "Zaktualizowany test JavaScript",
+  "description": "Zaktualizowany opis testu z JavaScript",
+  "pass_threshold": 75,
+  "time_limit": 45
+}
+
+### Usuwanie testu
+DELETE http://localhost:4000/api/tests/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+### Tworzenie nowego bloku testowego (pytania ABCD)
+POST http://localhost:4000/api/tests/1/blocks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.sLhSq-2-yfcxobKBIYQ1x3dsMPqeNBf5ko2PSfPx1_b_ua5q4tBAyRuv2aIW5JejToGrQqDEiwuksJFtqyjqIrx0ntMO76IpPv_zHU7BSYdUVhBN4NfaoTxuNpB-SANFo2dYXP_miNKzje2HNnomyvPlGKDLKJ57T_IbuNpnJdH7UHQ.QQI7MADBbynLf8CV2_ljkw
+
+{
+  "block_type": "single_choice",
+  "question_text": "qweqweqweqweqweqweqweqwewq",
+  "points": 4,
+  "attributes": {
+    "difficulty": "easy",
+    "category": "javascript"
+  },
+  "answers": [
+    {
+      "text": "push()",
+      "is_correct": true,
+      "feedback": "Poprawnie! Metoda push() dodaje element na końcu tablicy."
+    },
+    {
+      "text": "pop()",
+      "is_correct": false,
+      "feedback": "Niestety nie. Metoda pop() usuwa ostatni element tablicy."
+    },
+    {
+      "text": "shift()",
+      "is_correct": false,
+      "feedback": "Niestety nie. Metoda shift() usuwa pierwszy element tablicy."
+    },
+    {
+      "text": "unshift()",
+      "is_correct": false,
+      "feedback": "Niestety nie. Metoda unshift() dodaje element na początku tablicy."
+    }
+  ]
+}
+
+### Pobieranie wszystkich bloków testowych dla testu
+GET http://localhost:4000/api/tests/1/blocks
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.sLhSq-2-yfcxobKBIYQ1x3dsMPqeNBf5ko2PSfPx1_b_ua5q4tBAyRuv2aIW5JejToGrQqDEiwuksJFtqyjqIrx0ntMO76IpPv_zHU7BSYdUVhBN4NfaoTxuNpB-SANFo2dYXP_miNKzje2HNnomyvPlGKDLKJ57T_IbuNpnJdH7UHQ.QQI7MADBbynLf8CV2_ljkw
+
+### Pobieranie pojedynczego bloku testowego
+GET http://localhost:4000/api/blocks/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.sLhSq-2-yfcxobKBIYQ1x3dsMPqeNBf5ko2PSfPx1_b_ua5q4tBAyRuv2aIW5JejToGrQqDEiwuksJFtqyjqIrx0ntMO76IpPv_zHU7BSYdUVhBN4NfaoTxuNpB-SANFo2dYXP_miNKzje2HNnomyvPlGKDLKJ57T_IbuNpnJdH7UHQ.QQI7MADBbynLf8CV2_ljkw
+
+### Usuwanie bloku testowego
+DELETE http://localhost:4000/api/blocks/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.sLhSq-2-yfcxobKBIYQ1x3dsMPqeNBf5ko2PSfPx1_b_ua5q4tBAyRuv2aIW5JejToGrQqDEiwuksJFtqyjqIrx0ntMO76IpPv_zHU7BSYdUVhBN4NfaoTxuNpB-SANFo2dYXP_miNKzje2HNnomyvPlGKDLKJ57T_IbuNpnJdH7UHQ.QQI7MADBbynLf8CV2_ljkw

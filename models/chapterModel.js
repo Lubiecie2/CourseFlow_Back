@@ -121,7 +121,6 @@ const chapterModel = {
         });
 
         const blockId = newBlock.id;
-        console.log(`Utworzono blok typu ${item.type} z ID ${blockId}`);
 
         if (item.params) {
           const attributesData = Object.entries(item.params).map(
@@ -205,6 +204,40 @@ const chapterModel = {
     } catch (error) {
       console.error(`Błąd podczas usuwania rozdziału ${chapterId}:`, error);
       return { success: false, error: error.message };
+    }
+  },
+  uploadChapterImage: async (filePath) => {
+    try {
+      const fileName = filePath.split("/").pop();
+      return {
+        success: true,
+        fileName: fileName,
+        imageUrl: `http://localhost:4000/uploads/${fileName}`,
+      };
+    } catch (error) {
+      console.error("Błąd podczas zapisywania obrazu rozdziału:", error);
+      return {
+        success: false,
+        message: "Wystąpił błąd podczas zapisywania obrazu",
+        error: error.message,
+      };
+    }
+  },
+  uploadChapterVideo: async (filePath) => {
+    try {
+      const fileName = filePath.split("/").pop();
+      return {
+        success: true,
+        fileName: fileName,
+        videoUrl: `http://localhost:4000/uploads/${fileName}`,
+      };
+    } catch (error) {
+      console.error("Błąd podczas zapisywania filmu rozdziału:", error);
+      return {
+        success: false,
+        message: "Wystąpił błąd podczas zapisywania filmu",
+        error: error.message,
+      };
     }
   },
 };

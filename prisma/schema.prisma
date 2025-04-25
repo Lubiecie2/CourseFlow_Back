@@ -7,15 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model answers {
-  id           Int            @id @default(autoincrement())
-  question_id  Int?
-  answer_text  String
-  is_correct   Boolean?       @default(false)
-  questions    questions?     @relation(fields: [question_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  test_answers test_answers[]
-}
-
 model certificates {
   id               Int       @id @default(autoincrement())
   user_id          Int?
@@ -37,6 +28,7 @@ model chapters {
   updated_at     DateTime?        @default(now()) @db.Timestamp(6)
   chapter_blocks chapter_blocks[]
   courses        courses?         @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tests          tests[]
   user_chapter   user_chapter[]
 }
 
@@ -66,15 +58,6 @@ model permissions {
   role_permissions role_permissions[]
 }
 
-model questions {
-  id            Int            @id @default(autoincrement())
-  test_id       Int?
-  question_text String
-  answers       answers[]
-  tests         tests?         @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  test_answers  test_answers[]
-}
-
 model role_permissions {
   role_id       Int
   permission_id Int
@@ -96,41 +79,22 @@ model roles {
   users            users[]
 }
 
-model test_answers {
-  id                 Int            @id @default(autoincrement())
-  attempt_id         Int?
-  question_id        Int?
-  selected_answer_id Int?
-  is_correct         Boolean?       @default(false)
-  test_attempts      test_attempts? @relation(fields: [attempt_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  questions          questions?     @relation(fields: [question_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  answers            answers?       @relation(fields: [selected_answer_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-}
-
-model test_attempts {
-  id              Int            @id @default(autoincrement())
-  user_id         Int?
-  test_id         Int?
-  score           Int?           @default(0)
-  total_questions Int?           @default(0)
-  passed          Boolean?       @default(false)
-  created_at      DateTime?      @default(now()) @db.Timestamp(6)
-  test_answers    test_answers[]
-  tests           tests?         @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  users           users?         @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-}
-
 model tests {
-  id            Int             @id @default(autoincrement())
-  course_id     Int?
-  author_id     Int?
-  title         String          @db.VarChar(255)
-  created_at    DateTime?       @default(now()) @db.Timestamp(6)
-  updated_at    DateTime?       @default(now()) @db.Timestamp(6)
-  questions     questions[]
-  test_attempts test_attempts[]
-  users         users?          @relation(fields: [author_id], references: [id], onUpdate: NoAction)
-  courses       courses?        @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id                 Int                  @id @default(autoincrement())
+  chapter_id         Int
+  course_id          Int
+  author_id          Int?
+  title              String               @db.VarChar(255)
+  description        String?
+  pass_threshold     Int?                 @default(70)
+  time_limit         Int?                 @default(0)
+  created_at         DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at         DateTime?            @default(now()) @db.Timestamp(6)
+  test_blocks        test_blocks[]
+  users              users?               @relation(fields: [author_id], references: [id], onUpdate: NoAction)
+  chapters           chapters             @relation(fields: [chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  courses            courses              @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_test_attempts user_test_attempts[]
 }
 
 model user_chapter {
@@ -172,10 +136,10 @@ model users {
   verification_token_id                                                Int?
   certificates                                                         certificates[]
   courses                                                              courses[]
-  test_attempts                                                        test_attempts[]
   tests                                                                tests[]
   user_chapter                                                         user_chapter[]
   user_courses                                                         user_courses[]
+  user_test_attempts                                                   user_test_attempts[]
   roles                                                                roles?                @relation(fields: [role_id], references: [id], onUpdate: NoAction, map: "fk_role_id")
   verification_tokens_users_verification_token_idToverification_tokens verification_tokens?  @relation("users_verification_token_idToverification_tokens", fields: [verification_token_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_id_verificationtoken_fkey")
   verification_tokens_verification_tokens_user_idTousers               verification_tokens[] @relation("verification_tokens_user_idTousers")
@@ -209,4 +173,92 @@ model chapter_blocks {
   updated_at               DateTime?                  @default(now()) @db.Timestamp(6)
   chapter_block_attributes chapter_block_attributes[]
   chapters                 chapters                   @relation(fields: [chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model answer_attributes {
+  id              Int                @id @default(autoincrement())
+  answer_id       Int
+  attribute_name  String             @db.VarChar(100)
+  attribute_value String?
+  answers         test_block_answers @relation(fields: [answer_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([answer_id, attribute_name])
+  @@index([answer_id], map: "idx_answer_attributes_answer_id")
+}
+
+model test_block_answers {
+  id                Int                 @id @default(autoincrement())
+  block_id          Int
+  answer_text       String
+  is_correct        Boolean?            @default(false)
+  feedback          String?
+  sort_order        Int?                @default(0)
+  answer_attributes answer_attributes[]
+  test_blocks       test_blocks         @relation(fields: [block_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_test_answers user_test_answers[]
+
+  @@index([block_id], map: "idx_test_block_answers_block_id")
+}
+
+model test_block_attributes {
+  id              Int         @id @default(autoincrement())
+  block_id        Int
+  attribute_name  String      @db.VarChar(100)
+  attribute_value String?
+  test_blocks     test_blocks @relation(fields: [block_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([block_id, attribute_name])
+  @@index([block_id], map: "idx_test_block_attributes_block_id")
+}
+
+model test_blocks {
+  id                    Int                     @id @default(autoincrement())
+  test_id               Int
+  block_type            String                  @db.VarChar(50)
+  question_text         String
+  points                Int?                    @default(1)
+  sort_order            Int?                    @default(0)
+  created_at            DateTime?               @default(now()) @db.Timestamp(6)
+  updated_at            DateTime?               @default(now()) @db.Timestamp(6)
+  test_block_answers    test_block_answers[]
+  test_block_attributes test_block_attributes[]
+  tests                 tests                   @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_test_answers     user_test_answers[]
+
+  @@index([test_id], map: "idx_test_blocks_test_id")
+}
+
+model user_test_answers {
+  id                 Int                 @id @default(autoincrement())
+  attempt_id         Int
+  block_id           Int
+  selected_answer_id Int?
+  text_answer        String?
+  json_answer        Json?
+  is_correct         Boolean?            @default(false)
+  points_awarded     Int?                @default(0)
+  user_test_attempts user_test_attempts  @relation(fields: [attempt_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  test_blocks        test_blocks         @relation(fields: [block_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  test_block_answers test_block_answers? @relation(fields: [selected_answer_id], references: [id], onUpdate: NoAction)
+
+  @@index([attempt_id], map: "idx_user_test_answers_attempt_id")
+  @@index([block_id], map: "idx_user_test_answers_block_id")
+}
+
+model user_test_attempts {
+  id                Int                 @id @default(autoincrement())
+  user_id           Int
+  test_id           Int
+  start_time        DateTime?           @default(now()) @db.Timestamp(6)
+  end_time          DateTime?           @db.Timestamp(6)
+  score             Int?                @default(0)
+  max_score         Int?                @default(0)
+  passed            Boolean?            @default(false)
+  created_at        DateTime?           @default(now()) @db.Timestamp(6)
+  user_test_answers user_test_answers[]
+  tests             tests               @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users             users               @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([test_id], map: "idx_user_test_attempts_test_id")
+  @@index([user_id], map: "idx_user_test_attempts_user_id")
 }

@@ -17,6 +17,9 @@ const roleRouter = require("./routes/role");
 const courseRouter = require("./routes/course");
 const chapterRouter = require("./routes/chapter");
 const userCourseRouter = require("./routes/userCourse");
+const testRouter = require("./routes/test");
+const chapterTestRouter = require("./routes/chapterTest");
+const testBlockRouter = require("./routes/testBlock");
 
 var app = express();
 
@@ -69,6 +72,9 @@ app.use("/api/role", roleRouter);
 app.use("/api/courses", courseRouter);
 app.use("/api/courses", chapterRouter);
 app.use("/api/userCourse", userCourseRouter);
+app.use("/api/tests", testRouter);
+app.use("/api/chapterTest", chapterTestRouter);
+app.use("/api", testBlockRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
