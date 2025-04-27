@@ -151,6 +151,40 @@ const testBlockModel = {
     }
   },
 
+  getTestBlocksForUser: async (testId) => {
+    try {
+      const result = await testBlockModel.getTestBlocksByTest(testId);
+
+      if (!result.success) {
+        return result;
+      }
+
+      const sanitizedBlocks = result.blocks.map((block) => {
+        const sanitizedBlock = {
+          ...block,
+          answers: block.answers.map((answer) => ({
+            id: answer.id,
+            text: answer.text,
+            sort_order: answer.sort_order,
+          })),
+        };
+        return sanitizedBlock;
+      });
+
+      return { success: true, blocks: sanitizedBlocks };
+    } catch (error) {
+      console.error(
+        `Błąd podczas pobierania bloków testu ${testId} dla użytkownika:`,
+        error
+      );
+      return {
+        success: false,
+        message: "Nie udało się pobrać pytań",
+        error: error.message,
+      };
+    }
+  },
+
   deleteTestBlock: async (blockId) => {
     try {
       await prisma.test_blocks.delete({

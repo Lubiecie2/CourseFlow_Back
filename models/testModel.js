@@ -51,7 +51,9 @@ const testModel = {
     try {
       const tests = await prisma.tests.findMany({
         where: {
-          chapter_id: parseInt(chapterId),
+          chapters: {
+            id: parseInt(chapterId),
+          },
           course_id: parseInt(courseId),
         },
         include: {

@@ -162,6 +162,45 @@ const testBlockController = {
       });
     }
   },
+
+  getTestBlocksForUser: async (req, res) => {
+    try {
+      const { testId } = req.params;
+
+      const test = await prisma.tests.findUnique({
+        where: { id: parseInt(testId) },
+      });
+
+      if (!test) {
+        return res.status(404).json({
+          success: false,
+          message: "Test nie został znaleziony",
+        });
+      }
+
+      const result = await testBlockModel.getTestBlocksForUser(testId);
+
+      if (!result.success) {
+        return res.status(500).json({
+          success: false,
+          message: "Wystąpił błąd podczas pobierania bloków testowych",
+          error: result.error,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        blocks: result.blocks,
+      });
+    } catch (error) {
+      console.error("Błąd podczas pobierania bloków testowych:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas pobierania bloków testowych",
+        error: error.message,
+      });
+    }
+  },
 };
 
 module.exports = testBlockController;

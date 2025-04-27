@@ -1,4 +1,6 @@
 const testModel = require("../models/testModel");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 const testController = {
   getTest: async (req, res) => {
@@ -50,24 +52,37 @@ const testController = {
         });
       }
 
-      const result = await testModel.getTestsByChapter(courseId, chapterId);
+      const courseIdNum = parseInt(courseId);
+      const chapterIdNum = parseInt(chapterId);
 
-      if (!result.success) {
-        return res.status(500).json({
-          success: false,
-          message: result.error || "Nie udało się pobrać testów",
-        });
-      }
+      const tests = await prisma.tests.findMany({
+        where: {
+          course_id: courseIdNum,
+          chapter_id: chapterIdNum,
+        },
+        include: {
+          _count: {
+            select: {
+              test_blocks: true,
+              user_test_attempts: true,
+            },
+          },
+        },
+        orderBy: {
+          created_at: "desc",
+        },
+      });
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
-        tests: result.tests,
+        tests,
       });
     } catch (error) {
-      console.error("Błąd w kontrolerze getTestsByChapter:", error);
-      res.status(500).json({
+      console.error(`Błąd podczas pobierania testów dla rozdziału:`, error);
+      return res.status(500).json({
         success: false,
-        message: "Wewnętrzny błąd serwera",
+        message: "Wystąpił błąd podczas pobierania testów",
+        error: error.message,
       });
     }
   },

@@ -135,7 +135,13 @@ const authController = {
         lastName: user.last_name,
         email: user.email,
         role: user.role,
-        createdAt: user.created_at,
+        createdAt: user.created_at
+          ? new Date(user.created_at).toLocaleString("pl-PL", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })
+          : null,
         permissions: permissions.map((p) => p.name),
       });
     } catch (err) {
