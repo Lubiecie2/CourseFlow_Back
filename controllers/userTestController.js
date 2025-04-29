@@ -76,22 +76,43 @@ const userTestController = {
 
       for (const block of test.test_blocks) {
         const userAnswer = answers[block.id];
-        const correctAnswer = block.test_block_answers.find(
-          (a) => a.is_correct
-        );
-
         const blockPoints = block.points || 1;
         totalPoints += blockPoints;
 
-        if (
-          userAnswer &&
-          correctAnswer &&
-          userAnswer.toString() === correctAnswer.id.toString()
-        ) {
-          correctAnswers += blockPoints;
-          results[block.id] = { correct: true, points: blockPoints };
+        if (block.block_type === "multiple_choice") {
+          const correctAnswerIds = block.test_block_answers
+            .filter((a) => a.is_correct)
+            .map((a) => a.id.toString());
+          const userAnswerArray = Array.isArray(userAnswer)
+            ? userAnswer.map((id) => id.toString())
+            : [];
+
+          const hasAllCorrectAnswers = correctAnswerIds.every((id) =>
+            userAnswerArray.includes(id)
+          );
+          const hasNoExtraAnswers =
+            userAnswerArray.length === correctAnswerIds.length;
+
+          if (hasAllCorrectAnswers && hasNoExtraAnswers) {
+            correctAnswers += blockPoints;
+            results[block.id] = { correct: true, points: blockPoints };
+          } else {
+            results[block.id] = { correct: false, points: 0 };
+          }
         } else {
-          results[block.id] = { correct: false, points: 0 };
+          const correctAnswer = block.test_block_answers.find(
+            (a) => a.is_correct
+          );
+          if (
+            userAnswer &&
+            correctAnswer &&
+            userAnswer.toString() === correctAnswer.id.toString()
+          ) {
+            correctAnswers += blockPoints;
+            results[block.id] = { correct: true, points: blockPoints };
+          } else {
+            results[block.id] = { correct: false, points: 0 };
+          }
         }
       }
 
@@ -116,20 +137,41 @@ const userTestController = {
       for (const blockId in answers) {
         if (answers[blockId]) {
           const blockIdNum = parseInt(blockId);
-          const answerId = parseInt(answers[blockId]);
-
           const block = test.test_blocks.find((b) => b.id === blockIdNum);
-          const answer = block
-            ? block.test_block_answers.find((a) => a.id === answerId)
-            : null;
-          const isCorrect = answer ? answer.is_correct : false;
 
-          userAnswersData.push({
-            attempt_id: attempt.id,
-            block_id: blockIdNum,
-            selected_answer_id: answerId,
-            is_correct: isCorrect,
-          });
+          if (
+            block &&
+            block.block_type === "multiple_choice" &&
+            Array.isArray(answers[blockId])
+          ) {
+            for (const answerId of answers[blockId]) {
+              const answerIdNum = parseInt(answerId);
+              const answer = block.test_block_answers.find(
+                (a) => a.id === answerIdNum
+              );
+              const isCorrect = answer ? answer.is_correct : false;
+
+              userAnswersData.push({
+                attempt_id: attempt.id,
+                block_id: blockIdNum,
+                selected_answer_id: answerIdNum,
+                is_correct: isCorrect,
+              });
+            }
+          } else {
+            const answerId = parseInt(answers[blockId]);
+            const answer = block
+              ? block.test_block_answers.find((a) => a.id === answerId)
+              : null;
+            const isCorrect = answer ? answer.is_correct : false;
+
+            userAnswersData.push({
+              attempt_id: attempt.id,
+              block_id: blockIdNum,
+              selected_answer_id: answerId,
+              is_correct: isCorrect,
+            });
+          }
         }
       }
 
