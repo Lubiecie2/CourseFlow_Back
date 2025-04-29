@@ -202,6 +202,41 @@ const testBlockModel = {
       return { success: false, error: error.message };
     }
   },
+  reorderTestBlocks: async (testId, orderIds) => {
+    try {
+      if (!testId || !Array.isArray(orderIds) || orderIds.length === 0) {
+        return {
+          success: false,
+          message: "Nieprawidłowe parametry reorderingu bloków",
+        };
+      }
+
+      const parsedIds = orderIds.map((id) => parseInt(id));
+
+      await Promise.all(
+        parsedIds.map(async (id, index) => {
+          await prisma.test_blocks.update({
+            where: { id },
+            data: {
+              sort_order: index,
+              updated_at: new Date(),
+            },
+          });
+        })
+      );
+
+      return {
+        success: true,
+        message: "Kolejność pytań została zaktualizowana",
+      };
+    } catch (error) {
+      console.error(
+        `Błąd podczas zmiany kolejności bloków testu ${testId}:`,
+        error
+      );
+      return { success: false, error: error.message };
+    }
+  },
 };
 
 function formatTestBlock(block) {

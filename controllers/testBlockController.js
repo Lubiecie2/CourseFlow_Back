@@ -201,6 +201,52 @@ const testBlockController = {
       });
     }
   },
+  reorderTestBlocks: async (req, res) => {
+    try {
+      const { testId } = req.params;
+      const { order } = req.body;
+
+      if (!testId || !order || !Array.isArray(order) || order.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Niepoprawny format danych",
+        });
+      }
+
+      const test = await prisma.tests.findUnique({
+        where: { id: parseInt(testId) },
+      });
+
+      if (!test) {
+        return res.status(404).json({
+          success: false,
+          message: "Test nie został znaleziony",
+        });
+      }
+
+      const result = await testBlockModel.reorderTestBlocks(testId, order);
+
+      if (!result.success) {
+        return res.status(500).json({
+          success: false,
+          message: "Wystąpił błąd podczas zmiany kolejności pytań",
+          error: result.error,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: "Kolejność pytań została zaktualizowana",
+      });
+    } catch (error) {
+      console.error("Błąd podczas zmiany kolejności pytań:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas zmiany kolejności pytań",
+        error: error.message,
+      });
+    }
+  },
 };
 
 module.exports = testBlockController;
