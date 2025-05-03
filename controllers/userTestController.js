@@ -21,6 +21,7 @@ const userTestController = {
           description: true,
           time_limit: true,
           pass_threshold: true,
+          is_course_final: true,
           chapter_id: true,
           course_id: true,
         },

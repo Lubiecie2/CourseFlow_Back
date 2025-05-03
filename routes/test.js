@@ -144,4 +144,16 @@ router.patch("/:testId", authMiddleware, testController.updateTest);
  */
 router.delete("/:testId", authMiddleware, testController.deleteTest);
 
+router.get(
+  "/courses/:courseId/tests",
+  authMiddleware,
+  testController.getCourseTests
+);
+
+router.post(
+  "/courses/:courseId/tests",
+  authMiddleware,
+  testController.createTest
+);
+
 module.exports = router;

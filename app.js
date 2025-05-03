@@ -21,6 +21,7 @@ const testRouter = require("./routes/test");
 const chapterTestRouter = require("./routes/chapterTest");
 const testBlockRouter = require("./routes/testBlock");
 const userTestRouter = require("./routes/userTest");
+const certificateRouter = require("./routes/certificate");
 
 var app = express();
 
@@ -77,6 +78,7 @@ app.use("/api/tests", testRouter);
 app.use("/api/chapterTest", chapterTestRouter);
 app.use("/api", testBlockRouter);
 app.use("/api/userTest", userTestRouter);
+app.use("/api/certificates", certificateRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

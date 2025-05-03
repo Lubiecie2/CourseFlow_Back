@@ -297,3 +297,30 @@ Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.
 ### Usuwanie bloku testowego
 DELETE http://localhost:4000/api/blocks/1
 Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.sLhSq-2-yfcxobKBIYQ1x3dsMPqeNBf5ko2PSfPx1_b_ua5q4tBAyRuv2aIW5JejToGrQqDEiwuksJFtqyjqIrx0ntMO76IpPv_zHU7BSYdUVhBN4NfaoTxuNpB-SANFo2dYXP_miNKzje2HNnomyvPlGKDLKJ57T_IbuNpnJdH7UHQ.QQI7MADBbynLf8CV2_ljkw
+
+
+# ----------------------------------------------------------------
+# CERTYFIKATY
+# ----------------------------------------------------------------
+
+### Sprawdzanie uprawnień do certyfikatu
+GET http://localhost:4000/api/certificates/eligibility/4
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.yc4g683EK4JU5-PzSjUDgooUl9N6D57AsfSjRVojI1aui5Ik9NCH3bgI2nFjiBNcgrutkIP2WnT9cp3AqhDpzGZn-o-NrTtTiYTB94uH_gPSmyEOs4YRNZPmLOHT0_iVLeRuEjtFy_oJMCntxrUlRdlSwM6NZkOhXjvQnrPAT3_FNhQ.VY1ZtPDN5gXLtyroA3Nubw
+
+{
+  "success": true,
+  "isEligible": true,  
+  "hasCertificate": false
+}
+### Generowanie certyfikatu
+POST http://localhost:4000/api/certificates/generate/4
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.yc4g683EK4JU5-PzSjUDgooUl9N6D57AsfSjRVojI1aui5Ik9NCH3bgI2nFjiBNcgrutkIP2WnT9cp3AqhDpzGZn-o-NrTtTiYTB94uH_gPSmyEOs4YRNZPmLOHT0_iVLeRuEjtFy_oJMCntxrUlRdlSwM6NZkOhXjvQnrPAT3_FNhQ.VY1ZtPDN5gXLtyroA3Nubw
+Content-Type: application/json
+
+### Pobieranie wszystkich certyfikatów użytkownika
+GET http://localhost:4000/api/certificates/user
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.yc4g683EK4JU5-PzSjUDgooUl9N6D57AsfSjRVojI1aui5Ik9NCH3bgI2nFjiBNcgrutkIP2WnT9cp3AqhDpzGZn-o-NrTtTiYTB94uH_gPSmyEOs4YRNZPmLOHT0_iVLeRuEjtFy_oJMCntxrUlRdlSwM6NZkOhXjvQnrPAT3_FNhQ.VY1ZtPDN5gXLtyroA3Nubw
+
+### Pobieranie pliku PDF certyfikatu (najpierw uzyskaj kod certyfikatu z odpowiedzi z endpointu /user)
+GET http://localhost:4000/api/certificates/download/CF-D057950C
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.yc4g683EK4JU5-PzSjUDgooUl9N6D57AsfSjRVojI1aui5Ik9NCH3bgI2nFjiBNcgrutkIP2WnT9cp3AqhDpzGZn-o-NrTtTiYTB94uH_gPSmyEOs4YRNZPmLOHT0_iVLeRuEjtFy_oJMCntxrUlRdlSwM6NZkOhXjvQnrPAT3_FNhQ.VY1ZtPDN5gXLtyroA3Nubw
