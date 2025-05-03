@@ -57,7 +57,11 @@ const userTestController = {
         include: {
           test_blocks: {
             include: {
-              test_block_answers: true,
+              test_block_answers: {
+                include: {
+                  answer_attributes: true,
+                },
+              },
             },
           },
         },
@@ -94,6 +98,84 @@ const userTestController = {
             userAnswerArray.length === correctAnswerIds.length;
 
           if (hasAllCorrectAnswers && hasNoExtraAnswers) {
+            correctAnswers += blockPoints;
+            results[block.id] = { correct: true, points: blockPoints };
+          } else {
+            results[block.id] = { correct: false, points: 0 };
+          }
+        } else if (block.block_type === "text_input") {
+          const correctAnswer = block.test_block_answers.find(
+            (a) => a.is_correct
+          );
+
+          if (correctAnswer && userAnswer) {
+            const correctText = correctAnswer.answer_text || "";
+            const userText = String(userAnswer).trim();
+
+            const isCorrect =
+              correctText.toLowerCase() === userText.toLowerCase();
+
+            if (isCorrect) {
+              correctAnswers += blockPoints;
+              results[block.id] = { correct: true, points: blockPoints };
+            } else {
+              results[block.id] = { correct: false, points: 0 };
+            }
+          } else {
+            results[block.id] = { correct: false, points: 0 };
+          }
+        } else if (block.block_type === "matching") {
+          const userMatches = userAnswer;
+          let allCorrect = true;
+
+          if (!userMatches || typeof userMatches !== "object") {
+            results[block.id] = { correct: false, points: 0 };
+            continue;
+          }
+
+          for (const answerId in userMatches) {
+            const selectedRightItem = userMatches[answerId];
+            const answer = block.test_block_answers.find(
+              (a) => a.id.toString() === answerId
+            );
+
+            if (!answer) {
+              allCorrect = false;
+              break;
+            }
+
+            if (
+              !answer.answer_attributes ||
+              !Array.isArray(answer.answer_attributes)
+            ) {
+              allCorrect = false;
+              break;
+            }
+
+            const rightItemAttr = answer.answer_attributes.find(
+              (attr) => attr.attribute_name === "right_item"
+            );
+
+            if (!rightItemAttr || !rightItemAttr.attribute_value) {
+              allCorrect = false;
+              break;
+            }
+
+            const correctRightItem = rightItemAttr.attribute_value;
+
+            if (selectedRightItem !== correctRightItem) {
+              allCorrect = false;
+              break;
+            }
+          }
+
+          if (
+            Object.keys(userMatches).length !== block.test_block_answers.length
+          ) {
+            allCorrect = false;
+          }
+
+          if (allCorrect) {
             correctAnswers += blockPoints;
             results[block.id] = { correct: true, points: blockPoints };
           } else {
@@ -158,6 +240,84 @@ const userTestController = {
                 is_correct: isCorrect,
               });
             }
+          } else if (block && block.block_type === "text_input") {
+            const textAnswer = String(answers[blockId]);
+            const correctAnswer = block.test_block_answers.find(
+              (a) => a.is_correct
+            );
+
+            const isCorrect =
+              correctAnswer &&
+              correctAnswer.answer_text.toLowerCase().trim() ===
+                textAnswer.toLowerCase().trim();
+
+            userAnswersData.push({
+              attempt_id: attempt.id,
+              block_id: blockIdNum,
+              text_answer: textAnswer,
+              is_correct: isCorrect,
+              selected_answer_id: null,
+            });
+          } else if (block && block.block_type === "matching") {
+            const userMatches = answers[blockId];
+            let isCorrect = true;
+
+            for (const answerId in userMatches) {
+              const selectedRightItem = userMatches[answerId];
+              const answer = block.test_block_answers.find(
+                (a) => a.id === parseInt(answerId)
+              );
+
+              if (!answer) {
+                isCorrect = false;
+                continue;
+              }
+
+              if (
+                !answer.answer_attributes ||
+                !Array.isArray(answer.answer_attributes)
+              ) {
+                isCorrect = false;
+                continue;
+              }
+
+              const rightItemAttr = answer.answer_attributes.find(
+                (attr) => attr.attribute_name === "right_item"
+              );
+
+              if (!rightItemAttr || !rightItemAttr.attribute_value) {
+                isCorrect = false;
+                continue;
+              }
+
+              const correctRightItem = rightItemAttr.attribute_value;
+              const matchIsCorrect = selectedRightItem === correctRightItem;
+
+              userAnswersData.push({
+                attempt_id: attempt.id,
+                block_id: blockIdNum,
+                selected_answer_id: parseInt(answerId),
+                is_correct: matchIsCorrect,
+                text_answer: JSON.stringify({ rightItem: selectedRightItem }),
+              });
+
+              if (!matchIsCorrect) {
+                isCorrect = false;
+              }
+            }
+
+            if (
+              Object.keys(userMatches).length !==
+              block.test_block_answers.length
+            ) {
+              userAnswersData.push({
+                attempt_id: attempt.id,
+                block_id: blockIdNum,
+                selected_answer_id: null,
+                is_correct: false,
+                text_answer: "Incomplete matching",
+              });
+            }
           } else {
             const answerId = parseInt(answers[blockId]);
             const answer = block
@@ -173,6 +333,12 @@ const userTestController = {
             });
           }
         }
+      }
+
+      if (userAnswersData.length > 0) {
+        await prisma.user_test_answers.createMany({
+          data: userAnswersData,
+        });
       }
 
       return res.status(200).json({

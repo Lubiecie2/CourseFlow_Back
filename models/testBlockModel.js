@@ -51,7 +51,42 @@ const testBlockModel = {
         });
       }
 
-      if (answers.length > 0) {
+      if (block_type === "text_input" && answers && answers.length > 0) {
+        const answerData = {
+          block_id: testBlock.id,
+          answer_text: answers[0].text || "",
+          is_correct: true,
+          feedback: answers[0].feedback || "",
+          sort_order: 1,
+        };
+
+        await prisma.test_block_answers.create({
+          data: answerData,
+        });
+      } else if (block_type === "matching" && answers && answers.length > 0) {
+        for (let i = 0; i < answers.length; i++) {
+          const answer = answers[i];
+          const answerData = {
+            block_id: testBlock.id,
+            answer_text: answer.left_item || "",
+            is_correct: true,
+            feedback: answer.feedback || "",
+            sort_order: i + 1,
+          };
+
+          const createdAnswer = await prisma.test_block_answers.create({
+            data: answerData,
+          });
+
+          await prisma.answer_attributes.create({
+            data: {
+              answer_id: createdAnswer.id,
+              attribute_name: "right_item",
+              attribute_value: answer.right_item || "",
+            },
+          });
+        }
+      } else if (answers.length > 0) {
         for (let i = 0; i < answers.length; i++) {
           const answer = answers[i];
           const answerData = {
@@ -162,11 +197,27 @@ const testBlockModel = {
       const sanitizedBlocks = result.blocks.map((block) => {
         const sanitizedBlock = {
           ...block,
-          answers: block.answers.map((answer) => ({
-            id: answer.id,
-            text: answer.text,
-            sort_order: answer.sort_order,
-          })),
+          answers:
+            block.block_type === "text_input"
+              ? [
+                  {
+                    id: block.answers[0]?.id || 0,
+                    text: "",
+                    sort_order: 1,
+                  },
+                ]
+              : block.block_type === "matching"
+              ? block.answers.map((answer) => ({
+                  id: answer.id,
+                  left_item: answer.text,
+                  sort_order: answer.sort_order,
+                  right_item: answer.attributes?.right_item || "",
+                }))
+              : block.answers.map((answer) => ({
+                  id: answer.id,
+                  text: answer.text,
+                  sort_order: answer.sort_order,
+                })),
         };
         return sanitizedBlock;
       });
@@ -258,17 +309,25 @@ function formatTestBlock(block) {
 }
 
 function formatAnswer(answer) {
-  return {
+  const formattedAnswer = {
     id: answer.id,
     text: answer.answer_text,
     is_correct: answer.is_correct,
     feedback: answer.feedback,
     sort_order: answer.sort_order,
-    attributes: answer.answer_attributes.reduce((acc, attr) => {
-      acc[attr.attribute_name] = attr.attribute_value;
-      return acc;
-    }, {}),
+    attributes: {},
   };
+
+  if (answer.answer_attributes && answer.answer_attributes.length > 0) {
+    answer.answer_attributes.forEach((attr) => {
+      formattedAnswer.attributes[attr.attribute_name] = attr.attribute_value;
+      if (attr.attribute_name === "right_item") {
+        formattedAnswer.right_item = attr.attribute_value;
+      }
+    });
+  }
+
+  return formattedAnswer;
 }
 
 module.exports = testBlockModel;
