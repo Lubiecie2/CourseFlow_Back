@@ -89,6 +89,7 @@ const testModel = {
         chapter_id,
         course_id,
         author_id,
+        is_course_final = false,
       } = testData;
 
       const test = await prisma.tests.create({
@@ -100,12 +101,43 @@ const testModel = {
           chapter_id: parseInt(chapter_id),
           course_id: parseInt(course_id),
           author_id: parseInt(author_id),
+          is_course_final: is_course_final === true,
         },
       });
 
       return { success: true, test };
     } catch (error) {
       console.error("Błąd podczas tworzenia testu:", error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  getTestsByCourse: async (courseId) => {
+    try {
+      const tests = await prisma.tests.findMany({
+        where: {
+          course_id: parseInt(courseId),
+          is_course_final: true,
+        },
+        include: {
+          _count: {
+            select: {
+              test_blocks: true,
+              user_test_attempts: true,
+            },
+          },
+        },
+        orderBy: {
+          created_at: "desc",
+        },
+      });
+
+      return { success: true, tests };
+    } catch (error) {
+      console.error(
+        `Błąd podczas pobierania testów dla kursu ${courseId}:`,
+        error
+      );
       return { success: false, error: error.message };
     }
   },

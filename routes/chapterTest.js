@@ -129,5 +129,4 @@ router.post(
   authMiddleware,
   testController.createTest
 );
-
 module.exports = router;

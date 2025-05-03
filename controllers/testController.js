@@ -90,7 +90,13 @@ const testController = {
   createTest: async (req, res) => {
     try {
       const { courseId, chapterId } = req.params;
-      const { title, description, pass_threshold, time_limit } = req.body;
+      const {
+        title,
+        description,
+        pass_threshold,
+        time_limit,
+        is_course_final,
+      } = req.body;
 
       if (!title || title.trim() === "") {
         return res.status(400).json({
@@ -99,20 +105,14 @@ const testController = {
         });
       }
 
-      if (
-        !courseId ||
-        !chapterId ||
-        isNaN(parseInt(courseId)) ||
-        isNaN(parseInt(chapterId))
-      ) {
+      if (!courseId || isNaN(parseInt(courseId))) {
         return res.status(400).json({
           success: false,
-          message: "Nieprawidłowe ID kursu lub rozdziału",
+          message: "Nieprawidłowe ID kursu",
         });
       }
 
       const author_id = req.user?.id;
-
       if (!author_id) {
         return res.status(401).json({
           success: false,
@@ -120,15 +120,23 @@ const testController = {
         });
       }
 
-      const result = await testModel.createTest({
+      const isCourseTest = is_course_final === true || !chapterId;
+
+      const testData = {
         title,
         description,
         pass_threshold,
         time_limit,
-        chapter_id: chapterId,
         course_id: courseId,
         author_id,
-      });
+        is_course_final: is_course_final === true,
+      };
+
+      if (!isCourseTest && chapterId) {
+        testData.chapter_id = chapterId;
+      }
+
+      const result = await testModel.createTest(testData);
 
       if (!result.success) {
         return res.status(500).json({
@@ -137,16 +145,52 @@ const testController = {
         });
       }
 
+      const testType = isCourseTest ? "dla całego kursu" : "dla rozdziału";
       res.status(201).json({
         success: true,
         test: result.test,
-        message: "Test został pomyślnie utworzony",
+        message: `Test ${testType} został pomyślnie utworzony`,
       });
     } catch (error) {
       console.error("Błąd w kontrolerze createTest:", error);
       res.status(500).json({
         success: false,
         message: "Wewnętrzny błąd serwera",
+      });
+    }
+  },
+
+  getCourseTests: async (req, res) => {
+    try {
+      const { courseId } = req.params;
+
+      if (!courseId || isNaN(parseInt(courseId))) {
+        return res.status(400).json({
+          success: false,
+          message: "Nieprawidłowe ID kursu",
+        });
+      }
+
+      const result = await testModel.getTestsByCourse(courseId);
+
+      if (!result.success) {
+        return res.status(500).json({
+          success: false,
+          message: "Wystąpił błąd podczas pobierania testów kursu",
+          error: result.error,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        tests: result.tests,
+      });
+    } catch (error) {
+      console.error("Błąd podczas pobierania testów kursu:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas pobierania testów kursu",
+        error: error.message,
       });
     }
   },
