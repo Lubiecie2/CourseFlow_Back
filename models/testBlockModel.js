@@ -195,31 +195,47 @@ const testBlockModel = {
       }
 
       const sanitizedBlocks = result.blocks.map((block) => {
-        const sanitizedBlock = {
+        let sanitizedAnswers;
+
+        if (block.block_type === "text_input") {
+          sanitizedAnswers = [
+            {
+              id: block.answers[0]?.id || 0,
+              text: "",
+              sort_order: 1,
+            },
+          ];
+        } else if (block.block_type === "matching") {
+          const leftItems = block.answers.map((answer) => ({
+            id: answer.id,
+            left_item: answer.text,
+            sort_order: answer.sort_order,
+          }));
+
+          const rightItems = block.answers.map(
+            (answer) => answer.attributes?.right_item || ""
+          );
+
+          const shuffledRightItems = [...rightItems].sort(
+            () => Math.random() - 0.5
+          );
+
+          sanitizedAnswers = {
+            leftItems: leftItems,
+            rightItems: shuffledRightItems,
+          };
+        } else {
+          sanitizedAnswers = block.answers.map((answer) => ({
+            id: answer.id,
+            text: answer.text,
+            sort_order: answer.sort_order,
+          }));
+        }
+
+        return {
           ...block,
-          answers:
-            block.block_type === "text_input"
-              ? [
-                  {
-                    id: block.answers[0]?.id || 0,
-                    text: "",
-                    sort_order: 1,
-                  },
-                ]
-              : block.block_type === "matching"
-              ? block.answers.map((answer) => ({
-                  id: answer.id,
-                  left_item: answer.text,
-                  sort_order: answer.sort_order,
-                  right_item: answer.attributes?.right_item || "",
-                }))
-              : block.answers.map((answer) => ({
-                  id: answer.id,
-                  text: answer.text,
-                  sort_order: answer.sort_order,
-                })),
+          answers: sanitizedAnswers,
         };
-        return sanitizedBlock;
       });
 
       return { success: true, blocks: sanitizedBlocks };
