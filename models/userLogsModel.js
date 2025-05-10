@@ -46,9 +46,6 @@ const UserLogsModel = {
       let conditions = [];
       let paramIndex = 3;
 
-      // Debug the incoming filters
-      console.log("Filters received:", JSON.stringify(filters));
-
       if (filters.userId) {
         conditions.push(`l.user_id = $${paramIndex++}`);
         params.push(filters.userId);
@@ -61,33 +58,27 @@ const UserLogsModel = {
 
       if (filters.fromDate) {
         conditions.push(`l.created_at >= $${paramIndex++}::timestamp`);
-        // Ensure it's a valid ISO string
+
         params.push(
           filters.fromDate instanceof Date
             ? filters.fromDate.toISOString()
             : filters.fromDate
         );
-        console.log("From date param:", params[params.length - 1]);
       }
 
       if (filters.toDate) {
         conditions.push(`l.created_at <= $${paramIndex++}::timestamp`);
-        // Ensure it's a valid ISO string
+
         params.push(
           filters.toDate instanceof Date
             ? filters.toDate.toISOString()
             : filters.toDate
         );
-        console.log("To date param:", params[params.length - 1]);
       }
 
       if (conditions.length > 0) {
         whereClause = `WHERE ${conditions.join(" AND ")}`;
       }
-
-      // Debug the generated query and params
-      console.log("Query conditions:", whereClause);
-      console.log("Query params:", params);
 
       const query = `
       SELECT 

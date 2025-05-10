@@ -324,3 +324,64 @@ Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.
 ### Pobieranie pliku PDF certyfikatu (najpierw uzyskaj kod certyfikatu z odpowiedzi z endpointu /user)
 GET http://localhost:4000/api/certificates/download/CF-D057950C
 Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.yc4g683EK4JU5-PzSjUDgooUl9N6D57AsfSjRVojI1aui5Ik9NCH3bgI2nFjiBNcgrutkIP2WnT9cp3AqhDpzGZn-o-NrTtTiYTB94uH_gPSmyEOs4YRNZPmLOHT0_iVLeRuEjtFy_oJMCntxrUlRdlSwM6NZkOhXjvQnrPAT3_FNhQ.VY1ZtPDN5gXLtyroA3Nubw
+
+
+
+
+# ----------------------------------------------------------- POWIADOMIENIA ----------------------------------------------------------------
+
+### Logowanie (aby uzyskać token JWT)
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@testowy.pl",
+  "password": "Seaways2410"
+}
+
+### Sprawdzenie liczby nieprzeczytanych powiadomień
+GET http://localhost:4000/api/notifications/unread-count
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+### Pobranie wszystkich powiadomień (spowoduje oznaczenie wszystkich jako przeczytane)
+GET http://localhost:4000/api/notifications
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+### Pobranie wszystkich powiadomień (z paginacją)
+GET http://localhost:4000/api/notifications?page=1&limit=10
+Authorization: Bearer TUTAJ_WSTAW_SWOJ_TOKEN
+Content-Type: application/json
+
+### Sprawdzenie liczby nieprzeczytanych powiadomień po wyświetleniu (powinno być 0)
+GET http://localhost:4000/api/notifications/unread-count
+Authorization: Bearer TUTAJ_WSTAW_SWOJ_TOKEN
+Content-Type: application/json
+
+### Dodanie nowego kursu (wyzwoli utworzenie powiadomień dla wszystkich użytkowników)
+POST http://localhost:4000/api/courses
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+{
+  "title": "qweqweqwe",
+  "category": "Testowanie",
+  "description": "Kurs do testowania systemu powiadomień"
+}
+
+### Sprawdzenie liczby nieprzeczytanych powiadomień (po dodaniu kursu)
+GET http://localhost:4000/api/notifications/unread-count
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+
+### Dodanie nowego powiadomienia 
+POST http://localhost:4000/api/notifications/admin
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+{
+  "title": "Ważna informacja od administratora",
+  "message": "Dzisiaj wieczorem system będzie niedostępny z powodu aktualizacji. Planowany czas niedostępności: 22:00-23:00."
+}

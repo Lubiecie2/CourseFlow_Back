@@ -23,6 +23,7 @@ const testBlockRouter = require("./routes/testBlock");
 const userTestRouter = require("./routes/userTest");
 const certificateRouter = require("./routes/certificate");
 const logsRoutes = require("./routes/logs");
+const notificationsRouter = require("./routes/notifications");
 
 var app = express();
 
@@ -81,6 +82,7 @@ app.use("/api", testBlockRouter);
 app.use("/api/userTest", userTestRouter);
 app.use("/api/certificates", certificateRouter);
 app.use("/api/logs", logsRoutes);
+app.use("/api/notifications", notificationsRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
