@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const UserLogsModel = require("../models/userLogsModel");
 
 const adminController = {
   getAllUsers: async (req, res) => {
@@ -53,7 +54,21 @@ const adminController = {
         });
       }
 
+      await UserLogsModel.setOperationContext(req.user.id);
+
+      const roles = await User.getAllRoles();
+      const userRole =
+        roles.find((r) => r.id === user.role_id)?.name || "unknown";
+
       await User.deleteById(id);
+
+      await UserLogsModel.logUserOperation(
+        id,
+        "USER_DELETED",
+        user.email,
+        null
+      );
+
       res.status(200).json({ message: "User deleted successfully." });
     } catch (err) {
       console.error("Error deleting user:", err.message);
@@ -102,7 +117,13 @@ const adminController = {
         });
       }
 
+      const oldRole =
+        roles.find((r) => r.id === user.role_id)?.name || "unknown";
+
+      await UserLogsModel.setOperationContext(req.user.id);
+
       await User.updateRole(id, roleId);
+
       res.status(200).json({ message: "User role updated successfully." });
     } catch (err) {
       console.error("Error updating user role:", err.message);

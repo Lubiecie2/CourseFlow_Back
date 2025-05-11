@@ -141,9 +141,12 @@ model users {
   certificates                                                         certificates[]
   courses                                                              courses[]
   notifications                                                        notifications[]
+  notifications                                                        notifications[]
   tests                                                                tests[]
   user_chapter                                                         user_chapter[]
   user_courses                                                         user_courses[]
+  user_logs_user_logs_changed_by_user_idTousers                        user_logs[]           @relation("user_logs_changed_by_user_idTousers")
+  user_logs_user_logs_user_idTousers                                   user_logs[]           @relation("user_logs_user_idTousers")
   user_logs_user_logs_changed_by_user_idTousers                        user_logs[]           @relation("user_logs_changed_by_user_idTousers")
   user_logs_user_logs_user_idTousers                                   user_logs[]           @relation("user_logs_user_idTousers")
   user_test_attempts                                                   user_test_attempts[]
