@@ -372,4 +372,128 @@ router.post("/login", authController.login);
  */
 router.get("/me", authMiddleware, authController.getUser);
 
+/**
+ * @swagger
+ * /api/auth/resetPasswordRequest:
+ *   post:
+ *     summary: Request password reset
+ *     description: Sends a password reset link to the user's email address if the account exists.
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "user@example.com"
+ *     responses:
+ *       200:
+ *         description: Reset link sent successfully (returned whether email exists or not for security).
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "If the provided email exists in our database, we have sent a password reset link."
+ *       400:
+ *         description: Email is required.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Email is required"
+ *       429:
+ *         description: Too many requests - rate limit exceeded.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Please wait before sending another password reset email."
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Server error"
+ */
+router.post("/resetPasswordRequest", authController.resetPasswordRequest);
+
+/**
+ * @swagger
+ * /api/auth/resetPassword:
+ *   post:
+ *     summary: Reset password with token
+ *     description: Resets user's password using a valid reset token.
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - token
+ *               - newPassword
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 example: "a1b2c3d4"
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 example: "newSecurePassword123"
+ *     responses:
+ *       200:
+ *         description: Password successfully reset.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Password has been successfully changed"
+ *       400:
+ *         description: Invalid request or token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Token is invalid or has expired"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Server error"
+ */
+router.post("/resetPassword", authController.resetPassword);
+
 module.exports = router;

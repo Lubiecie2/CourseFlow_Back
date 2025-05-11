@@ -1,5 +1,6 @@
 const db = require("./db");
 const bcrypt = require("bcryptjs");
+const { generateVerificationToken } = require("../utils/mailer");
 
 const User = {
   findByEmail: async (email) => {
@@ -90,30 +91,93 @@ const User = {
     return result.rows;
   },
 
-  verifyUser: async (email) => {
+  verifyUser: async (userId) => {
     const result = await db.query(
-      "UPDATE users SET is_verified = true WHERE id = $1 RETURNING id, email, is_verified, is_verified",
+      "UPDATE users SET is_verified = true WHERE id = $1 RETURNING id, email, is_verified",
       [userId]
     );
     return result.rows[0];
   },
 
-  createVerificationToken: async (userId, token) => {
+  createVerificationToken: async (userId, tokenHash) => {
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
     const result = await db.query(
       `INSERT INTO verification_tokens (user_id, verification_token, expires_at) 
-       VALUES ($1, $2, $3) RETURNING id`,
-      [userId, token, expiresAt]
+     VALUES ($1, $2, $3) RETURNING id`,
+      [userId, tokenHash, expiresAt]
     );
     return result.rows[0].id;
   },
 
   updateVerificationTokenId: async (userId, tokenId) => {
     const result = await db.query(
-      "UPDATE users SET verification_token_id = $1 WHERE id = $2 RETURNING id, email",
+      "UPDATE users SET verification_token_id = $1 WHERE id = $2 RETURNING id",
       [tokenId, userId]
     );
     return result.rows[0];
+  },
+
+  updateVerificationTokenForResend: async (userId) => {
+    const plainToken = generateVerificationToken();
+    const salt = await bcrypt.genSalt(10);
+    const tokenHash = await bcrypt.hash(plainToken, salt);
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
+    const existingToken = await db.query(
+      "SELECT id FROM verification_tokens WHERE user_id = $1",
+      [userId]
+    );
+
+    let tokenId;
+
+    if (existingToken.rows.length > 0) {
+      await db.query(
+        "UPDATE verification_tokens SET verification_token = $1, expires_at = $2, created_at = NOW() WHERE id = $3",
+        [tokenHash, expiresAt, existingToken.rows[0].id]
+      );
+      tokenId = existingToken.rows[0].id;
+    } else {
+      const newToken = await db.query(
+        `INSERT INTO verification_tokens (user_id, verification_token, expires_at) 
+         VALUES ($1, $2, $3) RETURNING id`,
+        [userId, tokenHash, expiresAt]
+      );
+      tokenId = newToken.rows[0].id;
+    }
+
+    await db.query(
+      "UPDATE users SET verification_token_id = $1 WHERE id = $2",
+      [tokenId, userId]
+    );
+
+    return { tokenId, plainToken };
+  },
+
+  getVerificationToken: async (userId) => {
+    const result = await db.query(
+      "SELECT * FROM verification_tokens WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1",
+      [userId]
+    );
+    return result.rows[0];
+  },
+
+  deleteVerificationToken: async (tokenId) => {
+    await db.query("DELETE FROM verification_tokens WHERE id = $1", [tokenId]);
+  },
+
+  resetVerificationToken: async (userId) => {
+    await db.query(
+      "UPDATE users SET verification_token_id = NULL WHERE id = $1",
+      [userId]
+    );
+  },
+
+  verifyToken: async (tokenHash, userCode) => {
+    return await bcrypt.compare(userCode, tokenHash);
+  },
+
+  isTokenExpired: (tokenExpiresAt) => {
+    return new Date(tokenExpiresAt) < new Date();
   },
 };
 
