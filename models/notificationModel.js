@@ -135,6 +135,40 @@ const NotificationModel = {
       return { success: false, error: error.message };
     }
   },
+
+  createNotificationWelcome: async (
+    userId,
+    title,
+    message,
+    type,
+    relatedEntityId = null
+  ) => {
+    try {
+      const query = `
+      INSERT INTO notifications (user_id, title, message, type, related_entity_id, created_at, is_read)
+      VALUES ($1, $2, $3, $4, $5, $6, FALSE)
+      RETURNING id
+    `;
+
+      const params = [
+        userId,
+        title,
+        message,
+        type,
+        relatedEntityId,
+        new Date(),
+      ];
+      const result = await db.query(query, params);
+
+      return {
+        success: true,
+        notificationId: result.rows[0].id,
+      };
+    } catch (error) {
+      console.error("Błąd podczas tworzenia powiadomienia:", error);
+      return { success: false, error: error.message };
+    }
+  },
 };
 
 module.exports = NotificationModel;

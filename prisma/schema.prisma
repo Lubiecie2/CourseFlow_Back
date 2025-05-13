@@ -138,15 +138,13 @@ model users {
   reset_password_token                                                 String?               @db.VarChar(255)
   reset_password_expires                                               DateTime?             @db.Time(6)
   last_password_change                                                 DateTime?             @db.Time(6)
+  first_login                                                          Boolean?              @default(true)
   certificates                                                         certificates[]
   courses                                                              courses[]
-  notifications                                                        notifications[]
   notifications                                                        notifications[]
   tests                                                                tests[]
   user_chapter                                                         user_chapter[]
   user_courses                                                         user_courses[]
-  user_logs_user_logs_changed_by_user_idTousers                        user_logs[]           @relation("user_logs_changed_by_user_idTousers")
-  user_logs_user_logs_user_idTousers                                   user_logs[]           @relation("user_logs_user_idTousers")
   user_logs_user_logs_changed_by_user_idTousers                        user_logs[]           @relation("user_logs_changed_by_user_idTousers")
   user_logs_user_logs_user_idTousers                                   user_logs[]           @relation("user_logs_user_idTousers")
   user_test_attempts                                                   user_test_attempts[]
