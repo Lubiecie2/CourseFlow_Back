@@ -11,6 +11,7 @@ const {
 const bcrypt = require("bcryptjs");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const NotificationModel = require("../models/notificationModel");
 
 const authController = {
   register: async (req, res) => {
@@ -85,6 +86,19 @@ const authController = {
         email: user.email,
         role: user.role,
       });
+
+      if (user.first_login) {
+        await NotificationModel.createNotificationWelcome(
+          user.id,
+          "Witaj w CourseFlow!",
+          "Dziękujemy za dołączenie do naszej platformy. Sprawdź dostępne kursy i rozpocznij swoją podróż edukacyjną!",
+          "WELCOME"
+        );
+        await prisma.users.update({
+          where: { id: user.id },
+          data: { first_login: false },
+        });
+      }
 
       const hours = 24;
       res
