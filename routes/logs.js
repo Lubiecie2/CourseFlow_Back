@@ -210,4 +210,106 @@ router.get(
   userLogsController.getUserLogs
 );
 
+/**
+ * @swagger
+ * /api/logs/courses:
+ *   get:
+ *     summary: Get course operation logs
+ *     description: Returns a list of logs related to course operations (create, update, delete)
+ *     tags: [Logs]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number (defaults to 1)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of logs per page (defaults to 15)
+ *       - in: query
+ *         name: fromDate
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: Start date for filtering (YYYY-MM-DDT00:00:00.000Z)
+ *       - in: query
+ *         name: toDate
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: End date for filtering (YYYY-MM-DDT23:59:59.999Z)
+ *       - in: query
+ *         name: courseId
+ *         schema:
+ *           type: integer
+ *         description: Filter by course ID
+ *     responses:
+ *       200:
+ *         description: List of course operation logs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 logs:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                       course_id:
+ *                         type: integer
+ *                       user_id:
+ *                         type: integer
+ *                       action_type:
+ *                         type: string
+ *                       old_value:
+ *                         type: string
+ *                       new_value:
+ *                         type: string
+ *                       course_title:
+ *                         type: string
+ *                       action_description:
+ *                         type: string
+ *                       created_at:
+ *                         type: string
+ *                         format: date-time
+ *                       user_email:
+ *                         type: string
+ *                       user_first_name:
+ *                         type: string
+ *                       user_last_name:
+ *                         type: string
+ *                 pagination:
+ *                   type: object
+ *                   properties:
+ *                     total:
+ *                       type: integer
+ *                     totalPages:
+ *                       type: integer
+ *                     currentPage:
+ *                       type: integer
+ *                     perPage:
+ *                       type: integer
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden - Admin access required
+ *       500:
+ *         description: Server error
+ */
+router.get(
+  "/courses",
+  authMiddleware,
+  checkAdmin,
+  userLogsController.getCourseLogs
+);
+
 module.exports = router;

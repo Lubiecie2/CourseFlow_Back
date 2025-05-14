@@ -114,6 +114,41 @@ const userLogsController = {
       });
     }
   },
+
+  getCourseLogs: async (req, res) => {
+    try {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 15;
+
+      const filters = {};
+      if (req.query.courseId) filters.courseId = parseInt(req.query.courseId);
+      if (req.query.fromDate) filters.fromDate = new Date(req.query.fromDate);
+      if (req.query.toDate) filters.toDate = new Date(req.query.toDate);
+
+      const result = await UserLogsModel.getCourseLogs(filters, page, limit);
+
+      if (!result.success) {
+        return res.status(500).json({
+          success: false,
+          message: "Wystąpił błąd podczas pobierania logów kursów",
+          error: result.error,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        logs: result.logs,
+        pagination: result.pagination,
+      });
+    } catch (error) {
+      console.error("Błąd kontrolera logów kursów:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas obsługi żądania",
+        error: error.message,
+      });
+    }
+  },
 };
 
 module.exports = userLogsController;
