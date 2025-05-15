@@ -25,6 +25,7 @@ const certificateRouter = require("./routes/certificate");
 const contactRoutes = require("./routes/contact");
 const logsRoutes = require("./routes/logs");
 const notificationsRouter = require("./routes/notifications");
+const partitionsRouter = require("./routes/partitions");
 
 var app = express();
 
@@ -85,6 +86,7 @@ app.use("/api/certificates", certificateRouter);
 app.use("/api/contact", contactRoutes);
 app.use("/api/logs", logsRoutes);
 app.use("/api/notifications", notificationsRouter);
+app.use("/api/partitions", partitionsRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

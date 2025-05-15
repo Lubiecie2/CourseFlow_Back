@@ -189,7 +189,7 @@ router.get("/users", authMiddleware, adminController.getAllUsers);
  *                       type: string
  *                       example: "Internal server error. Please try again later."
  */
-router.delete("/users/:id", authMiddleware, adminController.deleteUser);
+router.delete("/users/:userId", authMiddleware, adminController.deleteUser);
 
 /**
  * @swagger

@@ -83,4 +83,19 @@ function onListening() {
   var addr = server.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
+
+  // Uruchom scheduler partycji
+  const partitionService = require("../services/partitionService");
+  partitionService.startScheduler();
 }
+
+// Dodaj obsługę zatrzymania serwera
+process.on("SIGINT", () => {
+  console.log("Zatrzymywanie aplikacji...");
+
+  // Zatrzymaj scheduler partycji
+  const partitionService = require("../services/partitionService");
+  partitionService.stopScheduler();
+
+  process.exit(0);
+});

@@ -1,3 +1,5 @@
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 const User = require("../models/userModel");
 const UserLogsModel = require("../models/userLogsModel");
 
@@ -33,51 +35,47 @@ const adminController = {
 
   deleteUser: async (req, res) => {
     try {
-      const { id } = req.params;
+      const userId = parseInt(req.params.userId);
 
-      if (!id || isNaN(Number(id))) {
+      if (isNaN(userId)) {
         return res.status(400).json({
-          error: {
-            status: 400,
-            message: "Invalid user ID. It must be a numeric value.",
-          },
+          message: "Nieprawidłowy identyfikator użytkownika - musi być liczbą",
         });
       }
 
-      const user = await User.findById(id);
+      const user = await prisma.users.findUnique({
+        where: { id: userId },
+      });
+
       if (!user) {
-        return res.status(404).json({
-          error: {
-            status: 404,
-            message: "User not found.",
-          },
-        });
+        return res
+          .status(404)
+          .json({ message: "Użytkownik nie został znaleziony" });
       }
+
+      const userEmail = user.email;
 
       await UserLogsModel.setOperationContext(req.user.id);
 
-      const roles = await User.getAllRoles();
-      const userRole =
-        roles.find((r) => r.id === user.role_id)?.name || "unknown";
+      // await UserLogsModel.logUserOperation(
+      //   userId,
+      //   "USER_DELETED",
+      //   userEmail,
+      //   null
+      // );
 
-      await User.deleteById(id);
-
-      await UserLogsModel.logUserOperation(
-        id,
-        "USER_DELETED",
-        user.email,
-        null
-      );
-
-      res.status(200).json({ message: "User deleted successfully." });
-    } catch (err) {
-      console.error("Error deleting user:", err.message);
-      res.status(500).json({
-        error: {
-          status: 500,
-          message: "Internal server error. Please try again later.",
-        },
+      await prisma.users.delete({
+        where: { id: userId },
       });
+
+      return res
+        .status(200)
+        .json({ message: "Użytkownik został pomyślnie usunięty" });
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      return res
+        .status(500)
+        .json({ message: "Wystąpił błąd podczas usuwania użytkownika" });
     }
   },
 
