@@ -356,7 +356,7 @@ Content-Type: application/json
 
 ### Sprawdzenie liczby nieprzeczytanych powiadomień po wyświetleniu (powinno być 0)
 GET http://localhost:4000/api/notifications/unread-count
-Authorization: Bearer TUTAJ_WSTAW_SWOJ_TOKEN
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..5hMJuSj1PQUbwtei.vFDkZHyAfAfmX_ws_Owusxjs7_sVOrz79nqUPVSl2NlfjWLG7Ltr5hOPqbvBxKW_upD8tUvys1AuGNaVrGBmTZB5zxOkhKY94VtGsDo2ecJl8CDTZLbtsFYkuviv2iNHQqO2iUKGrxqNBBNxnOTsBIMEYadTHhAD1XNeXPL2uDjW0PQ.A3EbVjwyl2JQl_jwLXSHLw
 Content-Type: application/json
 
 ### Dodanie nowego kursu (wyzwoli utworzenie powiadomień dla wszystkich użytkowników)
@@ -384,4 +384,73 @@ Content-Type: application/json
 {
   "title": "Ważna informacja od administratora",
   "message": "Dzisiaj wieczorem system będzie niedostępny z powodu aktualizacji. Planowany czas niedostępności: 22:00-23:00."
+}
+
+
+
+
+### Generowanie tokenu 
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@testowy.pl",
+  "password": "Seaways2410"
+}
+
+### Pobieranie wszystkich pytań dla kursu
+GET http://localhost:4000/api/courses/4/questions?page=1&limit=10
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..70dBd7A_wi2dSnEq.XPbNGf6tQFfs8aMdjXo8JUsMEq5Iysh_TxlR2BagNoOupHwrLzGtFX5eSM3uRiWCf2bKvCZLBkYIAtWl8jiQMN8YCwnumhFImoTM7YjVSJGh6Os9VH78nndBi1GjyxtX0WegjLdwAQqNNQTlVTz2HcnX3YDimtEXiZgDEPrfMcBZLDY.FWnfyA3GqgSF94tkKu3Y5A
+Content-Type: application/json
+
+
+### Pobieranie pojedynczego pytania
+GET http://localhost:4000/api/questions/1
+Authorization: Bearer TUTAJ_WSTAW_SWOJ_TOKEN
+Content-Type: application/json
+
+### Tworzenie nowego pytania dla kursu
+POST http://localhost:4000/api/questions
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+{
+  "title": "Jak dodać nowy element do tablicy w JavaScript?",
+  "content": "Próbuję dodać nowy element na końcu tablicy w JavaScript. Jaką metodę powinienem użyć? Czy istnieje różnica między metodami push i unshift?",
+  "courseId": 4
+}
+
+### Tworzenie pytania ogólnego (bez przypisania do kursu)
+POST http://localhost:4000/api/questions
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+{
+  "title": "Jak działa mechanizm dziedziczenia w JavaScript?",
+  "content": "Czy ktoś może wyjaśnić, jak działa dziedziczenie prototypowe w JavaScript i czym różni się od dziedziczenia klasowego znanego z innych języków?"
+}
+
+
+### Wyszukiwanie pytań
+GET http://localhost:4000/api/questions?search=JavaScript&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+
+
+
+# ----------------------------------------------------------- ODPOWIEDZI DO PYTAŃ ----------------------------------------------------------------
+
+### Pobieranie odpowiedzi dla pytania
+GET http://localhost:4000/api/questions/3/answers
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+### Dodawanie nowej odpowiedzi
+POST http://localhost:4000/api/questions/3/answers
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+{
+  "content": "W JavaScript najlepszą metodą do dodawania elementu na końcu tablicy jest `push()`. Przykład użycia: `array.push(newElement)`. Metoda `unshift()` dodaje element na początku tablicy."
 }

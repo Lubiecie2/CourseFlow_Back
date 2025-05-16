@@ -46,6 +46,7 @@ model courses {
   chapters            chapters[]
   course_logs         course_logs[]
   course_logs_y202506 course_logs_y202506[]
+  course_questions    course_questions[]
   users               users?                @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   tests               tests[]
   user_courses        user_courses[]
@@ -142,8 +143,10 @@ model users {
   last_password_change                                                 DateTime?             @db.Time(6)
   first_login                                                          Boolean?              @default(true)
   certificates                                                         certificates[]
+  course_answers                                                       course_answers[]
   course_logs                                                          course_logs[]
   course_logs_y202506                                                  course_logs_y202506[]
+  course_questions                                                     course_questions[]
   courses                                                              courses[]
   notifications                                                        notifications[]
   tests                                                                tests[]
@@ -426,4 +429,36 @@ model user_logs_y202505 {
   @@index([action_type])
   @@index([created_at])
   @@index([user_id])
+}
+
+model course_questions {
+  id             Int              @id @default(autoincrement())
+  title          String           @db.VarChar(255)
+  content        String
+  user_id        Int
+  course_id      Int?
+  created_at     DateTime?        @default(now()) @db.Timestamp(6)
+  updated_at     DateTime?        @default(now()) @db.Timestamp(6)
+  views          Int?             @default(0)
+  course_answers course_answers[]
+  courses        courses?         @relation(fields: [course_id], references: [id], onUpdate: NoAction)
+  users          users            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([course_id])
+  @@index([user_id])
+}
+
+model course_answers {
+  id               Int              @id @default(autoincrement())
+  content          String
+  user_id          Int
+  question_id      Int
+  is_accepted      Boolean?         @default(false)
+  created_at       DateTime?        @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?        @default(now()) @db.Timestamp(6)
+  course_questions course_questions @relation(fields: [question_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users            users            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([question_id], map: "idx_course_answers_question_id")
+  @@index([user_id], map: "idx_course_answers_user_id")
 }

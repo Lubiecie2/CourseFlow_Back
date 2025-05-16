@@ -20,3 +20,5 @@ benchmarks/graphs
 uploads/
 
 gitstat_result.json
+
+example.http
