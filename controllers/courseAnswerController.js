@@ -42,6 +42,13 @@ const courseAnswerController = {
         });
       }
 
+      const io = req.app.get("io");
+      if (io) {
+        io.to(`question-${questionId}`).emit("new-answer", result.answer);
+      } else {
+        console.warn("Socket.io nie jest dostępny w aplikacji");
+      }
+
       return res.status(201).json({
         success: true,
         message: "Odpowiedź została pomyślnie utworzona",

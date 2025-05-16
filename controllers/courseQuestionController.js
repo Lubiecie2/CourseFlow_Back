@@ -99,6 +99,13 @@ const courseQuestionController = {
         });
       }
 
+      const io = req.app.get("io");
+      if (io) {
+        io.emit("new-question", result.question);
+      } else {
+        console.warn("Socket.io nie jest dostępny w aplikacji");
+      }
+
       return res.status(201).json({
         success: true,
         message: "Pytanie zostało pomyślnie utworzone",

@@ -5,19 +5,36 @@ const courseAnswerModel = {
     try {
       const { content, userId, questionId } = data;
 
-      const query = `
+      const insertQuery = `
         INSERT INTO course_answers (content, user_id, question_id, created_at, updated_at)
         VALUES ($1, $2, $3, NOW(), NOW())
-        RETURNING id, content, user_id, question_id, is_accepted, created_at, updated_at
+        RETURNING id
       `;
 
-      const result = await db.query(query, [content, userId, questionId]);
+      const insertResult = await db.query(insertQuery, [
+        content,
+        userId,
+        questionId,
+      ]);
 
-      if (result.rows.length === 0) {
+      if (insertResult.rows.length === 0) {
         return { success: false, error: "Nie udało się utworzyć odpowiedzi" };
       }
 
-      return { success: true, answer: result.rows[0] };
+      const answerId = insertResult.rows[0].id;
+
+      const fullDataQuery = `
+        SELECT 
+          a.id, a.content, a.user_id, a.question_id, a.is_accepted, a.created_at, a.updated_at,
+          u.first_name, u.last_name, u.email
+        FROM course_answers a
+        JOIN users u ON a.user_id = u.id
+        WHERE a.id = $1
+      `;
+
+      const fullDataResult = await db.query(fullDataQuery, [answerId]);
+
+      return { success: true, answer: fullDataResult.rows[0] };
     } catch (error) {
       console.error("Błąd podczas tworzenia odpowiedzi:", error);
       return { success: false, error: error.message };
