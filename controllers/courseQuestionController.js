@@ -156,6 +156,92 @@ const courseQuestionController = {
       });
     }
   },
+
+  deleteQuestion: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const userId = req.user.id;
+      const isAdmin = req.user.role_id === 1;
+
+      const result = await courseQuestionModel.deleteQuestion(
+        id,
+        userId,
+        isAdmin
+      );
+
+      if (!result.success) {
+        const statusCode = result.message.includes("uprawnień") ? 403 : 404;
+        return res.status(statusCode).json({
+          success: false,
+          message: result.message,
+        });
+      }
+
+      const io = req.app.get("io");
+      if (io) {
+        io.emit("question-removed", id);
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: result.message,
+      });
+    } catch (error) {
+      console.error("Błąd w kontrolerze pytań:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas usuwania pytania",
+        error: error.message,
+      });
+    }
+  },
+
+  updateQuestion: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { title, content } = req.body;
+      const userId = req.user.id;
+
+      if (!title || !content) {
+        return res.status(400).json({
+          success: false,
+          message: "Tytuł i treść pytania są wymagane",
+        });
+      }
+
+      const result = await courseQuestionModel.updateQuestion(
+        id,
+        { title, content },
+        userId
+      );
+
+      if (!result.success) {
+        const statusCode = result.message.includes("uprawnień") ? 403 : 404;
+        return res.status(statusCode).json({
+          success: false,
+          message: result.message,
+        });
+      }
+
+      const io = req.app.get("io");
+      if (io) {
+        io.to(`question-${id}`).emit("question-updated", result.question);
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: result.message,
+        question: result.question,
+      });
+    } catch (error) {
+      console.error("Błąd w kontrolerze pytań:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas aktualizacji pytania",
+        error: error.message,
+      });
+    }
+  },
 };
 
 module.exports = courseQuestionController;

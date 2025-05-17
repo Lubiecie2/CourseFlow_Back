@@ -157,6 +157,99 @@ const courseQuestionModel = {
       };
     }
   },
+
+  deleteQuestion: async (questionId, userId, isAdmin = false) => {
+    try {
+      const question = await prisma.course_questions.findUnique({
+        where: { id: parseInt(questionId) },
+        select: { user_id: true },
+      });
+
+      if (!question) {
+        return {
+          success: false,
+          message: "Pytanie nie zostało znalezione",
+        };
+      }
+
+      const questionUserId = question.user_id;
+
+      if (questionUserId !== userId && !isAdmin) {
+        return {
+          success: false,
+          message: "Nie masz uprawnień do usunięcia tego pytania",
+        };
+      }
+
+      await prisma.course_answers.deleteMany({
+        where: { question_id: parseInt(questionId) },
+      });
+
+      await prisma.course_questions.delete({
+        where: { id: parseInt(questionId) },
+      });
+
+      return {
+        success: true,
+        message:
+          "Pytanie zostało pomyślnie usunięte wraz ze wszystkimi odpowiedziami",
+      };
+    } catch (error) {
+      console.error(`Błąd podczas usuwania pytania ${questionId}:`, error);
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+  },
+
+  updateQuestion: async (questionId, data, userId) => {
+    try {
+      const { title, content } = data;
+
+      const question = await prisma.course_questions.findUnique({
+        where: { id: parseInt(questionId) },
+        select: { user_id: true },
+      });
+
+      if (!question) {
+        return {
+          success: false,
+          message: "Pytanie nie zostało znalezione",
+        };
+      }
+
+      const questionUserId = question.user_id;
+
+      if (questionUserId !== userId) {
+        return {
+          success: false,
+          message: "Nie masz uprawnień do edycji tego pytania",
+        };
+      }
+
+      const updatedQuestion = await prisma.course_questions.update({
+        where: { id: parseInt(questionId) },
+        data: {
+          title,
+          content,
+          updated_at: new Date(),
+        },
+      });
+
+      return {
+        success: true,
+        message: "Pytanie zostało pomyślnie zaktualizowane",
+        question: updatedQuestion,
+      };
+    } catch (error) {
+      console.error(`Błąd podczas aktualizacji pytania ${questionId}:`, error);
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+  },
 };
 
 module.exports = courseQuestionModel;

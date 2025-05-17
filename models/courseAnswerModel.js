@@ -68,7 +68,15 @@ const courseAnswerModel = {
 
       return {
         success: true,
-        answers: result.rows,
+        answers: result.rows.map((answer) => ({
+          ...answer,
+          user: {
+            id: answer.user_id,
+            first_name: answer.first_name,
+            last_name: answer.last_name,
+            email: answer.email,
+          },
+        })),
         pagination: {
           total,
           page,
@@ -105,6 +113,129 @@ const courseAnswerModel = {
       return { success: true, answer: result.rows[0] };
     } catch (error) {
       console.error(`Błąd podczas pobierania odpowiedzi ${id}:`, error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  deleteAnswer: async (answerId, userId, isAdmin = false) => {
+    try {
+      const checkQuery = `
+        SELECT user_id FROM course_answers WHERE id = $1
+      `;
+
+      const checkResult = await db.query(checkQuery, [answerId]);
+
+      if (checkResult.rows.length === 0) {
+        return {
+          success: false,
+          message: "Odpowiedź nie została znaleziona",
+        };
+      }
+
+      const answerUserId = checkResult.rows[0].user_id;
+
+      if (answerUserId !== userId && !isAdmin) {
+        return {
+          success: false,
+          message: "Nie masz uprawnień do usunięcia tej odpowiedzi",
+        };
+      }
+
+      const deleteQuery = `
+        DELETE FROM course_answers 
+        WHERE id = $1
+        RETURNING id
+      `;
+
+      const deleteResult = await db.query(deleteQuery, [answerId]);
+
+      if (deleteResult.rows.length === 0) {
+        return {
+          success: false,
+          message: "Nie udało się usunąć odpowiedzi",
+        };
+      }
+
+      return {
+        success: true,
+        message: "Odpowiedź została pomyślnie usunięta",
+      };
+    } catch (error) {
+      console.error(`Błąd podczas usuwania odpowiedzi ${answerId}:`, error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  updateAnswer: async (answerId, content, userId) => {
+    try {
+      const checkQuery = `
+        SELECT user_id FROM course_answers 
+        WHERE id = $1
+      `;
+
+      const checkResult = await db.query(checkQuery, [answerId]);
+
+      if (checkResult.rows.length === 0) {
+        return {
+          success: false,
+          message: "Odpowiedź nie została znaleziona",
+        };
+      }
+
+      const answerUserId = checkResult.rows[0].user_id;
+
+      if (answerUserId !== userId) {
+        return {
+          success: false,
+          message: "Nie masz uprawnień do edycji tej odpowiedzi",
+        };
+      }
+
+      const updateQuery = `
+        UPDATE course_answers 
+        SET content = $1, updated_at = NOW() 
+        WHERE id = $2
+        RETURNING id
+      `;
+
+      const updateResult = await db.query(updateQuery, [content, answerId]);
+
+      if (updateResult.rows.length === 0) {
+        return {
+          success: false,
+          message: "Nie udało się zaktualizować odpowiedzi",
+        };
+      }
+
+      const fullDataQuery = `
+        SELECT 
+          a.id, a.content, a.user_id, a.question_id, a.is_accepted, a.created_at, a.updated_at,
+          u.first_name, u.last_name, u.email
+        FROM course_answers a
+        JOIN users u ON a.user_id = u.id
+        WHERE a.id = $1
+      `;
+
+      const fullDataResult = await db.query(fullDataQuery, [answerId]);
+
+      const answer = fullDataResult.rows[0];
+      const formattedAnswer = {
+        ...answer,
+        user: {
+          id: answer.user_id,
+          first_name: answer.first_name,
+          last_name: answer.last_name,
+          email: answer.email,
+        },
+      };
+
+      return {
+        success: true,
+        message: "Odpowiedź została pomyślnie zaktualizowana",
+        answer: formattedAnswer,
+      };
+    } catch (error) {
+      console.error(`Błąd podczas aktualizacji odpowiedzi ${answerId}:`, error);
       return { success: false, error: error.message };
     }
   },

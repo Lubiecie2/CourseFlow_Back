@@ -135,6 +135,37 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Klient rozłączony:", socket.id);
   });
+
+  socket.on("question-edited", (updatedQuestion) => {
+    io.to(`question-${updatedQuestion.id}`).emit(
+      "question-updated",
+      updatedQuestion
+    );
+    io.to("questions-list").emit("question-updated", updatedQuestion);
+    console.log(
+      `Klient ${socket.id} zaktualizował treść pytania ${updatedQuestion.id}`
+    );
+  });
+
+  socket.on("question-deleted", (questionId) => {
+    io.to(`question-${questionId}`).emit("question-removed", questionId);
+    io.to("questions-list").emit("question-removed", questionId);
+    console.log(`Klient ${socket.id} usunął pytanie ${questionId}`);
+  });
+
+  socket.on("answer-edited", (updatedAnswer) => {
+    socket
+      .to(`question-${updatedAnswer.question_id}`)
+      .emit("answer-updated", updatedAnswer);
+    console.log(
+      `Klient ${socket.id} zaktualizowal treśc odpowiedzi ${updatedAnswer.id}`
+    );
+  });
+
+  socket.on("answer-deleted", (data) => {
+    io.to(`question-${data.questionId}`).emit("answer-removed", data.answerId);
+    console.log(`Klient ${socket.id} usunął odpowiedź ${data.answerId}`);
+  });
 });
 
 app.set("io", io);
