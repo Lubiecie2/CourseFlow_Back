@@ -3,6 +3,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const path = require("path");
 const fs = require("fs");
+const cacheService = require("../services/cacheServices");
+const COURSES_CACHE_KEY = "courses:all";
 
 const courseController = {
   createCourse: async (req, res) => {
@@ -32,6 +34,8 @@ const courseController = {
 
       const course = await courseModel.createCourse(courseData);
 
+      await cacheService.invalidate(COURSES_CACHE_KEY);
+
       return res.status(201).json({
         message: "Wizytówka kursu została pomyślnie utworzona",
         course,
@@ -46,12 +50,21 @@ const courseController = {
 
   getAllCourses: async (req, res) => {
     try {
-      console.log("Attempting to fetch courses...");
+      console.log("Zapytanie o kursy otrzymane, sprawdzam cache...");
 
-      const courses = await prisma.courses.findMany();
+      const data = await cacheService.getOrSet(
+        COURSES_CACHE_KEY,
+        async () => {
+          console.log("Cache miss - pobieranie kursów z bazy danych");
+          return await prisma.courses.findMany({
+            orderBy: { created_at: "desc" },
+          });
+        },
+        900
+      );
 
-      console.log(`Successfully fetched ${courses.length} courses`);
-      res.json(courses);
+      console.log(`Zwracam ${data.length} kursów do klienta`);
+      res.json(data);
     } catch (error) {
       console.error("Error details:", error);
       res.status(500).json({
@@ -65,37 +78,53 @@ const courseController = {
     try {
       const { id } = req.params;
 
-      console.log(`Attempting to fetch course with ID: ${id}`);
+      console.log(`Otrzymano zapytanie o kurs z ID: ${id}`);
 
       if (!id || isNaN(parseInt(id))) {
-        console.log("Invalid course ID format");
+        console.log("Nieprawidłowy format ID kursu");
         return res.status(400).json({ message: "Nieprawidłowe ID kursu" });
       }
-      const course = await prisma.courses.findUnique({
-        where: {
-          id: parseInt(id),
-        },
-        include: {
-          users: {
-            select: {
-              id: true,
-              first_name: true,
-              last_name: true,
+
+      const COURSE_CACHE_KEY = `courses:id:${id}`;
+
+      const course = await cacheService.getOrSet(
+        COURSE_CACHE_KEY,
+        async () => {
+          console.log(`Cache miss - pobieranie kursu ${id} z bazy danych`);
+          const courseData = await prisma.courses.findUnique({
+            where: {
+              id: parseInt(id),
             },
-          },
-          chapters: true,
+            include: {
+              users: {
+                select: {
+                  id: true,
+                  first_name: true,
+                  last_name: true,
+                },
+              },
+              chapters: true,
+            },
+          });
+
+          if (!courseData) {
+            return null;
+          }
+
+          return courseData;
         },
-      });
+        600
+      );
 
       if (!course) {
-        console.log(`Course with ID ${id} not found`);
+        console.log(`Kurs o ID ${id} nie został znaleziony`);
         return res.status(404).json({ message: "Kurs nie został znaleziony" });
       }
 
-      console.log(`Successfully fetched course with ID: ${id}`);
+      console.log(`Pomyślnie pobrano kurs o ID: ${id}`);
       res.status(200).json(course);
     } catch (error) {
-      console.error("Error fetching course:", error);
+      console.error("Błąd podczas pobierania kursu:", error);
       res.status(500).json({
         message: "Wystąpił błąd podczas pobierania kursu",
         error: error.message,
@@ -141,6 +170,9 @@ const courseController = {
         parseInt(id),
         updateData
       );
+
+      await cacheService.invalidate(COURSES_CACHE_KEY);
+      await cacheService.invalidate(`courses:id:${id}`);
 
       return res.status(200).json({
         message: "Kurs został zaktualizowany pomyślnie",
@@ -191,6 +223,9 @@ const courseController = {
           error: result.error,
         });
       }
+
+      await cacheService.invalidate(COURSES_CACHE_KEY);
+      await cacheService.invalidate(`courses:id:${id}`);
 
       return res.status(200).json({
         success: true,

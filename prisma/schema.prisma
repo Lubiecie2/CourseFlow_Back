@@ -33,23 +33,22 @@ model chapters {
 }
 
 model courses {
-  id                  Int                   @id @default(autoincrement())
-  user_id             Int?
-  title               String                @db.VarChar(255)
-  short_description   String?
-  course_image        String?
-  category            String?               @db.VarChar(255)
-  is_published        Boolean?              @default(false)
-  created_at          DateTime?             @default(now()) @db.Timestamp(6)
-  updated_at          DateTime?             @default(now()) @db.Timestamp(6)
-  certificates        certificates[]
-  chapters            chapters[]
-  course_logs         course_logs[]
-  course_logs_y202506 course_logs_y202506[]
-  course_questions    course_questions[]
-  users               users?                @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  tests               tests[]
-  user_courses        user_courses[]
+  id                Int                @id @default(autoincrement())
+  user_id           Int?
+  title             String             @db.VarChar(255)
+  short_description String?
+  course_image      String?
+  category          String?            @db.VarChar(255)
+  is_published      Boolean?           @default(false)
+  created_at        DateTime?          @default(now()) @db.Timestamp(6)
+  updated_at        DateTime?          @default(now()) @db.Timestamp(6)
+  certificates      certificates[]
+  chapters          chapters[]
+  course_logs       course_logs[]
+  course_questions  course_questions[]
+  users             users?             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tests             tests[]
+  user_courses      user_courses[]
 }
 
 model permissions {
@@ -145,7 +144,6 @@ model users {
   certificates                                                         certificates[]
   course_answers                                                       course_answers[]
   course_logs                                                          course_logs[]
-  course_logs_y202506                                                  course_logs_y202506[]
   course_questions                                                     course_questions[]
   courses                                                              courses[]
   notifications                                                        notifications[]
@@ -154,14 +152,6 @@ model users {
   user_courses                                                         user_courses[]
   user_logs_user_logs_changed_by_user_idTousers                        user_logs[]           @relation("user_logs_changed_by_user_idTousers")
   user_logs_user_logs_user_idTousers                                   user_logs[]           @relation("user_logs_user_idTousers")
-  user_logs_y202505_user_logs_y202505_changed_by_user_idTousers        user_logs_y202505[]   @relation("user_logs_y202505_changed_by_user_idTousers")
-  user_logs_y202505_user_logs_y202505_user_idTousers                   user_logs_y202505[]   @relation("user_logs_y202505_user_idTousers")
-  user_logs_y202507_user_logs_y202507_changed_by_user_idTousers        user_logs_y202507[]   @relation("user_logs_y202507_changed_by_user_idTousers")
-  user_logs_y202507_user_logs_y202507_user_idTousers                   user_logs_y202507[]   @relation("user_logs_y202507_user_idTousers")
-  user_logs_y202508_user_logs_y202508_changed_by_user_idTousers        user_logs_y202508[]   @relation("user_logs_y202508_changed_by_user_idTousers")
-  user_logs_y202508_user_logs_y202508_user_idTousers                   user_logs_y202508[]   @relation("user_logs_y202508_user_idTousers")
-  user_logs_y202509_user_logs_y202509_changed_by_user_idTousers        user_logs_y202509[]   @relation("user_logs_y202509_changed_by_user_idTousers")
-  user_logs_y202509_user_logs_y202509_user_idTousers                   user_logs_y202509[]   @relation("user_logs_y202509_user_idTousers")
   user_test_attempts                                                   user_test_attempts[]
   roles                                                                roles?                @relation(fields: [role_id], references: [id], onUpdate: NoAction, map: "fk_role_id")
   verification_tokens_users_verification_token_idToverification_tokens verification_tokens?  @relation("users_verification_token_idToverification_tokens", fields: [verification_token_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_id_verificationtoken_fkey")
@@ -327,108 +317,13 @@ model course_logs {
   course_title       String?  @db.VarChar(255)
   action_description String?
   created_at         DateTime @default(now()) @db.Timestamp(6)
-  courses            courses? @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_course_logs_courses")
+  courses            courses? @relation(fields: [course_id], references: [id], onUpdate: NoAction, map: "fk_course_logs_courses")
   users              users?   @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_course_logs_users")
 
   @@id([id, created_at])
   @@index([course_id], map: "idx_course_logs_course_id")
   @@index([created_at], map: "idx_course_logs_created_at")
   @@index([user_id], map: "idx_course_logs_user_id")
-}
-
-model user_logs_y202507 {
-  id                                                Int      @default(autoincrement())
-  action_type                                       String   @db.VarChar(50)
-  user_id                                           Int?
-  changed_by_user_id                                Int?
-  old_value                                         String?
-  new_value                                         String?
-  created_at                                        DateTime @default(now()) @db.Timestamp(6)
-  users_user_logs_y202507_changed_by_user_idTousers users?   @relation("user_logs_y202507_changed_by_user_idTousers", fields: [changed_by_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_logs_changed_by_user_id")
-  users_user_logs_y202507_user_idTousers            users?   @relation("user_logs_y202507_user_idTousers", fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_user_logs_user_id")
-
-  @@id([id, created_at])
-  @@index([action_type, created_at], map: "idx_user_logs_y202507_action_type")
-  @@index([user_id, created_at], map: "idx_user_logs_y202507_user_id")
-  @@index([action_type])
-  @@index([created_at])
-  @@index([user_id])
-}
-
-model user_logs_y202508 {
-  id                                                Int      @default(autoincrement())
-  action_type                                       String   @db.VarChar(50)
-  user_id                                           Int?
-  changed_by_user_id                                Int?
-  old_value                                         String?
-  new_value                                         String?
-  created_at                                        DateTime @default(now()) @db.Timestamp(6)
-  users_user_logs_y202508_changed_by_user_idTousers users?   @relation("user_logs_y202508_changed_by_user_idTousers", fields: [changed_by_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_logs_changed_by_user_id")
-  users_user_logs_y202508_user_idTousers            users?   @relation("user_logs_y202508_user_idTousers", fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_user_logs_user_id")
-
-  @@id([id, created_at])
-  @@index([action_type, created_at], map: "idx_user_logs_y202508_action_type")
-  @@index([user_id, created_at], map: "idx_user_logs_y202508_user_id")
-  @@index([action_type])
-  @@index([created_at])
-  @@index([user_id])
-}
-
-model user_logs_y202509 {
-  id                                                Int      @default(autoincrement())
-  action_type                                       String   @db.VarChar(50)
-  user_id                                           Int?
-  changed_by_user_id                                Int?
-  old_value                                         String?
-  new_value                                         String?
-  created_at                                        DateTime @default(now()) @db.Timestamp(6)
-  users_user_logs_y202509_changed_by_user_idTousers users?   @relation("user_logs_y202509_changed_by_user_idTousers", fields: [changed_by_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_logs_changed_by_user_id")
-  users_user_logs_y202509_user_idTousers            users?   @relation("user_logs_y202509_user_idTousers", fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_user_logs_user_id")
-
-  @@id([id, created_at])
-  @@index([action_type, created_at], map: "idx_user_logs_y202509_action_type")
-  @@index([user_id, created_at], map: "idx_user_logs_y202509_user_id")
-  @@index([action_type])
-  @@index([created_at])
-  @@index([user_id])
-}
-
-model course_logs_y202506 {
-  id                 Int      @default(autoincrement())
-  course_id          Int?
-  user_id            Int?
-  action_type        String   @db.VarChar(50)
-  old_value          String?
-  new_value          String?
-  course_title       String?  @db.VarChar(255)
-  action_description String?
-  created_at         DateTime @default(now()) @db.Timestamp(6)
-  courses            courses? @relation(fields: [course_id], references: [id], onUpdate: NoAction, map: "fk_course_logs_courses")
-  users              users?   @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_course_logs_users")
-
-  @@id([id, created_at])
-  @@index([course_id])
-  @@index([created_at])
-  @@index([user_id])
-}
-
-model user_logs_y202505 {
-  id                                                Int      @default(autoincrement())
-  action_type                                       String   @db.VarChar(50)
-  user_id                                           Int?
-  changed_by_user_id                                Int?
-  old_value                                         String?
-  new_value                                         String?
-  created_at                                        DateTime @default(now()) @db.Timestamp(6)
-  users_user_logs_y202505_changed_by_user_idTousers users?   @relation("user_logs_y202505_changed_by_user_idTousers", fields: [changed_by_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_logs_changed_by_user_id")
-  users_user_logs_y202505_user_idTousers            users?   @relation("user_logs_y202505_user_idTousers", fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_user_logs_user_id")
-
-  @@id([id, created_at])
-  @@index([action_type, created_at], map: "idx_user_logs_y202505_action_type")
-  @@index([user_id, created_at], map: "idx_user_logs_y202505_user_id")
-  @@index([action_type])
-  @@index([created_at])
-  @@index([user_id])
 }
 
 model course_questions {

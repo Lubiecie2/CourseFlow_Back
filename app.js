@@ -6,6 +6,7 @@ var logger = require("morgan");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const bcrypt = require("bcryptjs");
+const { connectRedis } = require("./config/redis");
 
 const cors = require("cors");
 const pool = require("./models/db");
@@ -95,5 +96,7 @@ app.use("/api", courseAnswerRoutes);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
+connectRedis();
 
 module.exports = app;

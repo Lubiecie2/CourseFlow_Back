@@ -1,7 +1,8 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
 const User = require("../models/userModel");
 const UserLogsModel = require("../models/userLogsModel");
+const cacheService = require("../services/cacheServices");
+
+const USERS_CACHE_KEY = "admin:all_users";
 
 const adminController = {
   getAllUsers: async (req, res) => {
@@ -18,10 +19,24 @@ const adminController = {
         });
       }
 
-      let users = query ? await User.searchUsers(query) : await User.findAll();
-      const roles = await User.getAllRoles();
+      if (query) {
+        let users = await User.searchUsers(query);
+        const roles = await User.getAllRoles();
+        return res.json({ users, roles });
+      }
 
-      return res.json({ users, roles });
+      const data = await cacheService.getOrSet(
+        USERS_CACHE_KEY,
+        async () => {
+          console.log("Cache miss - pobieranie użytkowników z bazy danych");
+          const users = await User.findAll();
+          const roles = await User.getAllRoles();
+          return { users, roles };
+        },
+        600
+      );
+
+      return res.json(data);
     } catch (err) {
       console.error("Error fetching users:", err.message);
       res.status(500).json({
@@ -43,9 +58,7 @@ const adminController = {
         });
       }
 
-      const user = await prisma.users.findUnique({
-        where: { id: userId },
-      });
+      const user = await User.findById(userId);
 
       if (!user) {
         return res
@@ -64,9 +77,11 @@ const adminController = {
       //   null
       // );
 
-      await prisma.users.delete({
-        where: { id: userId },
-      });
+      await User.deleteById(userId);
+
+      await cacheService.invalidate(USERS_CACHE_KEY);
+
+      await UserLogsModel.setOperationContext(null);
 
       return res
         .status(200)
@@ -121,6 +136,8 @@ const adminController = {
       await UserLogsModel.setOperationContext(req.user.id);
 
       await User.updateRole(id, roleId);
+
+      await cacheService.invalidate(USERS_CACHE_KEY);
 
       res.status(200).json({ message: "User role updated successfully." });
     } catch (err) {

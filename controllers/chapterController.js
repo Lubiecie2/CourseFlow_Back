@@ -2,6 +2,7 @@
 const chapterModel = require("../models/chapterModel");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const cacheService = require("../services/cacheServices");
 
 const chapterController = {
   createChapter: async (req, res) => {
@@ -48,6 +49,8 @@ const chapterController = {
 
       console.log("Utworzono rozdział:", newChapter);
 
+      await cacheService.invalidate(`chapters:course:${courseId}`);
+
       return res.status(201).json({
         success: true,
         chapter: newChapter,
@@ -88,6 +91,9 @@ const chapterController = {
 
       const updatedChapter = await chapterModel.getChapter(chapterId, courseId);
 
+      await cacheService.invalidate(`chapters:course:${courseId}`);
+      await cacheService.invalidate(`chapter:${chapterId}:course:${courseId}`);
+
       return res.status(200).json({
         success: true,
         message: "Rozdział został zaktualizowany",
@@ -109,21 +115,37 @@ const chapterController = {
 
       console.log("Pobieranie rozdziałów dla kursu:", courseId);
 
-      const courseExists = await prisma.courses.findUnique({
-        where: { id: parseInt(courseId) },
-      });
+      const CHAPTERS_CACHE_KEY = `chapters:course:${courseId}`;
 
-      if (!courseExists) {
+      const chapters = await cacheService.getOrSet(
+        CHAPTERS_CACHE_KEY,
+        async () => {
+          console.log(
+            `Cache miss - pobieranie rozdziałów dla kursu ${courseId}`
+          );
+
+          const courseExists = await prisma.courses.findUnique({
+            where: { id: parseInt(courseId) },
+          });
+
+          if (!courseExists) {
+            return { notFound: true };
+          }
+
+          return await prisma.chapters.findMany({
+            where: { course_id: parseInt(courseId) },
+            orderBy: { id: "asc" },
+          });
+        },
+        300
+      );
+
+      if (chapters.notFound) {
         return res.status(404).json({
           success: false,
           message: "Kurs o podanym ID nie istnieje",
         });
       }
-
-      const chapters = await prisma.chapters.findMany({
-        where: { course_id: parseInt(courseId) },
-        orderBy: { id: "asc" },
-      });
 
       console.log("Pobrano rozdziały:", chapters.length);
       return res.status(200).json(chapters);
@@ -140,7 +162,16 @@ const chapterController = {
     try {
       const { courseId, chapterId } = req.params;
 
-      const chapter = await chapterModel.getChapter(chapterId, courseId);
+      const CHAPTER_CACHE_KEY = `chapter:${chapterId}:course:${courseId}`;
+
+      const chapter = await cacheService.getOrSet(
+        CHAPTER_CACHE_KEY,
+        async () => {
+          console.log(`Cache miss - pobieranie rozdziału ${chapterId}`);
+          return await chapterModel.getChapter(chapterId, courseId);
+        },
+        300
+      );
 
       if (!chapter) {
         return res.status(404).json({
@@ -176,6 +207,9 @@ const chapterController = {
         });
       }
 
+      await cacheService.invalidate(`chapters:course:${courseId}`);
+      await cacheService.invalidate(`chapter:${chapterId}:course:${courseId}`);
+
       return res.status(200).json({
         success: true,
         message: "Rozdział został pomyślnie usunięty",
@@ -191,6 +225,8 @@ const chapterController = {
   },
   uploadChapterImage: async (req, res) => {
     try {
+      const { courseId, chapterId } = req.params;
+
       if (!req.file) {
         return res.status(400).json({
           success: false,
@@ -200,6 +236,13 @@ const chapterController = {
 
       const filePath = req.file.path;
       const fileName = req.file.filename;
+
+      if (courseId && chapterId) {
+        await cacheService.invalidate(`chapters:course:${courseId}`);
+        await cacheService.invalidate(
+          `chapter:${chapterId}:course:${courseId}`
+        );
+      }
 
       return res.status(200).json({
         success: true,
@@ -217,6 +260,8 @@ const chapterController = {
   },
   uploadChapterVideo: async (req, res) => {
     try {
+      const { courseId, chapterId } = req.params;
+
       if (!req.file) {
         return res.status(400).json({
           success: false,
@@ -226,6 +271,13 @@ const chapterController = {
 
       const filePath = req.file.path;
       const fileName = req.file.filename;
+
+      if (courseId && chapterId) {
+        await cacheService.invalidate(`chapters:course:${courseId}`);
+        await cacheService.invalidate(
+          `chapter:${chapterId}:course:${courseId}`
+        );
+      }
 
       return res.status(200).json({
         success: true,
