@@ -22,7 +22,38 @@ pool.query("SELECT NOW()", (err, res) => {
   }
 });
 
+const beginTransaction = async () => {
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    return client;
+  } catch (error) {
+    client.release();
+    console.error("Błąd rozpoczęcia transakcji:", error);
+    throw error;
+  }
+};
+
+const commitTransaction = async (client) => {
+  try {
+    await client.query("COMMIT");
+  } finally {
+    client.release();
+  }
+};
+
+const rollbackTransaction = async (client) => {
+  try {
+    await client.query("ROLLBACK");
+  } finally {
+    client.release();
+  }
+};
+
 module.exports = {
   query: (text, params) => pool.query(text, params),
   pool,
+  beginTransaction,
+  commitTransaction,
+  rollbackTransaction,
 };

@@ -117,15 +117,22 @@ const courseAnswerModel = {
     }
   },
 
+  // ================================================================================
+  // ==============================   TRANSAKCJA   ==================================
+  // ================================================================================
+
   deleteAnswer: async (answerId, userId, isAdmin = false) => {
+    const client = await db.beginTransaction();
+
     try {
       const checkQuery = `
-        SELECT user_id FROM course_answers WHERE id = $1
-      `;
+      SELECT user_id FROM course_answers WHERE id = $1
+    `;
 
-      const checkResult = await db.query(checkQuery, [answerId]);
+      const checkResult = await client.query(checkQuery, [answerId]);
 
       if (checkResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Odpowiedź nie została znaleziona",
@@ -135,6 +142,7 @@ const courseAnswerModel = {
       const answerUserId = checkResult.rows[0].user_id;
 
       if (answerUserId !== userId && !isAdmin) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Nie masz uprawnień do usunięcia tej odpowiedzi",
@@ -142,40 +150,50 @@ const courseAnswerModel = {
       }
 
       const deleteQuery = `
-        DELETE FROM course_answers 
-        WHERE id = $1
-        RETURNING id
-      `;
+      DELETE FROM course_answers 
+      WHERE id = $1
+      RETURNING id
+    `;
 
-      const deleteResult = await db.query(deleteQuery, [answerId]);
+      const deleteResult = await client.query(deleteQuery, [answerId]);
 
       if (deleteResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Nie udało się usunąć odpowiedzi",
         };
       }
 
+      await db.commitTransaction(client);
+
       return {
         success: true,
         message: "Odpowiedź została pomyślnie usunięta",
       };
     } catch (error) {
+      await db.rollbackTransaction(client);
       console.error(`Błąd podczas usuwania odpowiedzi ${answerId}:`, error);
       return { success: false, error: error.message };
     }
   },
 
+  // ================================================================================
+  // ==============================   TRANSAKCJA   ==================================
+  // ================================================================================
+
   updateAnswer: async (answerId, content, userId) => {
+    const client = await db.beginTransaction();
+
     try {
       const checkQuery = `
-        SELECT user_id FROM course_answers 
-        WHERE id = $1
-      `;
-
-      const checkResult = await db.query(checkQuery, [answerId]);
+      SELECT user_id FROM course_answers 
+      WHERE id = $1
+    `;
+      const checkResult = await client.query(checkQuery, [answerId]);
 
       if (checkResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Odpowiedź nie została znaleziona",
@@ -185,6 +203,7 @@ const courseAnswerModel = {
       const answerUserId = checkResult.rows[0].user_id;
 
       if (answerUserId !== userId) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Nie masz uprawnień do edycji tej odpowiedzi",
@@ -192,15 +211,16 @@ const courseAnswerModel = {
       }
 
       const updateQuery = `
-        UPDATE course_answers 
-        SET content = $1, updated_at = NOW() 
-        WHERE id = $2
-        RETURNING id
-      `;
+      UPDATE course_answers 
+      SET content = $1, updated_at = NOW() 
+      WHERE id = $2
+      RETURNING id
+    `;
 
-      const updateResult = await db.query(updateQuery, [content, answerId]);
+      const updateResult = await client.query(updateQuery, [content, answerId]);
 
       if (updateResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Nie udało się zaktualizować odpowiedzi",
@@ -208,15 +228,17 @@ const courseAnswerModel = {
       }
 
       const fullDataQuery = `
-        SELECT 
-          a.id, a.content, a.user_id, a.question_id, a.is_accepted, a.created_at, a.updated_at,
-          u.first_name, u.last_name, u.email
-        FROM course_answers a
-        JOIN users u ON a.user_id = u.id
-        WHERE a.id = $1
-      `;
+      SELECT 
+        a.id, a.content, a.user_id, a.question_id, a.is_accepted, a.created_at, a.updated_at,
+        u.first_name, u.last_name, u.email
+      FROM course_answers a
+      JOIN users u ON a.user_id = u.id
+      WHERE a.id = $1
+    `;
 
-      const fullDataResult = await db.query(fullDataQuery, [answerId]);
+      const fullDataResult = await client.query(fullDataQuery, [answerId]);
+
+      await db.commitTransaction(client);
 
       const answer = fullDataResult.rows[0];
       const formattedAnswer = {
@@ -235,6 +257,7 @@ const courseAnswerModel = {
         answer: formattedAnswer,
       };
     } catch (error) {
+      await db.rollbackTransaction(client);
       console.error(`Błąd podczas aktualizacji odpowiedzi ${answerId}:`, error);
       return { success: false, error: error.message };
     }

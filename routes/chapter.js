@@ -290,6 +290,61 @@ router.get(
   chapterController.getChapter
 );
 
+/**
+ * @swagger
+ * /api/courses/{courseId}/chapters/{chapterId}:
+ *   delete:
+ *     summary: Delete a chapter from a course
+ *     description: Removes a specific chapter from a course.
+ *     tags:
+ *       - Chapters
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         description: ID of the course to which the chapter belongs.
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *       - in: path
+ *         name: chapterId
+ *         required: true
+ *         description: ID of the chapter to delete.
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Chapter successfully deleted.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Rozdział został pomyślnie usunięty"
+ *       404:
+ *         description: Chapter not found or already deleted.
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Wystąpił błąd podczas usuwania rozdziału"
+ */
 router.delete(
   "/:courseId/chapters/:chapterId",
   authMiddleware,

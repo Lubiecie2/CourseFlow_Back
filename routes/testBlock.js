@@ -221,6 +221,58 @@ router.delete(
   authMiddleware,
   testBlockController.deleteTestBlock
 );
+
+/**
+ * @swagger
+ * /api/tests/{testId}/reorder:
+ *   patch:
+ *     summary: Reorder test blocks (questions) within a test
+ *     tags: [Tests]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: testId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the test
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - blockOrder
+ *             properties:
+ *               blockOrder:
+ *                 type: array
+ *                 description: Array of block IDs in the desired order
+ *                 items:
+ *                   type: integer
+ *                 example: [5, 2, 8, 1]
+ *     responses:
+ *       200:
+ *         description: Test blocks successfully reordered
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Test blocks reordered successfully
+ *       400:
+ *         description: Invalid block order data
+ *       404:
+ *         description: Test not found
+ *       500:
+ *         description: Server error
+ */
 router.patch(
   "/tests/:testId/reorder",
   authMiddleware,

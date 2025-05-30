@@ -7,8 +7,8 @@ const checkAdmin = require("../middleware/checkAdmin");
 /**
  * @swagger
  * tags:
- *   name: Admin
- *   description: Endpoints for admin panel
+ *   name: User management
+ *   description: Endpoints for user management
  */
 
 /**
@@ -19,7 +19,7 @@ const checkAdmin = require("../middleware/checkAdmin");
  *     description: Returns a list of users and their roles. Requires administrator privileges.
  *                  If the `query` parameter is provided, the results will be filtered accordingly.
  *     tags:
- *       - Admin
+ *       - User management
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -115,7 +115,7 @@ router.get("/users", authMiddleware, adminController.getAllUsers);
  *     summary: Delete a user by ID
  *     description: Deletes a user from the system. Requires administrator privileges.
  *     tags:
- *       - Admin
+ *       - User management
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -198,7 +198,7 @@ router.delete("/users/:userId", authMiddleware, adminController.deleteUser);
  *     summary: Update a user's role
  *     description: Updates the role of a user. Requires administrator privileges.
  *     tags:
- *       - Admin
+ *       - User management
  *     security:
  *       - bearerAuth: []
  *     parameters:

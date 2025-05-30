@@ -35,16 +35,75 @@ const User = {
     return result.rows;
   },
 
+  // ================================================================================
+  // ==============================   TRANSAKCJA   ==================================
+  // ================================================================================
   deleteById: async (id) => {
-    const result = await db.query("DELETE FROM users WHERE id = $1", [id]);
+    const client = await db.beginTransaction();
+
+    try {
+      const userResult = await client.query(
+        "SELECT * FROM users WHERE id = $1",
+        [id]
+      );
+
+      if (userResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
+        return { success: false, message: "Użytkownik nie został znaleziony" };
+      }
+
+      await client.query("DELETE FROM users WHERE id = $1", [id]);
+
+      await db.commitTransaction(client);
+
+      return { success: true };
+    } catch (error) {
+      await db.rollbackTransaction(client);
+      console.error("Error deleting user:", error);
+      return { success: false, error: error.message };
+    }
   },
 
+  // ================================================================================
+  // ==============================   TRANSAKCJA   ==================================
+  // ================================================================================
   updateRole: async (id, newRoleId) => {
-    const result = await db.query(
-      "UPDATE users SET role_id = $1 WHERE id = $2 RETURNING id, email, first_name, last_name, role_id",
-      [newRoleId, id]
-    );
-    return result.rows[0];
+    const client = await db.beginTransaction();
+
+    try {
+      const userResult = await client.query(
+        "SELECT * FROM users WHERE id = $1",
+        [id]
+      );
+
+      if (userResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
+        return { success: false, message: "Użytkownik nie został znaleziony" };
+      }
+
+      const roleResult = await client.query(
+        "SELECT * FROM roles WHERE id = $1",
+        [newRoleId]
+      );
+
+      if (roleResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
+        return { success: false, message: "Rola nie została znaleziona" };
+      }
+
+      const updateResult = await client.query(
+        "UPDATE users SET role_id = $1, updated_at = NOW() WHERE id = $2 RETURNING id, email, first_name, last_name, role_id",
+        [newRoleId, id]
+      );
+
+      await db.commitTransaction(client);
+
+      return { success: true, user: updateResult.rows[0] };
+    } catch (error) {
+      await db.rollbackTransaction(client);
+      console.error("Error updating user role:", error);
+      return { success: false, error: error.message };
+    }
   },
 
   exists: async (email) => {
