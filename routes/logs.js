@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userLogsController = require("../controllers/userLogsController");
 const authMiddleware = require("../middleware/authMiddleware");
-const checkAdmin = require("../middleware/checkAdmin");
+const checkPermission = require("../middleware/checkPermissions");
 
 /**
  * @swagger
@@ -113,7 +113,12 @@ const checkAdmin = require("../middleware/checkAdmin");
  *       500:
  *         description: Server error
  */
-router.get("/", authMiddleware, checkAdmin, userLogsController.getAllLogs);
+router.get(
+  "/",
+  authMiddleware,
+  checkPermission("PANEL_SHOW_COURSES_LOGS"),
+  userLogsController.getAllLogs
+);
 
 /**
  * @swagger
@@ -206,7 +211,7 @@ router.get("/", authMiddleware, checkAdmin, userLogsController.getAllLogs);
 router.get(
   "/users/:userId",
   authMiddleware,
-  checkAdmin,
+  checkPermission("PANEL_SHOW_COURSES_LOGS"),
   userLogsController.getUserLogs
 );
 
@@ -308,7 +313,7 @@ router.get(
 router.get(
   "/courses",
   authMiddleware,
-  checkAdmin,
+  checkPermission("PANEL_SHOW_COURSES_LOGS"),
   userLogsController.getCourseLogs
 );
 

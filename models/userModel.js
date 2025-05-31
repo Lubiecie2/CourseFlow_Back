@@ -238,6 +238,72 @@ const User = {
   isTokenExpired: (tokenExpiresAt) => {
     return new Date(tokenExpiresAt) < new Date();
   },
+  getAdminStats: async () => {
+    try {
+      const monthAgo = new Date();
+      monthAgo.setMonth(monthAgo.getMonth() - 1);
+
+      const activeUsersQuery = `
+        SELECT COUNT(DISTINCT id) as active_users 
+        FROM users 
+        WHERE last_login > $1
+      `;
+
+      const activeUsersResult = await db.query(activeUsersQuery, [monthAgo]);
+      const activeUsers = parseInt(
+        activeUsersResult.rows[0]?.active_users || "0"
+      );
+
+      const totalUsersQuery = `SELECT COUNT(*) as count FROM users`;
+      const totalUsersResult = await db.query(totalUsersQuery);
+      const totalUsers = parseInt(totalUsersResult.rows[0]?.count || "0");
+
+      const totalCoursesQuery = `SELECT COUNT(*) as count FROM courses`;
+      const totalCoursesResult = await db.query(totalCoursesQuery);
+      const totalCourses = parseInt(totalCoursesResult.rows[0]?.count || "0");
+
+      const totalTestsQuery = `SELECT COUNT(*) as count FROM tests`;
+      const totalTestsResult = await db.query(totalTestsQuery);
+      const totalTests = parseInt(totalTestsResult.rows[0]?.count || "0");
+
+      const totalChaptersQuery = `SELECT COUNT(*) as count FROM chapters`;
+      const totalChaptersResult = await db.query(totalChaptersQuery);
+      const totalChapters = parseInt(totalChaptersResult.rows[0]?.count || "0");
+
+      const totalCertificatesQuery = `SELECT COUNT(*) as count FROM certificates`;
+      const totalCertificatesResult = await db.query(totalCertificatesQuery);
+      const totalCertificates = parseInt(
+        totalCertificatesResult.rows[0]?.count || "0"
+      );
+
+      const newUsersQuery = `
+        SELECT COUNT(*) as count FROM users
+        WHERE created_at > $1
+      `;
+      const newUsersResult = await db.query(newUsersQuery, [monthAgo]);
+      const newUsers = parseInt(newUsersResult.rows[0]?.count || "0");
+
+      return {
+        success: true,
+        data: {
+          totalUsers,
+          activeUsers,
+          totalCourses,
+          totalTests,
+          totalChapters,
+          totalCertificates,
+          newUsers,
+        },
+      };
+    } catch (error) {
+      console.error("Błąd podczas pobierania statystyk administratora:", error);
+      return {
+        success: false,
+        message: "Wystąpił błąd podczas pobierania statystyk",
+        error: error.message,
+      };
+    }
+  },
 };
 
 module.exports = User;

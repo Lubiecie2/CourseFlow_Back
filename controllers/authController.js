@@ -12,6 +12,8 @@ const bcrypt = require("bcryptjs");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const NotificationModel = require("../models/notificationModel");
+const cacheService = require("../services/cacheServices");
+const USERS_CACHE_KEY = "users:all";
 
 const authController = {
   register: async (req, res) => {
@@ -42,6 +44,9 @@ const authController = {
 
       await sendVerificationEmail(email, plainToken);
 
+      const USERS_CACHE_KEY = "admin:all_users";
+      await cacheService.invalidate(USERS_CACHE_KEY);
+
       res.status(201).json({
         message: "User created. A verification email has been sent.",
         user,
@@ -69,6 +74,10 @@ const authController = {
       }
 
       console.log("User found:", user);
+
+      await db.query("UPDATE users SET last_login = NOW() WHERE id = $1", [
+        user.id,
+      ]);
 
       if (!user.is_verified) {
         return res.status(200).json({

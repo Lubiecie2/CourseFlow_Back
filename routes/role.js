@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/roleController");
 const authMiddleware = require("../middleware/authMiddleware");
-const checkAdmin = require("../middleware/checkAdmin");
 const roleController = require("../controllers/roleController");
+const checkPermission = require("../middleware/checkPermissions");
 
 /**
  * @swagger
@@ -80,7 +80,12 @@ const roleController = require("../controllers/roleController");
  *                   type: string
  *                   example: "Wystąpił błąd podczas tworzenia roli."
  */
-router.post("/createrole", authMiddleware, adminController.createRole);
+router.post(
+  "/createrole",
+  authMiddleware,
+  checkPermission("PANEL_CREATE_ROLE"),
+  adminController.createRole
+);
 
 /**
  * @swagger
@@ -265,7 +270,12 @@ router.get("/permissions", authMiddleware, adminController.getPermissions);
  *                   type: string
  *                   example: "An error occurred while updating the role."
  */
-router.patch("/updaterole/:roleId", authMiddleware, adminController.updateRole);
+router.patch(
+  "/updaterole/:roleId",
+  authMiddleware,
+  checkPermission("PANEL_CREATE_ROLE"),
+  adminController.updateRole
+);
 
 /**
  * @swagger
@@ -329,6 +339,7 @@ router.patch("/updaterole/:roleId", authMiddleware, adminController.updateRole);
 router.delete(
   "/deleterole/:roleId",
   authMiddleware,
+  checkPermission("PANEL_CREATE_ROLE"),
   adminController.deleteRole
 );
 

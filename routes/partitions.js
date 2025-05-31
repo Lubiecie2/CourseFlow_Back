@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const partitionController = require("../controllers/partitionController");
 const authMiddleware = require("../middleware/authMiddleware");
+const checkPermission = require("../middleware/checkPermissions");
 
 /**
  * @swagger
@@ -33,7 +34,12 @@ const authMiddleware = require("../middleware/authMiddleware");
  *       500:
  *         description: Server error
  */
-router.get("/", authMiddleware, partitionController.getPartitions);
+router.get(
+  "/",
+  authMiddleware,
+  checkPermission("PANEL_SETTINGS_PARTITION"),
+  partitionController.getPartitions
+);
 
 /**
  * @swagger
@@ -68,7 +74,12 @@ router.get("/", authMiddleware, partitionController.getPartitions);
  *       500:
  *         description: Server error
  */
-router.post("/", authMiddleware, partitionController.createPartition);
+router.post(
+  "/",
+  authMiddleware,
+  checkPermission("PANEL_SETTINGS_PARTITION"),
+  partitionController.createPartition
+);
 
 /**
  * @swagger
@@ -103,7 +114,12 @@ router.post("/", authMiddleware, partitionController.createPartition);
  *       500:
  *         description: Server error
  */
-router.post("/detach", authMiddleware, partitionController.detachPartition);
+router.post(
+  "/detach",
+  authMiddleware,
+  checkPermission("PANEL_SETTINGS_PARTITION"),
+  partitionController.detachPartition
+);
 
 /**
  * @swagger
@@ -138,7 +154,12 @@ router.post("/detach", authMiddleware, partitionController.detachPartition);
  *       500:
  *         description: Server error
  */
-router.post("/attach", authMiddleware, partitionController.attachPartition);
+router.post(
+  "/attach",
+  authMiddleware,
+  checkPermission("PANEL_SETTINGS_PARTITION"),
+  partitionController.attachPartition
+);
 
 /**
  * @swagger
@@ -170,6 +191,11 @@ router.post("/attach", authMiddleware, partitionController.attachPartition);
  *       500:
  *         description: Server error
  */
-router.post("/prepare", authMiddleware, partitionController.preparePartitions);
+router.post(
+  "/prepare",
+  authMiddleware,
+  checkPermission("PANEL_SETTINGS_PARTITION"),
+  partitionController.preparePartitions
+);
 
 module.exports = router;

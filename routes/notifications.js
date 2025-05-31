@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const notificationController = require("../controllers/notificationController");
 const authMiddleware = require("../middleware/authMiddleware");
+const checkPermission = require("../middleware/checkPermissions");
 
 /**
  * @swagger
@@ -157,6 +158,7 @@ router.get(
 router.post(
   "/admin",
   authMiddleware,
+  checkPermission("PANEL_CREATE_NOTIFICATIONS"),
   notificationController.createAdminNotification
 );
 
