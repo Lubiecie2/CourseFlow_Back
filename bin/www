@@ -163,6 +163,40 @@ io.on("connection", (socket) => {
     io.to(`question-${data.questionId}`).emit("answer-removed", data.answerId);
     console.log(`Klient ${socket.id} usunął odpowiedź ${data.answerId}`);
   });
+
+  socket.on("join-notes-list", () => {
+    socket.join("notes-list");
+    console.log(`Klient ${socket.id} dołączył do listy notatek`);
+  });
+
+  socket.on("leave-notes-list", () => {
+    socket.leave("notes-list");
+    console.log(`Klient ${socket.id} opuścił listę notatek`);
+  });
+
+  socket.on("join-note", (noteId) => {
+    socket.join(`note-${noteId}`);
+    console.log(`Klient ${socket.id} dołączył do notatki ${noteId}`);
+  });
+
+  socket.on("leave-note", (noteId) => {
+    socket.leave(`note-${noteId}`);
+    console.log(`Klient ${socket.id} opuścił notatkę ${noteId}`);
+  });
+
+  socket.on("note-edited", (updatedNote) => {
+    io.to(`note-${updatedNote.id}`).emit("note-updated", updatedNote);
+    io.to("notes-list").emit("note-updated", updatedNote);
+    console.log(
+      `Klient ${socket.id} zaktualizował treść notatki ${updatedNote.id}`
+    );
+  });
+
+  socket.on("note-deleted", (noteId) => {
+    io.to(`note-${noteId}`).emit("note-removed", noteId);
+    io.to("notes-list").emit("note-removed", noteId);
+    console.log(`Klient ${socket.id} usunął notatkę ${noteId}`);
+  });
 });
 
 app.set("io", io);

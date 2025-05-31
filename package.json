@@ -23,7 +23,7 @@
     "nodemailer": "^6.10.0",
     "pdfkit": "^0.17.1",
     "pg": "^8.13.3",
-    "redis": "^5.1.0",
+    "redis": "^5.1.1",
     "sib-api-v3-sdk": "^8.5.0",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",

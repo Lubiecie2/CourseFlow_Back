@@ -23,14 +23,21 @@ const fileFilter = (req, file, cb) => {
     "video/quicktime",
   ];
 
+  const documentTypes = ["application/pdf", "text/plain"];
+
   if (imageTypes.includes(file.mimetype)) {
+    file.fileCategory = "image";
     cb(null, true);
   } else if (videoTypes.includes(file.mimetype)) {
+    file.fileCategory = "video";
+    cb(null, true);
+  } else if (documentTypes.includes(file.mimetype)) {
+    file.fileCategory = "document";
     cb(null, true);
   } else {
     cb(
       new Error(
-        "Niedozwolony format pliku. Akceptujemy tylko JPG, PNG, GIF, WEBP, MP4, WEBM, OGG i MOV."
+        "Niedozwolony format pliku. Akceptujemy tylko JPG, PNG, GIF, WEBP, MP4, WEBM, OGG, MOV, PDF i TXT."
       ),
       false
     );

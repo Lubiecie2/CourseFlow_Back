@@ -44,7 +44,7 @@ model courses {
   updated_at        DateTime?          @default(now()) @db.Timestamp(6)
   certificates      certificates[]
   chapters          chapters[]
-  course_logs       course_logs[]
+  course_notes      course_notes[]
   course_questions  course_questions[]
   users             users?             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   tests             tests[]
@@ -144,6 +144,7 @@ model users {
   certificates                                                         certificates[]
   course_answers                                                       course_answers[]
   course_logs                                                          course_logs[]
+  course_notes                                                         course_notes[]
   course_questions                                                     course_questions[]
   courses                                                              courses[]
   notifications                                                        notifications[]
@@ -298,7 +299,7 @@ model user_logs {
   old_value                                 String?
   new_value                                 String?
   created_at                                DateTime @default(now()) @db.Timestamp(6)
-  users_user_logs_changed_by_user_idTousers users?   @relation("user_logs_changed_by_user_idTousers", fields: [changed_by_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_logs_changed_by_user_id")
+  users_user_logs_changed_by_user_idTousers users?   @relation("user_logs_changed_by_user_idTousers", fields: [changed_by_user_id], references: [id], onUpdate: NoAction, map: "fk_user_logs_changed_by_user_id")
   users_user_logs_user_idTousers            users?   @relation("user_logs_user_idTousers", fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_user_logs_user_id")
 
   @@id([id, created_at])
@@ -317,7 +318,6 @@ model course_logs {
   course_title       String?  @db.VarChar(255)
   action_description String?
   created_at         DateTime @default(now()) @db.Timestamp(6)
-  courses            courses? @relation(fields: [course_id], references: [id], onUpdate: NoAction, map: "fk_course_logs_courses")
   users              users?   @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_course_logs_users")
 
   @@id([id, created_at])
@@ -356,4 +356,34 @@ model course_answers {
 
   @@index([question_id], map: "idx_course_answers_question_id")
   @@index([user_id], map: "idx_course_answers_user_id")
+}
+
+model course_notes {
+  id               Int                @id @default(autoincrement())
+  title            String
+  content          String
+  user_id          Int
+  course_id        Int?
+  file_path        String?
+  file_name        String?
+  created_at       DateTime           @default(now()) @db.Timestamp(6)
+  updated_at       DateTime           @default(now()) @db.Timestamp(6)
+  courses          courses?           @relation(fields: [course_id], references: [id], onUpdate: NoAction, map: "fk_course")
+  users            users              @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user")
+  note_attachments note_attachments[]
+
+  @@index([course_id], map: "idx_course_notes_course_id")
+  @@index([user_id], map: "idx_course_notes_user_id")
+}
+
+model note_attachments {
+  id           Int          @id @default(autoincrement())
+  note_id      Int
+  file_path    String
+  file_name    String
+  file_type    String       @db.VarChar(20)
+  created_at   DateTime     @default(now()) @db.Timestamp(6)
+  course_notes course_notes @relation(fields: [note_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_note")
+
+  @@index([note_id], map: "idx_note_attachments_note_id")
 }

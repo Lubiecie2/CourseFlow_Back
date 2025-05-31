@@ -29,6 +29,7 @@ const notificationsRouter = require("./routes/notifications");
 const partitionsRouter = require("./routes/partitions");
 const courseQuestionRoutes = require("./routes/courseQuestion");
 const courseAnswerRoutes = require("./routes/courseAnswer");
+const courseNoteRoutes = require('./routes/courseNoteRoutes');
 
 var app = express();
 
@@ -92,6 +93,7 @@ app.use("/api/notifications", notificationsRouter);
 app.use("/api/partitions", partitionsRouter);
 app.use("/api", courseQuestionRoutes);
 app.use("/api", courseAnswerRoutes);
+app.use("/api/notes", courseNoteRoutes);
 
 app.use(function (req, res, next) {
   next(createError(404));
