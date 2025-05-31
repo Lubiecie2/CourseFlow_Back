@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
 const authMiddleware = require("../middleware/authMiddleware");
-const checkAdmin = require("../middleware/checkAdmin");
+const checkPermission = require("../middleware/checkPermissions");
 
 /**
  * @swagger
  * tags:
- *   name: Admin
- *   description: Endpoints for admin panel
+ *   name: User management
+ *   description: Endpoints for user management
  */
 
 /**
@@ -19,7 +19,7 @@ const checkAdmin = require("../middleware/checkAdmin");
  *     description: Returns a list of users and their roles. Requires administrator privileges.
  *                  If the `query` parameter is provided, the results will be filtered accordingly.
  *     tags:
- *       - Admin
+ *       - User management
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -106,7 +106,12 @@ const checkAdmin = require("../middleware/checkAdmin");
  *                       type: string
  *                       example: "Internal server error. Please try again later."
  */
-router.get("/users", authMiddleware, adminController.getAllUsers);
+router.get(
+  "/users",
+  authMiddleware,
+  checkPermission("PANEL_SHOW_USERS"),
+  adminController.getAllUsers
+);
 
 /**
  * @swagger
@@ -115,7 +120,7 @@ router.get("/users", authMiddleware, adminController.getAllUsers);
  *     summary: Delete a user by ID
  *     description: Deletes a user from the system. Requires administrator privileges.
  *     tags:
- *       - Admin
+ *       - User management
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -189,7 +194,12 @@ router.get("/users", authMiddleware, adminController.getAllUsers);
  *                       type: string
  *                       example: "Internal server error. Please try again later."
  */
-router.delete("/users/:userId", authMiddleware, adminController.deleteUser);
+router.delete(
+  "/users/:userId",
+  authMiddleware,
+  checkPermission("PANEL_EDIT_USERS"),
+  adminController.deleteUser
+);
 
 /**
  * @swagger
@@ -198,7 +208,7 @@ router.delete("/users/:userId", authMiddleware, adminController.deleteUser);
  *     summary: Update a user's role
  *     description: Updates the role of a user. Requires administrator privileges.
  *     tags:
- *       - Admin
+ *       - User management
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -292,6 +302,18 @@ router.delete("/users/:userId", authMiddleware, adminController.deleteUser);
  *                       type: string
  *                       example: "Internal server error. Please try again later."
  */
-router.patch("/users/:id/role", authMiddleware, adminController.updateUserRole);
+router.patch(
+  "/users/:id/role",
+  authMiddleware,
+  checkPermission("PANEL_EDIT_USERS"),
+  adminController.updateUserRole
+);
+
+router.get(
+  "/stats",
+  authMiddleware,
+  checkPermission("PANEL_SHOW_ADMIN_PANEL"),
+  adminController.getAdminStats
+);
 
 module.exports = router;

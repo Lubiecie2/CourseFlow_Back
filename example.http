@@ -454,3 +454,9 @@ Content-Type: application/json
 {
   "content": "W JavaScript najlepszą metodą do dodawania elementu na końcu tablicy jest `push()`. Przykład użycia: `array.push(newElement)`. Metoda `unshift()` dodaje element na początku tablicy."
 }
+
+
+### Pobieranie statystyk administratora
+GET http://localhost:4000/api/admin/stats
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..xJuffWPHTnG63jVm.CI0rbtgsuFESVBxry5E6E3c6sZxjJr1LA9wvSFH6yZKR_IHSg31ddbPwxqHF-u9nuHgqs2X54JWWQ9E8pzHOIzUlE55X8wMtRnxOEfzyH6U3W5JpsDJlwtF7vpCK9PxJ1xdbcYEQt5JB3u6OuDl_jiNUkBwFmBpVYtxvKDH5QqGNo_0.XNg-cKv7imP7CdQFs0Wmng
+Content-Type: application/json

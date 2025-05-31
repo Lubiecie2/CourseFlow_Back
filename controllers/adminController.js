@@ -3,6 +3,7 @@ const UserLogsModel = require("../models/userLogsModel");
 const cacheService = require("../services/cacheServices");
 
 const USERS_CACHE_KEY = "admin:all_users";
+const STATS_CACHE_KEY = "admin:stats";
 
 const adminController = {
   getAllUsers: async (req, res) => {
@@ -147,6 +148,33 @@ const adminController = {
           status: 500,
           message: "Internal server error. Please try again later.",
         },
+      });
+    }
+  },
+
+  getAdminStats: async (req, res) => {
+    try {
+      console.log("Pobieranie statystyk administratora");
+
+      const stats = await User.getAdminStats();
+
+      if (!stats.success) {
+        return res.status(500).json({
+          success: false,
+          message:
+            stats.message || "Wystąpił błąd podczas pobierania statystyk",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: stats.data,
+      });
+    } catch (error) {
+      console.error("Błąd kontrolera statystyk admina:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas obsługi żądania statystyk",
       });
     }
   },

@@ -1,7 +1,7 @@
 const { redisClient } = require("../config/redis");
 
 const cacheService = {
-  // ------ Pobieranie danych z cache
+  // ------ Pobieranie danych z cache ------------------
 
   async getOrSet(key, fetchFunction, ttl = 300) {
     try {
@@ -21,7 +21,7 @@ const cacheService = {
     }
   },
 
-  // ------ Usuwanie danych z cache
+  // ------ Usuwanie danych z cache -----------------------
 
   async invalidate(key) {
     try {

@@ -1,7 +1,6 @@
 services:
   backend:
-    build:
-      context: .
+    image: kgruca7747/courseflow-backend
     ports:
       - "4000:4000"
     working_dir: &PROJECT_ROOT_DIR /app
@@ -21,7 +20,8 @@ services:
       POSTGRES_PASSWORD: "dbpass"
       POSTGRES_USER: "postgres"
       POSTGRES_DB: "CourseFlow"
-
+      DATABASE_URL: "postgresql://postgres:dbpass@postgres:5432/CourseFlow?schema=public"
+      REDIS_URL: "redis://redis:6379"
       # optional: project root directory, used for relative path resolution (e.g. fixtures)
       PROJECT_ROOT_DIR: *PROJECT_ROOT_DIR
 
@@ -52,6 +52,13 @@ services:
     volumes:
       - pgvolume:/var/lib/postgresql/data
       - ./sql/dump.sql:/docker-entrypoint-initdb.d/dump.sql # Mount the SQL dump file
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 20 1 --loglevel warning
 
   frontend:
     image: kgruca7747/courseflow-web

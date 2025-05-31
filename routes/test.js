@@ -144,12 +144,114 @@ router.patch("/:testId", authMiddleware, testController.updateTest);
  */
 router.delete("/:testId", authMiddleware, testController.deleteTest);
 
+/**
+ * @swagger
+ * /api/tests/courses/{courseId}/tests:
+ *   get:
+ *     summary: Get all tests for a specific course
+ *     tags: [Tests]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the course
+ *     responses:
+ *       200:
+ *         description: List of tests for the course
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 tests:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       404:
+ *         description: Course not found
+ *       500:
+ *         description: Server error
+ */
 router.get(
   "/courses/:courseId/tests",
   authMiddleware,
   testController.getCourseTests
 );
 
+/**
+ * @swagger
+ * /api/tests/courses/{courseId}/tests:
+ *   post:
+ *     summary: Create a new test for a course
+ *     tags: [Tests]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the course
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: Test title
+ *                 example: JavaScript Basics Test
+ *               description:
+ *                 type: string
+ *                 description: Test description
+ *                 example: A test covering basic JavaScript concepts
+ *               pass_threshold:
+ *                 type: integer
+ *                 description: Minimum percentage to pass the test
+ *                 example: 70
+ *               time_limit:
+ *                 type: integer
+ *                 description: Time limit in minutes (0 for no limit)
+ *                 example: 30
+ *               chapter_id:
+ *                 type: integer
+ *                 description: ID of the chapter this test belongs to
+ *                 example: 1
+ *               is_course_final:
+ *                 type: boolean
+ *                 description: Whether this is a final course test
+ *                 example: false
+ *     responses:
+ *       201:
+ *         description: Test successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 test:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                   example: Test successfully created
+ *       400:
+ *         description: Invalid request data
+ *       500:
+ *         description: Server error
+ */
 router.post(
   "/courses/:courseId/tests",
   authMiddleware,

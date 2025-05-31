@@ -22,3 +22,5 @@ uploads/
 gitstat_result.json
 
 example.http
+ 
+sql/dump.sql

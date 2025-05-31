@@ -35,16 +35,75 @@ const User = {
     return result.rows;
   },
 
+  // ================================================================================
+  // ==============================   TRANSAKCJA   ==================================
+  // ================================================================================
   deleteById: async (id) => {
-    const result = await db.query("DELETE FROM users WHERE id = $1", [id]);
+    const client = await db.beginTransaction();
+
+    try {
+      const userResult = await client.query(
+        "SELECT * FROM users WHERE id = $1",
+        [id]
+      );
+
+      if (userResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
+        return { success: false, message: "Użytkownik nie został znaleziony" };
+      }
+
+      await client.query("DELETE FROM users WHERE id = $1", [id]);
+
+      await db.commitTransaction(client);
+
+      return { success: true };
+    } catch (error) {
+      await db.rollbackTransaction(client);
+      console.error("Error deleting user:", error);
+      return { success: false, error: error.message };
+    }
   },
 
+  // ================================================================================
+  // ==============================   TRANSAKCJA   ==================================
+  // ================================================================================
   updateRole: async (id, newRoleId) => {
-    const result = await db.query(
-      "UPDATE users SET role_id = $1 WHERE id = $2 RETURNING id, email, first_name, last_name, role_id",
-      [newRoleId, id]
-    );
-    return result.rows[0];
+    const client = await db.beginTransaction();
+
+    try {
+      const userResult = await client.query(
+        "SELECT * FROM users WHERE id = $1",
+        [id]
+      );
+
+      if (userResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
+        return { success: false, message: "Użytkownik nie został znaleziony" };
+      }
+
+      const roleResult = await client.query(
+        "SELECT * FROM roles WHERE id = $1",
+        [newRoleId]
+      );
+
+      if (roleResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
+        return { success: false, message: "Rola nie została znaleziona" };
+      }
+
+      const updateResult = await client.query(
+        "UPDATE users SET role_id = $1, updated_at = NOW() WHERE id = $2 RETURNING id, email, first_name, last_name, role_id",
+        [newRoleId, id]
+      );
+
+      await db.commitTransaction(client);
+
+      return { success: true, user: updateResult.rows[0] };
+    } catch (error) {
+      await db.rollbackTransaction(client);
+      console.error("Error updating user role:", error);
+      return { success: false, error: error.message };
+    }
   },
 
   exists: async (email) => {
@@ -178,6 +237,72 @@ const User = {
 
   isTokenExpired: (tokenExpiresAt) => {
     return new Date(tokenExpiresAt) < new Date();
+  },
+  getAdminStats: async () => {
+    try {
+      const monthAgo = new Date();
+      monthAgo.setMonth(monthAgo.getMonth() - 1);
+
+      const activeUsersQuery = `
+        SELECT COUNT(DISTINCT id) as active_users 
+        FROM users 
+        WHERE last_login > $1
+      `;
+
+      const activeUsersResult = await db.query(activeUsersQuery, [monthAgo]);
+      const activeUsers = parseInt(
+        activeUsersResult.rows[0]?.active_users || "0"
+      );
+
+      const totalUsersQuery = `SELECT COUNT(*) as count FROM users`;
+      const totalUsersResult = await db.query(totalUsersQuery);
+      const totalUsers = parseInt(totalUsersResult.rows[0]?.count || "0");
+
+      const totalCoursesQuery = `SELECT COUNT(*) as count FROM courses`;
+      const totalCoursesResult = await db.query(totalCoursesQuery);
+      const totalCourses = parseInt(totalCoursesResult.rows[0]?.count || "0");
+
+      const totalTestsQuery = `SELECT COUNT(*) as count FROM tests`;
+      const totalTestsResult = await db.query(totalTestsQuery);
+      const totalTests = parseInt(totalTestsResult.rows[0]?.count || "0");
+
+      const totalChaptersQuery = `SELECT COUNT(*) as count FROM chapters`;
+      const totalChaptersResult = await db.query(totalChaptersQuery);
+      const totalChapters = parseInt(totalChaptersResult.rows[0]?.count || "0");
+
+      const totalCertificatesQuery = `SELECT COUNT(*) as count FROM certificates`;
+      const totalCertificatesResult = await db.query(totalCertificatesQuery);
+      const totalCertificates = parseInt(
+        totalCertificatesResult.rows[0]?.count || "0"
+      );
+
+      const newUsersQuery = `
+        SELECT COUNT(*) as count FROM users
+        WHERE created_at > $1
+      `;
+      const newUsersResult = await db.query(newUsersQuery, [monthAgo]);
+      const newUsers = parseInt(newUsersResult.rows[0]?.count || "0");
+
+      return {
+        success: true,
+        data: {
+          totalUsers,
+          activeUsers,
+          totalCourses,
+          totalTests,
+          totalChapters,
+          totalCertificates,
+          newUsers,
+        },
+      };
+    } catch (error) {
+      console.error("Błąd podczas pobierania statystyk administratora:", error);
+      return {
+        success: false,
+        message: "Wystąpił błąd podczas pobierania statystyk",
+        error: error.message,
+      };
+    }
   },
 };
 

@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const db = require("./db");
 
 const courseQuestionModel = {
   getQuestionsByCourse: async (courseId, limit = 10, offset = 0) => {
@@ -158,36 +159,51 @@ const courseQuestionModel = {
     }
   },
 
-  deleteQuestion: async (questionId, userId, isAdmin = false) => {
-    try {
-      const question = await prisma.course_questions.findUnique({
-        where: { id: parseInt(questionId) },
-        select: { user_id: true },
-      });
+  // ================================================================================
+  // ==============================   TRANSAKCJA   ==================================
+  // ================================================================================
 
-      if (!question) {
+  deleteQuestion: async (questionId, userId, isAdmin = false) => {
+    const client = await db.beginTransaction();
+
+    try {
+      const questionQuery = `
+      SELECT user_id FROM course_questions
+      WHERE id = $1
+    `;
+      const questionResult = await client.query(questionQuery, [questionId]);
+
+      if (questionResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Pytanie nie zostało znalezione",
         };
       }
 
-      const questionUserId = question.user_id;
+      const questionUserId = questionResult.rows[0].user_id;
 
       if (questionUserId !== userId && !isAdmin) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Nie masz uprawnień do usunięcia tego pytania",
         };
       }
 
-      await prisma.course_answers.deleteMany({
-        where: { question_id: parseInt(questionId) },
-      });
+      const deleteAnswersQuery = `
+      DELETE FROM course_answers
+      WHERE question_id = $1
+    `;
+      await client.query(deleteAnswersQuery, [questionId]);
 
-      await prisma.course_questions.delete({
-        where: { id: parseInt(questionId) },
-      });
+      const deleteQuestionQuery = `
+      DELETE FROM course_questions
+      WHERE id = $1
+    `;
+      await client.query(deleteQuestionQuery, [questionId]);
+
+      await db.commitTransaction(client);
 
       return {
         success: true,
@@ -195,6 +211,7 @@ const courseQuestionModel = {
           "Pytanie zostało pomyślnie usunięte wraz ze wszystkimi odpowiedziami",
       };
     } catch (error) {
+      await db.rollbackTransaction(client);
       console.error(`Błąd podczas usuwania pytania ${questionId}:`, error);
       return {
         success: false,
@@ -203,46 +220,64 @@ const courseQuestionModel = {
     }
   },
 
+  // ================================================================================
+  // ==============================   TRANSAKCJA   ==================================
+  // ================================================================================
+
   updateQuestion: async (questionId, data, userId) => {
+    const client = await db.beginTransaction();
+
     try {
-      const { title, content } = data;
+      const { title, content, courseId } = data;
 
-      const question = await prisma.course_questions.findUnique({
-        where: { id: parseInt(questionId) },
-        select: { user_id: true },
-      });
+      const questionQuery = `
+        SELECT user_id FROM course_questions
+        WHERE id = $1
+      `;
 
-      if (!question) {
+      const questionResult = await client.query(questionQuery, [questionId]);
+
+      if (questionResult.rows.length === 0) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Pytanie nie zostało znalezione",
         };
       }
 
-      const questionUserId = question.user_id;
+      const questionUserId = questionResult.rows[0].user_id;
 
       if (questionUserId !== userId) {
+        await db.rollbackTransaction(client);
         return {
           success: false,
           message: "Nie masz uprawnień do edycji tego pytania",
         };
       }
 
-      const updatedQuestion = await prisma.course_questions.update({
-        where: { id: parseInt(questionId) },
-        data: {
-          title,
-          content,
-          updated_at: new Date(),
-        },
-      });
+      const updateQuery = `
+        UPDATE course_questions 
+        SET title = $1, content = $2, updated_at = NOW(), course_id = $3
+        WHERE id = $4
+        RETURNING id, title, content, user_id, course_id, created_at, updated_at, views
+      `;
+
+      const updateResult = await client.query(updateQuery, [
+        title,
+        content,
+        courseId ? parseInt(courseId) : null,
+        questionId,
+      ]);
+
+      await db.commitTransaction(client);
 
       return {
         success: true,
         message: "Pytanie zostało pomyślnie zaktualizowane",
-        question: updatedQuestion,
+        question: updateResult.rows[0],
       };
     } catch (error) {
+      await db.rollbackTransaction(client);
       console.error(`Błąd podczas aktualizacji pytania ${questionId}:`, error);
       return {
         success: false,
