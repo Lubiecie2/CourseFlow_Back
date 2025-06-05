@@ -309,6 +309,70 @@ router.patch(
   adminController.updateUserRole
 );
 
+/**
+ * @swagger
+ * /api/admin/stats:
+ *   get:
+ *     summary: Retrieve admin dashboard statistics
+ *     description: Returns statistics and metrics for the admin dashboard. Requires administrator privileges.
+ *     tags:
+ *       - Admin Dashboard
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved admin statistics.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalUsers:
+ *                   type: integer
+ *                   example: 145
+ *                 totalCourses:
+ *                   type: integer
+ *                   example: 24
+ *                 activeUsers:
+ *                   type: integer
+ *                   example: 87
+ *                 recentSignups:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       email:
+ *                         type: string
+ *                         format: email
+ *                         example: "user@example.com"
+ *                       created_at:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2023-11-15T10:30:00Z"
+ *       401:
+ *         description: Unauthorized - invalid token.
+ *       403:
+ *         description: Forbidden - administrator privileges required.
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: object
+ *                   properties:
+ *                     status:
+ *                       type: integer
+ *                       example: 500
+ *                     message:
+ *                       type: string
+ *                       example: "Internal server error. Please try again later."
+ */
 router.get(
   "/stats",
   authMiddleware,
