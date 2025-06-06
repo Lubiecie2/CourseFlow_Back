@@ -460,3 +460,82 @@ Content-Type: application/json
 GET http://localhost:4000/api/admin/stats
 Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..xJuffWPHTnG63jVm.CI0rbtgsuFESVBxry5E6E3c6sZxjJr1LA9wvSFH6yZKR_IHSg31ddbPwxqHF-u9nuHgqs2X54JWWQ9E8pzHOIzUlE55X8wMtRnxOEfzyH6U3W5JpsDJlwtF7vpCK9PxJ1xdbcYEQt5JB3u6OuDl_jiNUkBwFmBpVYtxvKDH5QqGNo_0.XNg-cKv7imP7CdQFs0Wmng
 Content-Type: application/json
+
+
+### ===== WAF TESTS =====
+
+### Login admin (potrzebny do testów WAF)
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@testowy.pl",
+  "password": "Seaways2410"
+}
+
+### WAF Status
+GET http://localhost:4000/api/waf/status
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+### WAF Dashboard
+GET http://localhost:4000/api/waf/dashboard
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+### WAF Security Events
+GET http://localhost:4000/api/waf/events?page=1&limit=20
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+### Update WAF Configuration
+PATCH http://localhost:4000/api/waf/config
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+{
+  "config": {
+    "rateLimiting": {
+      "enabled": true,
+      "maxRequests": 50,
+      "windowMs": 60000
+    },
+    "sqlInjection": {
+      "enabled": true
+    },
+    "xss": {
+      "enabled": true
+    }
+  }
+}
+
+### ===== TESTY BLOKAD =====
+
+### Test SQL Injection (zostanie zablokowany)
+POST http://localhost:4000/api/questions
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+{
+  "title": "Test'; DROP TABLE users; --",
+  "content": "To jest test SQL injection"
+}
+
+### Test XSS (zostanie zablokowany)  
+POST http://localhost:4000/api/questions
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+{
+  "title": "Test XSS",
+  "content": "<script>alert('XSS')</script>"
+}
+
+### Test Rate Limiting (wykonaj szybko wiele razy)
+GET http://localhost:4000/api/courses
+Content-Type: application/json
+
+### Normalny request (powinien przejść)
+GET http://localhost:4000/api/courses
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json

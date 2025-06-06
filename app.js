@@ -11,6 +11,8 @@ const { connectRedis } = require("./config/redis");
 const cors = require("cors");
 const pool = require("./models/db");
 
+const { wafMiddleware } = require("./middleware/waf");
+
 const adminRouter = require("./routes/admin");
 var indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
@@ -31,6 +33,7 @@ const courseQuestionRoutes = require("./routes/courseQuestion");
 const courseAnswerRoutes = require("./routes/courseAnswer");
 const courseNoteRoutes = require("./routes/courseNoteRoutes");
 const userRoutes = require("./routes/user");
+const wafRoutes = require("./routes/waf");
 
 var app = express();
 
@@ -76,6 +79,9 @@ module.exports = swaggerOptions;
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+console.log("🛡️ Inicjalizacja lokalnego WAF...");
+app.use(wafMiddleware);
+
 app.use("/api", indexRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
@@ -96,6 +102,7 @@ app.use("/api", courseQuestionRoutes);
 app.use("/api", courseAnswerRoutes);
 app.use("/api/notes", courseNoteRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/waf", wafRoutes);
 
 app.use(function (req, res, next) {
   next(createError(404));

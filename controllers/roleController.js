@@ -1,4 +1,6 @@
 const Role = require("../models/roleModel");
+const cacheService = require("../services/cacheServices");
+const USERS_CACHE_KEY = "admin:all_users";
 
 const roleController = {
   createRole: async (req, res) => {
@@ -22,6 +24,10 @@ const roleController = {
       if (permission && permission.length > 0) {
         await Role.addPermission(role.id, permission);
       }
+
+      await cacheService.invalidate(USERS_CACHE_KEY);
+      console.log("🗑️ Cache invalidated after role creation");
+
       return res.status(201).json({
         message: "Rola została utworzona pomyślnie.",
         role,
@@ -104,6 +110,9 @@ const roleController = {
         await Role.addRolePermissions(roleId, permissions);
       }
 
+      await cacheService.invalidate(USERS_CACHE_KEY);
+      console.log("🗑️ Cache invalidated after role update");
+
       return res.status(200).json({
         message: "Role successfully updated.",
       });
@@ -131,6 +140,9 @@ const roleController = {
       await Role.deleteRolePermissions(roleId);
 
       await Role.deleteRole(roleId);
+
+      await cacheService.invalidate(USERS_CACHE_KEY);
+      console.log("🗑️ Cache invalidated after role deletion");
 
       return res.status(200).json({ message: "Role deleted successfully." });
     } catch (error) {
