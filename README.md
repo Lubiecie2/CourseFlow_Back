@@ -86,7 +86,6 @@ docker-compose up --build
 ## Struktura projektu
 
 ```
-.
 CourseFlow_Back/                       # Backend aplikacji (Node.js/Express)
 ├── bin/                               # Pliki wykonywalne
 │   └── www                            # Główny plik serwera (Socket.IO config)

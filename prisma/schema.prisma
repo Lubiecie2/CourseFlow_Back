@@ -360,19 +360,35 @@ model course_answers {
 }
 
 model course_notes {
-  id               Int                @id @default(autoincrement())
-  title            String             @db.VarChar(255)
-  content          String
-  user_id          Int
-  course_id        Int?
-  file_path        String?            @db.VarChar(255)
-  file_name        String?            @db.VarChar(255)
-  created_at       DateTime?          @default(now()) @db.Timestamp(6)
-  updated_at       DateTime?          @default(now()) @db.Timestamp(6)
-  courses          courses?           @relation(fields: [course_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course")
-  users            users              @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user")
-  note_attachments note_attachments[]
+  id         Int       @id @default(autoincrement())
+  title      String    @db.VarChar(255)
+  content    String
+  user_id    Int
+  course_id  Int?
+  file_path  String?   @db.VarChar(255)
+  file_name  String?   @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  courses    courses?  @relation(fields: [course_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course")
+  users      users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user")
 
   @@index([course_id], map: "idx_course_notes_course_id")
   @@index([user_id], map: "idx_course_notes_user_id")
+}
+
+model waf_security_events {
+  id           Int       @id @default(autoincrement())
+  event_id     String    @unique @db.VarChar(255)
+  event_type   String    @db.VarChar(50)
+  ip_address   String    @db.VarChar(45)
+  endpoint     String?   @db.VarChar(255)
+  user_agent   String?
+  description  String
+  risk_level   String?   @default("medium") @db.VarChar(20)
+  action_taken String?   @default("blocked") @db.VarChar(50)
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+
+  @@index([created_at], map: "idx_waf_events_created")
+  @@index([ip_address], map: "idx_waf_events_ip")
+  @@index([event_type], map: "idx_waf_events_type")
 }
