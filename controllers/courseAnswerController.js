@@ -1,0 +1,198 @@
+const courseAnswerModel = require("../models/courseAnswerModel");
+const courseQuestionModel = require("../models/courseQuestionModel");
+
+const courseAnswerController = {
+  createAnswer: async (req, res) => {
+    try {
+      const { questionId } = req.params;
+      const { content } = req.body;
+      const userId = req.user.id;
+
+      if (!content) {
+        return res.status(400).json({
+          success: false,
+          message: "Treść odpowiedzi jest wymagana",
+        });
+      }
+
+      const questionCheck = await courseQuestionModel.getQuestionById(
+        questionId
+      );
+
+      if (!questionCheck.success) {
+        return res.status(404).json({
+          success: false,
+          message: "Pytanie nie istnieje",
+        });
+      }
+
+      const data = {
+        content,
+        userId,
+        questionId: parseInt(questionId),
+      };
+
+      const result = await courseAnswerModel.createAnswer(data);
+
+      if (!result.success) {
+        return res.status(500).json({
+          success: false,
+          message: "Wystąpił błąd podczas tworzenia odpowiedzi",
+          error: result.error,
+        });
+      }
+
+      const io = req.app.get("io");
+      if (io) {
+        io.to(`question-${questionId}`).emit("new-answer", result.answer);
+      } else {
+        console.warn("Socket.io nie jest dostępny w aplikacji");
+      }
+
+      return res.status(201).json({
+        success: true,
+        message: "Odpowiedź została pomyślnie utworzona",
+        answer: result.answer,
+      });
+    } catch (error) {
+      console.error("Błąd w kontrolerze odpowiedzi:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas obsługi żądania",
+        error: error.message,
+      });
+    }
+  },
+
+  getAnswers: async (req, res) => {
+    try {
+      const { questionId } = req.params;
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+
+      const result = await courseAnswerModel.getAnswersByQuestionId(
+        questionId,
+        page,
+        limit
+      );
+
+      if (!result.success) {
+        return res.status(500).json({
+          success: false,
+          message: "Wystąpił błąd podczas pobierania odpowiedzi",
+          error: result.error,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        answers: result.answers,
+        pagination: result.pagination,
+      });
+    } catch (error) {
+      console.error("Błąd w kontrolerze odpowiedzi:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas obsługi żądania",
+        error: error.message,
+      });
+    }
+  },
+
+  deleteAnswer: async (req, res) => {
+    try {
+      const { answerId } = req.params;
+      const userId = req.user.id;
+      const isAdmin = req.user.role_id === 1; // ustawić id roli admina, która jest zapisana w bazie!!!
+
+      const answerInfo = await courseAnswerModel.getAnswerById(answerId);
+
+      if (!answerInfo.success) {
+        return res.status(404).json({
+          success: false,
+          message: "Odpowiedź nie została znaleziona",
+        });
+      }
+
+      const questionId = answerInfo.answer.question_id;
+
+      const result = await courseAnswerModel.deleteAnswer(
+        answerId,
+        userId,
+        isAdmin
+      );
+
+      if (!result.success) {
+        const statusCode = result.message.includes("uprawnień") ? 403 : 404;
+        return res.status(statusCode).json({
+          success: false,
+          message: result.message,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: result.message,
+      });
+    } catch (error) {
+      console.error("Błąd w kontrolerze odpowiedzi:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas usuwania odpowiedzi",
+        error: error.message,
+      });
+    }
+  },
+
+  updateAnswer: async (req, res) => {
+    try {
+      const { answerId } = req.params;
+      const { content } = req.body;
+      const userId = req.user.id;
+
+      if (!content) {
+        return res.status(400).json({
+          success: false,
+          message: "Treść odpowiedzi jest wymagana",
+        });
+      }
+
+      const result = await courseAnswerModel.updateAnswer(
+        answerId,
+        content,
+        userId
+      );
+
+      if (!result.success) {
+        const statusCode = result.message.includes("uprawnień") ? 403 : 404;
+        return res.status(statusCode).json({
+          success: false,
+          message: result.message,
+        });
+      }
+
+      const io = req.app.get("io");
+      if (io) {
+        io.to(`question-${result.answer.question_id}`).emit(
+          "answer-updated",
+          result.answer
+        );
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: result.message,
+        answer: result.answer,
+      });
+    } catch (error) {
+      console.error("Błąd w kontrolerze odpowiedzi:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Wystąpił błąd podczas aktualizacji odpowiedzi",
+        error: error.message,
+      });
+    }
+  },
+};
+
+module.exports = courseAnswerController;

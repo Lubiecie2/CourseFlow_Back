@@ -16,3 +16,11 @@ benchmarks/graphs
 .env
 .env.*
 !.env.example
+
+uploads/
+
+gitstat_result.json
+
+example.http
+ 
+sql/dump.sql

@@ -1,0 +1,394 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model certificates {
+  id               Int       @id @default(autoincrement())
+  user_id          Int?
+  course_id        Int?
+  certificate_code String    @unique @db.VarChar(20)
+  issued_at        DateTime? @default(now()) @db.Timestamp(6)
+  pdf_url          String?
+  status           String?   @default("issued") @db.VarChar(20)
+  courses          courses?  @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users            users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model chapters {
+  id             Int              @id @default(autoincrement())
+  course_id      Int?
+  title          String           @db.VarChar(255)
+  wysiwyg_code   String?
+  created_at     DateTime?        @default(now()) @db.Timestamp(6)
+  updated_at     DateTime?        @default(now()) @db.Timestamp(6)
+  chapter_blocks chapter_blocks[]
+  courses        courses?         @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tests          tests[]
+  user_chapter   user_chapter[]
+}
+
+model courses {
+  id                Int                @id @default(autoincrement())
+  user_id           Int?
+  title             String             @db.VarChar(255)
+  short_description String?
+  course_image      String?
+  category          String?            @db.VarChar(255)
+  is_published      Boolean?           @default(false)
+  created_at        DateTime?          @default(now()) @db.Timestamp(6)
+  updated_at        DateTime?          @default(now()) @db.Timestamp(6)
+  certificates      certificates[]
+  chapters          chapters[]
+  course_notes      course_notes[]
+  course_questions  course_questions[]
+  users             users?             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tests             tests[]
+  user_courses      user_courses[]
+}
+
+model permissions {
+  id               Int                @id @default(autoincrement())
+  name             String             @db.VarChar(100)
+  description      String?
+  created_at       DateTime?          @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?          @default(now()) @db.Timestamp(6)
+  role_permissions role_permissions[]
+}
+
+model role_permissions {
+  role_id       Int
+  permission_id Int
+  created_at    DateTime?   @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?   @default(now()) @db.Timestamp(6)
+  permissions   permissions @relation(fields: [permission_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  roles         roles       @relation(fields: [role_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([role_id, permission_id])
+}
+
+model roles {
+  id               Int                @id @default(autoincrement())
+  name             String             @db.VarChar(100)
+  description      String?
+  created_at       DateTime?          @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?          @default(now()) @db.Timestamp(6)
+  role_permissions role_permissions[]
+  users            users[]
+}
+
+model tests {
+  id                 Int                  @id @default(autoincrement())
+  chapter_id         Int?
+  course_id          Int
+  author_id          Int?
+  title              String               @db.VarChar(255)
+  description        String?
+  pass_threshold     Int?                 @default(70)
+  time_limit         Int?                 @default(0)
+  created_at         DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at         DateTime?            @default(now()) @db.Timestamp(6)
+  is_course_final    Boolean?             @default(false)
+  test_blocks        test_blocks[]
+  users              users?               @relation(fields: [author_id], references: [id], onUpdate: NoAction)
+  chapters           chapters?            @relation(fields: [chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  courses            courses              @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_test_attempts user_test_attempts[]
+}
+
+model user_chapter {
+  id           Int       @id @default(autoincrement())
+  user_id      Int?
+  chapter_id   Int?
+  is_completed Boolean?  @default(false)
+  last_viewed  DateTime? @default(now()) @db.Timestamp(6)
+  chapters     chapters? @relation(fields: [chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users        users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, chapter_id])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model user_courses {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  course_id  Int?
+  progress   Decimal?  @default(0) @db.Decimal(5, 2)
+  status     String?   @default("not_started") @db.VarChar(50)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  courses    courses?  @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, course_id])
+}
+
+model users {
+  id                                                                   Int                   @id @default(autoincrement())
+  first_name                                                           String                @db.VarChar(100)
+  last_name                                                            String                @db.VarChar(100)
+  email                                                                String                @unique @db.VarChar(255)
+  password                                                             String
+  created_at                                                           DateTime?             @default(now()) @db.Timestamp(6)
+  updated_at                                                           DateTime?             @default(now()) @db.Timestamp(6)
+  role_id                                                              Int?                  @default(2)
+  is_verified                                                          Boolean?              @default(false)
+  verification_token_id                                                Int?
+  reset_password_token                                                 String?               @db.VarChar(255)
+  reset_password_expires                                               DateTime?             @db.Time(6)
+  last_password_change                                                 DateTime?             @db.Time(6)
+  first_login                                                          Boolean?              @default(true)
+  last_login                                                           DateTime?             @db.Timestamp(6)
+  certificates                                                         certificates[]
+  course_answers                                                       course_answers[]
+  course_logs                                                          course_logs[]
+  course_notes                                                         course_notes[]
+  course_questions                                                     course_questions[]
+  courses                                                              courses[]
+  notifications                                                        notifications[]
+  tests                                                                tests[]
+  user_chapter                                                         user_chapter[]
+  user_courses                                                         user_courses[]
+  user_logs_user_logs_changed_by_user_idTousers                        user_logs[]           @relation("user_logs_changed_by_user_idTousers")
+  user_logs_user_logs_user_idTousers                                   user_logs[]           @relation("user_logs_user_idTousers")
+  user_test_attempts                                                   user_test_attempts[]
+  roles                                                                roles?                @relation(fields: [role_id], references: [id], onUpdate: NoAction, map: "fk_role_id")
+  verification_tokens_users_verification_token_idToverification_tokens verification_tokens?  @relation("users_verification_token_idToverification_tokens", fields: [verification_token_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_id_verificationtoken_fkey")
+  verification_tokens_verification_tokens_user_idTousers               verification_tokens[] @relation("verification_tokens_user_idTousers")
+}
+
+model verification_tokens {
+  id                                                     Int       @id(map: "verificationtokens_pkey") @default(autoincrement())
+  user_id                                                Int?
+  verification_token                                     String    @db.VarChar(255)
+  created_at                                             DateTime? @default(now()) @db.Timestamp(6)
+  expires_at                                             DateTime? @db.Timestamp(6)
+  users_users_verification_token_idToverification_tokens users[]   @relation("users_verification_token_idToverification_tokens")
+  users_verification_tokens_user_idTousers               users?    @relation("verification_tokens_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "verificationtokens_user_id_fkey")
+}
+
+model chapter_block_attributes {
+  id             Int            @id @default(autoincrement())
+  block_id       Int
+  name           String         @db.VarChar(50)
+  value          String
+  chapter_blocks chapter_blocks @relation(fields: [block_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model chapter_blocks {
+  id                       Int                        @id @default(autoincrement())
+  chapter_id               Int
+  type                     String                     @db.VarChar(50)
+  content                  String?
+  sort_order               Int                        @default(0)
+  created_at               DateTime?                  @default(now()) @db.Timestamp(6)
+  updated_at               DateTime?                  @default(now()) @db.Timestamp(6)
+  chapter_block_attributes chapter_block_attributes[]
+  chapters                 chapters                   @relation(fields: [chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model answer_attributes {
+  id              Int                @id @default(autoincrement())
+  answer_id       Int
+  attribute_name  String             @db.VarChar(100)
+  attribute_value String?
+  answers         test_block_answers @relation(fields: [answer_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([answer_id, attribute_name])
+  @@index([answer_id], map: "idx_answer_attributes_answer_id")
+}
+
+model test_block_answers {
+  id                Int                 @id @default(autoincrement())
+  block_id          Int
+  answer_text       String
+  is_correct        Boolean?            @default(false)
+  feedback          String?
+  sort_order        Int?                @default(0)
+  answer_attributes answer_attributes[]
+  test_blocks       test_blocks         @relation(fields: [block_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_test_answers user_test_answers[]
+
+  @@index([block_id], map: "idx_test_block_answers_block_id")
+}
+
+model test_block_attributes {
+  id              Int         @id @default(autoincrement())
+  block_id        Int
+  attribute_name  String      @db.VarChar(100)
+  attribute_value String?
+  test_blocks     test_blocks @relation(fields: [block_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([block_id, attribute_name])
+  @@index([block_id], map: "idx_test_block_attributes_block_id")
+}
+
+model test_blocks {
+  id                    Int                     @id @default(autoincrement())
+  test_id               Int
+  block_type            String                  @db.VarChar(50)
+  question_text         String
+  points                Int?                    @default(1)
+  sort_order            Int?                    @default(0)
+  created_at            DateTime?               @default(now()) @db.Timestamp(6)
+  updated_at            DateTime?               @default(now()) @db.Timestamp(6)
+  test_block_answers    test_block_answers[]
+  test_block_attributes test_block_attributes[]
+  tests                 tests                   @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_test_answers     user_test_answers[]
+
+  @@index([test_id], map: "idx_test_blocks_test_id")
+}
+
+model user_test_answers {
+  id                 Int                 @id @default(autoincrement())
+  attempt_id         Int
+  block_id           Int
+  selected_answer_id Int?
+  text_answer        String?
+  json_answer        Json?
+  is_correct         Boolean?            @default(false)
+  points_awarded     Int?                @default(0)
+  user_test_attempts user_test_attempts  @relation(fields: [attempt_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  test_blocks        test_blocks         @relation(fields: [block_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  test_block_answers test_block_answers? @relation(fields: [selected_answer_id], references: [id], onUpdate: NoAction)
+
+  @@index([attempt_id], map: "idx_user_test_answers_attempt_id")
+  @@index([block_id], map: "idx_user_test_answers_block_id")
+}
+
+model user_test_attempts {
+  id                Int                 @id @default(autoincrement())
+  user_id           Int
+  test_id           Int
+  start_time        DateTime?           @default(now()) @db.Timestamp(6)
+  end_time          DateTime?           @db.Timestamp(6)
+  score             Int?                @default(0)
+  max_score         Int?                @default(0)
+  passed            Boolean?            @default(false)
+  created_at        DateTime?           @default(now()) @db.Timestamp(6)
+  user_test_answers user_test_answers[]
+  tests             tests               @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users             users               @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([test_id], map: "idx_user_test_attempts_test_id")
+  @@index([user_id], map: "idx_user_test_attempts_user_id")
+}
+
+model notifications {
+  id                Int       @id @default(autoincrement())
+  user_id           Int
+  title             String    @db.VarChar(255)
+  message           String
+  type              String    @db.VarChar(50)
+  related_entity_id Int?
+  created_at        DateTime? @default(now()) @db.Timestamptz(6)
+  is_read           Boolean?  @default(false)
+  users             users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([user_id], map: "idx_notifications_user_id")
+}
+
+model user_logs {
+  id                                        Int      @default(autoincrement())
+  action_type                               String   @db.VarChar(50)
+  user_id                                   Int?
+  changed_by_user_id                        Int?
+  old_value                                 String?
+  new_value                                 String?
+  created_at                                DateTime @default(now()) @db.Timestamp(6)
+  users_user_logs_changed_by_user_idTousers users?   @relation("user_logs_changed_by_user_idTousers", fields: [changed_by_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_logs_changed_by_user_id")
+  users_user_logs_user_idTousers            users?   @relation("user_logs_user_idTousers", fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_user_logs_user_id")
+
+  @@id([id, created_at])
+  @@index([action_type], map: "idx_user_logs_action_type")
+  @@index([created_at], map: "idx_user_logs_created_at")
+  @@index([user_id], map: "idx_user_logs_user_id")
+}
+
+model course_logs {
+  id                 Int      @default(autoincrement())
+  course_id          Int?
+  user_id            Int?
+  action_type        String   @db.VarChar(50)
+  old_value          String?
+  new_value          String?
+  course_title       String?  @db.VarChar(255)
+  action_description String?
+  created_at         DateTime @default(now()) @db.Timestamp(6)
+  users              users?   @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "fk_course_logs_users")
+
+  @@id([id, created_at])
+  @@index([course_id], map: "idx_course_logs_course_id")
+  @@index([created_at], map: "idx_course_logs_created_at")
+  @@index([user_id], map: "idx_course_logs_user_id")
+}
+
+model course_questions {
+  id             Int              @id @default(autoincrement())
+  title          String           @db.VarChar(255)
+  content        String
+  user_id        Int
+  course_id      Int?
+  created_at     DateTime?        @default(now()) @db.Timestamp(6)
+  updated_at     DateTime?        @default(now()) @db.Timestamp(6)
+  views          Int?             @default(0)
+  course_answers course_answers[]
+  courses        courses?         @relation(fields: [course_id], references: [id], onUpdate: NoAction)
+  users          users            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([course_id])
+  @@index([user_id])
+}
+
+model course_answers {
+  id               Int              @id @default(autoincrement())
+  content          String
+  user_id          Int
+  question_id      Int
+  is_accepted      Boolean?         @default(false)
+  created_at       DateTime?        @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?        @default(now()) @db.Timestamp(6)
+  course_questions course_questions @relation(fields: [question_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users            users            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([question_id], map: "idx_course_answers_question_id")
+  @@index([user_id], map: "idx_course_answers_user_id")
+}
+
+model course_notes {
+  id         Int       @id @default(autoincrement())
+  title      String    @db.VarChar(255)
+  content    String
+  user_id    Int
+  course_id  Int?
+  file_path  String?   @db.VarChar(255)
+  file_name  String?   @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  courses    courses?  @relation(fields: [course_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course")
+  users      users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user")
+
+  @@index([course_id], map: "idx_course_notes_course_id")
+  @@index([user_id], map: "idx_course_notes_user_id")
+}
+
+model waf_security_events {
+  id           Int       @id @default(autoincrement())
+  event_id     String    @unique @db.VarChar(255)
+  event_type   String    @db.VarChar(50)
+  ip_address   String    @db.VarChar(45)
+  endpoint     String?   @db.VarChar(255)
+  user_agent   String?
+  description  String
+  risk_level   String?   @default("medium") @db.VarChar(20)
+  action_taken String?   @default("blocked") @db.VarChar(50)
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+
+  @@index([created_at], map: "idx_waf_events_created")
+  @@index([ip_address], map: "idx_waf_events_ip")
+  @@index([event_type], map: "idx_waf_events_type")
+}

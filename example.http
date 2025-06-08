@@ -1,8 +1,541 @@
-POST http://localhost:4000/api/users
+### Register a new user
+POST http://localhost:4000/api/auth/register
 Content-Type: application/json
 
 {
-  "username": "john_doe",
-  "email": "john@exa123123mple.com",
-  "password": "P@ssw0rd!"
+  "email": "JakubTTT@example.com",
+  "password": "password123",
+  "firstName": "Marcin",
+  "lastName": "Dudek"
 }
+### login
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@testowy.pl",
+  "password": "Seaways2410"
+}
+
+### Get user data (requires authentication)
+# Replace the token below with a valid token received from login or register
+GET http://localhost:4000/api/auth/me
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lPQKxngXlWWDdaTj.LNGNjGLswlPxQ68W6q7sHL8BuN8BMzhWEZBHVz4JiuJ_wN-LBCwiDyZ3ZBjSYkQ7ICDTYO0tdbsH-PbU0VJB13D1rxo8tXYH2fiPmzad23q1Tea27YgXlFeULrbRt3LD9xGs493DZXrY24XdDN1oN_CB_dnTEXt7Q1ykjWMx1pCS4Z8.6cyx672l3zwlqQLk7_E_jw
+Content-Type: application/json
+
+### Get all users (requires admin authentication)
+GET http://localhost:4000/api/admin/users
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..bRYtPhzo7BYSw3_z.fX71tzU989snbO2zB0V5fw31pA9-gyD2BzrS4k66VK1-we2Y0GZTy5pnM_yRusruybtDyCiclgXthvaNWhy2hFb7S4JfrUXbcyYms4D1dUgBwtMGoHtEQnlwZvtxWhdS377yKIKrMGRryqghT7BkUo3WC5BzvuMZBwoQFiArnbJC8Qk.aHc2ngX9fY3ntRUAJjgx_Q
+Content-Type: application/json
+
+### Change user role (requires admin authentication)
+PUT http://localhost:4000/api/admin/users/1/role
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..bRYtPhzo7BYSw3_z.fX71tzU989snbO2zB0V5fw31pA9-gyD2BzrS4k66VK1-we2Y0GZTy5pnM_yRusruybtDyCiclgXthvaNWhy2hFb7S4JfrUXbcyYms4D1dUgBwtMGoHtEQnlwZvtxWhdS377yKIKrMGRryqghT7BkUo3WC5BzvuMZBwoQFiArnbJC8Qk.aHc2ngX9fY3ntRUAJjgx_Q
+Content-Type: application/json
+
+{
+  "role": "user"
+}
+### Delete user from database (requires admin authentication)
+
+DELETE http://localhost:4000/api/admin/users/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..bRYtPhzo7BYSw3_z.fX71tzU989snbO2zB0V5fw31pA9-gyD2BzrS4k66VK1-we2Y0GZTy5pnM_yRusruybtDyCiclgXthvaNWhy2hFb7S4JfrUXbcyYms4D1dUgBwtMGoHtEQnlwZvtxWhdS377yKIKrMGRryqghT7BkUo3WC5BzvuMZBwoQFiArnbJC8Qk.aHc2ngX9fY3ntRUAJjgx_Q
+Content-Type: application/json
+
+### GET ROLES FROM DATABASE (requires admin authentication)
+GET http://localhost:4000/api/role/getrole
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..OCuHzO-3fgi6mQ5E.QZv1DSv3EsucZD6EyI9z3LWA01A7Xp8UaE2l1Whibt_3BAUc7YT-d5B_3eiKZ5M7m87WkLsZl3JSDZx7iWRY3vBZzO4oxhoyds1SnZHs-9aShIwz0figDsg9y84lEQAUe8iUHTV92v1Ln4ycCpYzSR8n_vYYSDY_UaJ2wmaWH6zqzhhs.y21ZJyq4LaXInqpC3rkIOg
+Content-Type: application/json
+
+### Update Role (requires admin authentication)
+PATCH http://localhost:4000/api/role/updaterole/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BR_P17xhHHN8NAtZ.FsBzcYTxuZ33rZjdjDyRzxAsq-9bBraFbLuzGG3Fo4wnEkBY7im4uO0KD85mB5Ue5mDVQ3maw5mvX8m4i8Shy2TGG0LhGe2OlIubGyzjSG4twQZ9XdXhl2Ap5KNkXzWcXmkpTCMak92zzXBpFXQFke3QSKQ6Jw5P8Kcc4YHfhCv2hZ0.49UHQpSFcKSQm4DsbALZ7g
+Content-Type: application/json
+
+{
+  "roleName": "admin",
+  "permissions": [4,6,7,8,9,10 ]
+}
+
+### Tworzenie kursu
+POST http://localhost:4000/api/courses
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..kIjnfOb_hw2gQ7kB.CMBveJxlsVtTibcgjSSdklxJWgBvkB5NCDKt_KPJUdONIIcZf6ylzP3Vet2P30Oy7Zuqj4obmEXEd7XjUfm_0-oQt-i-jC-B6HhG6bem4GMnx-rcUcoKBl-GNppiNBW9oJw_zZgoeWgppd7AcupaEZH9jnU50vBWSbs_zeb0uhoMEGXG.YJWea7WIaSXXnljh3siEmQ
+Content-Type: application/json
+
+{
+  "title": "React dla początkujących",
+  "category": "Programowanie",
+  "description": "Podstawowy kurs Reacta dla osób, które dopiero zaczynają."
+}
+
+
+### Pobieranie wszystkich kursów
+GET http://localhost:4000/api/courses
+Content-Type: application/json
+
+### Pobieranie pojedynczego kursu 
+GET http://localhost:4000/api/courses/17
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+### Aktualizacja kursu
+PATCH http://localhost:4000/api/courses/17
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+{
+  "title": "Test Endpointu do akutalizacji",
+  "category": "Programowanie",
+  "description": "Podstawowy kurs Reacta dla osób, które dopiero zaczynają."
+}
+
+###Tworzenie nowego rozdziału 
+POST http://localhost:4000/api/courses/22/chapters
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+{
+  "title": "Podstawy HTML i CSS",
+  "wysiwyg_code" : "<p1>asdasdasdsa</p1>"
+}
+
+
+###Pobieranie wszystkich rozdziałów do danego kursu 
+GET http://localhost:4000/api/courses/22/chapters
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+###Pobieranie rozdziału po danym id 
+GET http://localhost:4000/api/courses/22/chapters/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SXUhoXSlNG6YKhys.qwp1oY02Wir3Ld2pBwOZrxp3Z-LG4YJ5gW2CZK9p-CfTy-wHfwgy-fyEKtMBrS6BW076VpOp9PL4y5X5fUf_KWJTwWa7rhz_L1_Kttt4sD0YgXrdAnQoyP0swHPD3aYt5lZKN2gK5HI3fg0hXtLkyGDetskXhV-oi41luD03J-OGbgPu.0bvB5sPi5-SDXnrxhcVhfQ
+
+
+
+### 1. Utworzenie nowego rozdziału z blokami treści
+### 1. Utwórz nowy rozdział z blokami
+POST http://localhost:4000/api/courses/4/chapters
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..cIcP1hNtnc7BLCj_.2UlRVSxgOavRmiuaIzC8UojBtCsy_Yp8jFWEbArgN_TvtWz32tekQ8IwwiFh3O-yP8Bqy4hVw2VnxyxRdu86F8tM5p2wboYxLASUObQUIf6GG0mfKG3bCvnOa-EuxmIgtJTwCRkqzu02kJU1WzU_93LB7rozpJ0gpwUBAUbWi8hg36Q.xqxep6WG2CpyHrCAKqXmmg
+
+{
+  "title": "Wprowadzenie do JavaScript",
+  "content": [
+    {
+      "type": "heading",
+      "params": {
+        "content": "dddddddddddddddddddddddddddddddd"
+      },
+      "id": "item-0"
+    },
+    {
+      "type": "text",
+      "params": {
+        "content": "Jwqeeeeeeeeeeraktywnych elementów na stronach internetowych."
+      },
+      "id": "item-1"
+    }
+  ]
+}
+
+### 2. Pobierz rozdział z ID 1
+GET http://localhost:4000/api/courses/4/chapters/28
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..cIcP1hNtnc7BLCj_.2UlRVSxgOavRmiuaIzC8UojBtCsy_Yp8jFWEbArgN_TvtWz32tekQ8IwwiFh3O-yP8Bqy4hVw2VnxyxRdu86F8tM5p2wboYxLASUObQUIf6GG0mfKG3bCvnOa-EuxmIgtJTwCRkqzu02kJU1WzU_93LB7rozpJ0gpwUBAUbWi8hg36Q.xqxep6WG2CpyHrCAKqXmmg
+
+### 3. Zaktualizuj rozdział z ID 1
+PATCH http://localhost:4000/api/courses/4/chapters/28
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..cIcP1hNtnc7BLCj_.2UlRVSxgOavRmiuaIzC8UojBtCsy_Yp8jFWEbArgN_TvtWz32tekQ8IwwiFh3O-yP8Bqy4hVw2VnxyxRdu86F8tM5p2wboYxLASUObQUIf6GG0mfKG3bCvnOa-EuxmIgtJTwCRkqzu02kJU1WzU_93LB7rozpJ0gpwUBAUbWi8hg36Q.xqxep6WG2CpyHrCAKqXmmg
+
+{
+  "content": [
+    {
+      "type": "heading",
+      "params": {
+        "content": "Podstawy JavaScript - zaktualizowany tytuł"
+      },
+      "id": "item-0"
+    },
+    {
+      "type": "text",
+      "params": {
+        "content": "JavaScript to język programowania, który pozwala na tworzenie interaktywnych elementów na stronach internetowych."
+      },
+      "id": "item-1"
+    },
+    {
+      "type": "text",
+      "params": {
+        "content": "Jest to jeden z najpopularniejszych języków programowania na świecie."
+      },
+      "id": "item-2"
+    }
+  ]
+}
+
+### 4. Aktualizacja tylko tytułu rozdziału
+PATCH http://localhost:4000/api/courses/4/chapters/28
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..uoHcfjwPfuoAVtox.AI5z7H_jx_VQL-5hDsv7X5Kj5CSJtxZbmx8D_Qy5iUa5nXeh1zwOnomjAoonMkDOH9CHNdtBMDz_dBRtx2shMEtPe_I9rqDsD2vl-bMzlI1y_CnylOUA5H6LtXD5oy-Dul1Ow8PzF19l2VuK565LaJka2gvo0531R2bem-Kue55vTZE.NquPla2fqT4GVwLtIzTBbQ
+
+{
+  "title": "Nowy tytuł rozdziału"
+}
+
+### 5. Pobieranie wszystkich rozdziałów kursu
+GET http://localhost:4000/api/courses/1/chapters
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..uoHcfjwPfuoAVtox.AI5z7H_jx_VQL-5hDsv7X5Kj5CSJtxZbmx8D_Qy5iUa5nXeh1zwOnomjAoonMkDOH9CHNdtBMDz_dBRtx2shMEtPe_I9rqDsD2vl-bMzlI1y_CnylOUA5H6LtXD5oy-Dul1Ow8PzF19l2VuK565LaJka2gvo0531R2bem-Kue55vTZE.NquPla2fqT4GVwLtIzTBbQ
+
+
+### Usuwanie rozdziału
+DELETE http://localhost:4000/api/courses/1/chapters/26
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..ctThAvpeEBPeF_g-.i8jJt-ixyOl76KxmBJJZAEZZsfxICWw7nfC6cYlcSzJUT4GNqjIyLqOtmipQ07bLYSBd2oLZzZxH3OJi0qsRPH6XsiQILP95BNc5VyJJMid6Jvirbb4W4KYQSbE1ynuQ5a6D6Tlouy_5XhWjZYTubeAyWgTYhTu3jw6rk_44c8DzwkM.xfu9t2zwmuD6VIRHx2jEZA
+
+### Usuń kurs
+DELETE http://localhost:4000/api/courses/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..FSw9RrciF-CM8dya.7ZfUOSRGpmoUMWQpQHsrF19cbEOpkot9E5IRu1FMsUwxaWk8RwTkhxAI4tm4jUnbMwY-XomdKsH_zpoAciWnJrp11M482cZQAYIQFhyzEL85Dc4nQyZH-EQniFNPjNC29J4HERdcp5qkwtuS_8OuvgCTC_O-K1a5yslMg2nZzqhnZ5E.Hyz8_GEd56we_jJXYwDNsw
+
+
+
+# ----------------------------------------------------------- TESTY ----------------------------------------------------------------
+# ----------------------------------------------------------- TESTY ----------------------------------------------------------------
+# ----------------------------------------------------------- TESTY ----------------------------------------------------------------
+# ----------------------------------------------------------- TESTY ----------------------------------------------------------------
+
+### login
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@testowy.pl",
+  "password": "Seaways2410"
+}
+
+### Pobieranie wszystkich testów dla rozdziału
+GET http://localhost:4000/api/chapterTest/4/chapters/28/tests
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+### Tworzenie nowego testu
+POST http://localhost:4000/api/chapterTest/4/chapters/28/tests
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+{
+  "title": "dddd",
+  "description": "dddd",
+  "pass_threshold": 70,
+  "time_limit": 30
+}
+
+### Pobieranie szczegółów testu
+GET http://localhost:4000/api/tests/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+### Aktualizacja testu
+PATCH http://localhost:4000/api/tests/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+{
+  "title": "Zaktualizowany test JavaScript",
+  "description": "Zaktualizowany opis testu z JavaScript",
+  "pass_threshold": 75,
+  "time_limit": 45
+}
+
+### Usuwanie testu
+DELETE http://localhost:4000/api/tests/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pMBFZNgphBtbIH3n.UrK9bPvbTrGEh8WBxQiovpcWBpTQxQIX6UPrrhIN-Mmizj0ZU-hpmA36ydT6tI68gLhl8wTfS7VJbKs2qcaAhKMGNEKkw1lra7xO7K5x708rKeId5-FQUWPoXDSLnLGnYk0YtYxDagE3RVv_qjFW7E7NJFWJqgQrHo62Qh7pE1--_-g.8fPePULCEgx-LcsUcW-0Yg
+
+### Tworzenie nowego bloku testowego (pytania ABCD)
+POST http://localhost:4000/api/tests/1/blocks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.sLhSq-2-yfcxobKBIYQ1x3dsMPqeNBf5ko2PSfPx1_b_ua5q4tBAyRuv2aIW5JejToGrQqDEiwuksJFtqyjqIrx0ntMO76IpPv_zHU7BSYdUVhBN4NfaoTxuNpB-SANFo2dYXP_miNKzje2HNnomyvPlGKDLKJ57T_IbuNpnJdH7UHQ.QQI7MADBbynLf8CV2_ljkw
+
+{
+  "block_type": "single_choice",
+  "question_text": "qweqweqweqweqweqweqweqwewq",
+  "points": 4,
+  "attributes": {
+    "difficulty": "easy",
+    "category": "javascript"
+  },
+  "answers": [
+    {
+      "text": "push()",
+      "is_correct": true,
+      "feedback": "Poprawnie! Metoda push() dodaje element na końcu tablicy."
+    },
+    {
+      "text": "pop()",
+      "is_correct": false,
+      "feedback": "Niestety nie. Metoda pop() usuwa ostatni element tablicy."
+    },
+    {
+      "text": "shift()",
+      "is_correct": false,
+      "feedback": "Niestety nie. Metoda shift() usuwa pierwszy element tablicy."
+    },
+    {
+      "text": "unshift()",
+      "is_correct": false,
+      "feedback": "Niestety nie. Metoda unshift() dodaje element na początku tablicy."
+    }
+  ]
+}
+
+### Pobieranie wszystkich bloków testowych dla testu
+GET http://localhost:4000/api/tests/1/blocks
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.sLhSq-2-yfcxobKBIYQ1x3dsMPqeNBf5ko2PSfPx1_b_ua5q4tBAyRuv2aIW5JejToGrQqDEiwuksJFtqyjqIrx0ntMO76IpPv_zHU7BSYdUVhBN4NfaoTxuNpB-SANFo2dYXP_miNKzje2HNnomyvPlGKDLKJ57T_IbuNpnJdH7UHQ.QQI7MADBbynLf8CV2_ljkw
+
+### Pobieranie pojedynczego bloku testowego
+GET http://localhost:4000/api/blocks/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.sLhSq-2-yfcxobKBIYQ1x3dsMPqeNBf5ko2PSfPx1_b_ua5q4tBAyRuv2aIW5JejToGrQqDEiwuksJFtqyjqIrx0ntMO76IpPv_zHU7BSYdUVhBN4NfaoTxuNpB-SANFo2dYXP_miNKzje2HNnomyvPlGKDLKJ57T_IbuNpnJdH7UHQ.QQI7MADBbynLf8CV2_ljkw
+
+### Usuwanie bloku testowego
+DELETE http://localhost:4000/api/blocks/1
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wFvUoG-XzRwaB6S_.sLhSq-2-yfcxobKBIYQ1x3dsMPqeNBf5ko2PSfPx1_b_ua5q4tBAyRuv2aIW5JejToGrQqDEiwuksJFtqyjqIrx0ntMO76IpPv_zHU7BSYdUVhBN4NfaoTxuNpB-SANFo2dYXP_miNKzje2HNnomyvPlGKDLKJ57T_IbuNpnJdH7UHQ.QQI7MADBbynLf8CV2_ljkw
+
+
+# ----------------------------------------------------------------
+# CERTYFIKATY
+# ----------------------------------------------------------------
+
+### Sprawdzanie uprawnień do certyfikatu
+GET http://localhost:4000/api/certificates/eligibility/4
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.yc4g683EK4JU5-PzSjUDgooUl9N6D57AsfSjRVojI1aui5Ik9NCH3bgI2nFjiBNcgrutkIP2WnT9cp3AqhDpzGZn-o-NrTtTiYTB94uH_gPSmyEOs4YRNZPmLOHT0_iVLeRuEjtFy_oJMCntxrUlRdlSwM6NZkOhXjvQnrPAT3_FNhQ.VY1ZtPDN5gXLtyroA3Nubw
+
+{
+  "success": true,
+  "isEligible": true,  
+  "hasCertificate": false
+}
+### Generowanie certyfikatu
+POST http://localhost:4000/api/certificates/generate/4
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.yc4g683EK4JU5-PzSjUDgooUl9N6D57AsfSjRVojI1aui5Ik9NCH3bgI2nFjiBNcgrutkIP2WnT9cp3AqhDpzGZn-o-NrTtTiYTB94uH_gPSmyEOs4YRNZPmLOHT0_iVLeRuEjtFy_oJMCntxrUlRdlSwM6NZkOhXjvQnrPAT3_FNhQ.VY1ZtPDN5gXLtyroA3Nubw
+Content-Type: application/json
+
+### Pobieranie wszystkich certyfikatów użytkownika
+GET http://localhost:4000/api/certificates/user
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.yc4g683EK4JU5-PzSjUDgooUl9N6D57AsfSjRVojI1aui5Ik9NCH3bgI2nFjiBNcgrutkIP2WnT9cp3AqhDpzGZn-o-NrTtTiYTB94uH_gPSmyEOs4YRNZPmLOHT0_iVLeRuEjtFy_oJMCntxrUlRdlSwM6NZkOhXjvQnrPAT3_FNhQ.VY1ZtPDN5gXLtyroA3Nubw
+
+### Pobieranie pliku PDF certyfikatu (najpierw uzyskaj kod certyfikatu z odpowiedzi z endpointu /user)
+GET http://localhost:4000/api/certificates/download/CF-D057950C
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..BiNga4XeIwzEUo2l.yc4g683EK4JU5-PzSjUDgooUl9N6D57AsfSjRVojI1aui5Ik9NCH3bgI2nFjiBNcgrutkIP2WnT9cp3AqhDpzGZn-o-NrTtTiYTB94uH_gPSmyEOs4YRNZPmLOHT0_iVLeRuEjtFy_oJMCntxrUlRdlSwM6NZkOhXjvQnrPAT3_FNhQ.VY1ZtPDN5gXLtyroA3Nubw
+
+
+
+
+# ----------------------------------------------------------- POWIADOMIENIA ----------------------------------------------------------------
+
+### Logowanie (aby uzyskać token JWT)
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@testowy.pl",
+  "password": "Seaways2410"
+}
+
+### Sprawdzenie liczby nieprzeczytanych powiadomień
+GET http://localhost:4000/api/notifications/unread-count
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+### Pobranie wszystkich powiadomień (spowoduje oznaczenie wszystkich jako przeczytane)
+GET http://localhost:4000/api/notifications
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+### Pobranie wszystkich powiadomień (z paginacją)
+GET http://localhost:4000/api/notifications?page=1&limit=10
+Authorization: Bearer TUTAJ_WSTAW_SWOJ_TOKEN
+Content-Type: application/json
+
+### Sprawdzenie liczby nieprzeczytanych powiadomień po wyświetleniu (powinno być 0)
+GET http://localhost:4000/api/notifications/unread-count
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..5hMJuSj1PQUbwtei.vFDkZHyAfAfmX_ws_Owusxjs7_sVOrz79nqUPVSl2NlfjWLG7Ltr5hOPqbvBxKW_upD8tUvys1AuGNaVrGBmTZB5zxOkhKY94VtGsDo2ecJl8CDTZLbtsFYkuviv2iNHQqO2iUKGrxqNBBNxnOTsBIMEYadTHhAD1XNeXPL2uDjW0PQ.A3EbVjwyl2JQl_jwLXSHLw
+Content-Type: application/json
+
+### Dodanie nowego kursu (wyzwoli utworzenie powiadomień dla wszystkich użytkowników)
+POST http://localhost:4000/api/courses
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+{
+  "title": "qweqweqwe",
+  "category": "Testowanie",
+  "description": "Kurs do testowania systemu powiadomień"
+}
+
+### Sprawdzenie liczby nieprzeczytanych powiadomień (po dodaniu kursu)
+GET http://localhost:4000/api/notifications/unread-count
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+
+### Dodanie nowego powiadomienia 
+POST http://localhost:4000/api/notifications/admin
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EaboRJwBYW4B4vil.Rm0oQQo9RI0dpRH_19Yv2DFoPyP6a-a_cB-ARUQoctUfnOKDfJPTV7ytYV5XdpB9jgqgu0BjZtnM9ugRLJnqcFfYZhWkvCACbdqoWsmuqKG6Zfed4kXwKv4-aDYi1nB6l1y-eXn842pVphLgcLkeF35N_FmvXgyLGUp7OIT9IREcRX4.JbR9PsLN3Cq6YTFfSY7xiw
+Content-Type: application/json
+
+{
+  "title": "Ważna informacja od administratora",
+  "message": "Dzisiaj wieczorem system będzie niedostępny z powodu aktualizacji. Planowany czas niedostępności: 22:00-23:00."
+}
+
+
+
+
+### Generowanie tokenu 
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@testowy.pl",
+  "password": "Seaways2410"
+}
+
+### Pobieranie wszystkich pytań dla kursu
+GET http://localhost:4000/api/courses/4/questions?page=1&limit=10
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..70dBd7A_wi2dSnEq.XPbNGf6tQFfs8aMdjXo8JUsMEq5Iysh_TxlR2BagNoOupHwrLzGtFX5eSM3uRiWCf2bKvCZLBkYIAtWl8jiQMN8YCwnumhFImoTM7YjVSJGh6Os9VH78nndBi1GjyxtX0WegjLdwAQqNNQTlVTz2HcnX3YDimtEXiZgDEPrfMcBZLDY.FWnfyA3GqgSF94tkKu3Y5A
+Content-Type: application/json
+
+
+### Pobieranie pojedynczego pytania
+GET http://localhost:4000/api/questions/1
+Authorization: Bearer TUTAJ_WSTAW_SWOJ_TOKEN
+Content-Type: application/json
+
+### Tworzenie nowego pytania dla kursu
+POST http://localhost:4000/api/questions
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+{
+  "title": "Jak dodać nowy element do tablicy w JavaScript?",
+  "content": "Próbuję dodać nowy element na końcu tablicy w JavaScript. Jaką metodę powinienem użyć? Czy istnieje różnica między metodami push i unshift?",
+  "courseId": 4
+}
+
+### Tworzenie pytania ogólnego (bez przypisania do kursu)
+POST http://localhost:4000/api/questions
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+{
+  "title": "Jak działa mechanizm dziedziczenia w JavaScript?",
+  "content": "Czy ktoś może wyjaśnić, jak działa dziedziczenie prototypowe w JavaScript i czym różni się od dziedziczenia klasowego znanego z innych języków?"
+}
+
+
+### Wyszukiwanie pytań
+GET http://localhost:4000/api/questions?search=JavaScript&page=1&limit=10
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+
+
+
+# ----------------------------------------------------------- ODPOWIEDZI DO PYTAŃ ----------------------------------------------------------------
+
+### Pobieranie odpowiedzi dla pytania
+GET http://localhost:4000/api/questions/3/answers
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+### Dodawanie nowej odpowiedzi
+POST http://localhost:4000/api/questions/3/answers
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..lbLPRa79Non13_4E.fWQQsvNdONasO0X19M-T8V5z0Uj3bibbVRsZ852jIAMRXzwdafhWl9OqOFOal7941rKNcjfSiBoq4xpSLC1BX3nYlo4wQGPY2DAYi95Xk5oZnLwDmM75XUnsSzU8r1V0QrTqdTIuB9KmTU-tmDvGFJzJKQxVPhsvDoGMgKbnpVChhzo.dJ5qaATvWUJh6wThts9dTQ
+Content-Type: application/json
+
+{
+  "content": "W JavaScript najlepszą metodą do dodawania elementu na końcu tablicy jest `push()`. Przykład użycia: `array.push(newElement)`. Metoda `unshift()` dodaje element na początku tablicy."
+}
+
+
+### Pobieranie statystyk administratora
+GET http://localhost:4000/api/admin/stats
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..xJuffWPHTnG63jVm.CI0rbtgsuFESVBxry5E6E3c6sZxjJr1LA9wvSFH6yZKR_IHSg31ddbPwxqHF-u9nuHgqs2X54JWWQ9E8pzHOIzUlE55X8wMtRnxOEfzyH6U3W5JpsDJlwtF7vpCK9PxJ1xdbcYEQt5JB3u6OuDl_jiNUkBwFmBpVYtxvKDH5QqGNo_0.XNg-cKv7imP7CdQFs0Wmng
+Content-Type: application/json
+
+
+### ===== WAF TESTS =====
+
+### Login admin (potrzebny do testów WAF)
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@testowy.pl",
+  "password": "Seaways2410"
+}
+
+### WAF Status
+GET http://localhost:4000/api/waf/status
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+### WAF Dashboard
+GET http://localhost:4000/api/waf/dashboard
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+### WAF Security Events
+GET http://localhost:4000/api/waf/events?page=1&limit=20
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+### Update WAF Configuration
+PATCH http://localhost:4000/api/waf/config
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+{
+  "config": {
+    "rateLimiting": {
+      "enabled": true,
+      "maxRequests": 50,
+      "windowMs": 60000
+    },
+    "sqlInjection": {
+      "enabled": true
+    },
+    "xss": {
+      "enabled": true
+    }
+  }
+}
+
+### ===== TESTY BLOKAD =====
+
+### Test SQL Injection (zostanie zablokowany)
+POST http://localhost:4000/api/questions
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+{
+  "title": "Test'; DROP TABLE users; --",
+  "content": "To jest test SQL injection"
+}
+
+### Test XSS (zostanie zablokowany)  
+POST http://localhost:4000/api/questions
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
+
+{
+  "title": "Test XSS",
+  "content": "<script>alert('XSS')</script>"
+}
+
+### Test Rate Limiting (wykonaj szybko wiele razy)
+GET http://localhost:4000/api/courses
+Content-Type: application/json
+
+### Normalny request (powinien przejść)
+GET http://localhost:4000/api/courses
+Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
+Content-Type: application/json
