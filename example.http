@@ -511,7 +511,7 @@ Content-Type: application/json
 
 ### ===== TESTY BLOKAD =====
 
-### Test SQL Injection (zostanie zablokowany)
+### Test SQL Injection 
 POST http://localhost:4000/api/questions
 Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
 Content-Type: application/json
@@ -521,7 +521,7 @@ Content-Type: application/json
   "content": "To jest test SQL injection"
 }
 
-### Test XSS (zostanie zablokowany)  
+### Test XSS  
 POST http://localhost:4000/api/questions
 Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
 Content-Type: application/json
@@ -531,11 +531,11 @@ Content-Type: application/json
   "content": "<script>alert('XSS')</script>"
 }
 
-### Test Rate Limiting (wykonaj szybko wiele razy)
+### Test Rate Limiting 
 GET http://localhost:4000/api/courses
 Content-Type: application/json
 
-### Normalny request (powinien przejść)
+### Normalny request 
 GET http://localhost:4000/api/courses
 Authorization: Bearer eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..6Vtq_F5zfpRbLeiY.cSCTUJ_o9dvH9Smh4x1j-lulLA90_lzUoflZymzHvJgzbPlmVnKcOd5vOVMD3sv7lsfZUBRs_Qt8Vjne5SYiYig-bSFV2o4NrJMxoOgvIxNdbWBNhrsA_4vCvvWdgSSLtXJUkIZqI5DD1rkyfj250zn81POIs4Gec4_WU3N78f76rVE.K9NgyFcQTBnrG1X7OYBvwA
 Content-Type: application/json

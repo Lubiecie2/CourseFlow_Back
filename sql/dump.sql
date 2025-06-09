@@ -5,7 +5,7 @@
 -- Dumped from database version 17.4
 -- Dumped by pg_dump version 17.4
 
--- Started on 2025-05-29 15:51:25
+-- Started on 2025-06-08 18:16:05
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -30,7 +30,7 @@ SET row_security = off;
 ALTER SCHEMA public OWNER TO postgres;
 
 --
--- TOC entry 5368 (class 0 OID 0)
+-- TOC entry 5421 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
 --
@@ -39,7 +39,7 @@ COMMENT ON SCHEMA public IS '';
 
 
 --
--- TOC entry 274 (class 1255 OID 65563)
+-- TOC entry 279 (class 1255 OID 98309)
 -- Name: attach_partition(text, integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -90,7 +90,7 @@ $$;
 ALTER FUNCTION public.attach_partition(table_name text, year integer, month integer) OWNER TO postgres;
 
 --
--- TOC entry 289 (class 1255 OID 65564)
+-- TOC entry 294 (class 1255 OID 98310)
 -- Name: create_monthly_partition(text, integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -142,7 +142,7 @@ $$;
 ALTER FUNCTION public.create_monthly_partition(table_name text, year integer, month integer) OWNER TO postgres;
 
 --
--- TOC entry 290 (class 1255 OID 65565)
+-- TOC entry 295 (class 1255 OID 98311)
 -- Name: detach_partition(text, integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -175,7 +175,7 @@ $$;
 ALTER FUNCTION public.detach_partition(table_name text, year integer, month integer) OWNER TO postgres;
 
 --
--- TOC entry 291 (class 1255 OID 65566)
+-- TOC entry 296 (class 1255 OID 98312)
 -- Name: fn_notify_new_course(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -193,7 +193,7 @@ $$;
 ALTER FUNCTION public.fn_notify_new_course() OWNER TO postgres;
 
 --
--- TOC entry 292 (class 1255 OID 65567)
+-- TOC entry 297 (class 1255 OID 98313)
 -- Name: get_current_user_id(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -217,7 +217,7 @@ $$;
 ALTER FUNCTION public.get_current_user_id() OWNER TO postgres;
 
 --
--- TOC entry 293 (class 1255 OID 65568)
+-- TOC entry 298 (class 1255 OID 98314)
 -- Name: log_course_delete_operation(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -258,7 +258,7 @@ $$;
 ALTER FUNCTION public.log_course_delete_operation() OWNER TO postgres;
 
 --
--- TOC entry 294 (class 1255 OID 65569)
+-- TOC entry 299 (class 1255 OID 98315)
 -- Name: log_course_operation(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -337,7 +337,7 @@ $$;
 ALTER FUNCTION public.log_course_operation() OWNER TO postgres;
 
 --
--- TOC entry 295 (class 1255 OID 65570)
+-- TOC entry 300 (class 1255 OID 98316)
 -- Name: log_user_delete(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -381,7 +381,7 @@ $$;
 ALTER FUNCTION public.log_user_delete() OWNER TO postgres;
 
 --
--- TOC entry 296 (class 1255 OID 65571)
+-- TOC entry 301 (class 1255 OID 98317)
 -- Name: log_user_operation(integer, character varying, text, text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -417,7 +417,7 @@ $$;
 ALTER FUNCTION public.log_user_operation(p_user_id integer, p_action_type character varying, p_old_value text, p_new_value text) OWNER TO postgres;
 
 --
--- TOC entry 273 (class 1255 OID 65572)
+-- TOC entry 278 (class 1255 OID 98318)
 -- Name: role_changed_trigger(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -450,7 +450,7 @@ $$;
 ALTER FUNCTION public.role_changed_trigger() OWNER TO postgres;
 
 --
--- TOC entry 275 (class 1255 OID 65573)
+-- TOC entry 280 (class 1255 OID 98319)
 -- Name: set_operation_context(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -468,7 +468,7 @@ $$;
 ALTER FUNCTION public.set_operation_context(user_id integer) OWNER TO postgres;
 
 --
--- TOC entry 276 (class 1255 OID 65574)
+-- TOC entry 281 (class 1255 OID 98320)
 -- Name: sp_create_new_course_notifications(integer, character varying); Type: PROCEDURE; Schema: public; Owner: postgres
 --
 
@@ -502,7 +502,7 @@ $$;
 ALTER PROCEDURE public.sp_create_new_course_notifications(IN p_course_id integer, IN p_course_title character varying) OWNER TO postgres;
 
 --
--- TOC entry 277 (class 1255 OID 65575)
+-- TOC entry 282 (class 1255 OID 98321)
 -- Name: user_deleted_trigger(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -530,7 +530,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 217 (class 1259 OID 65576)
+-- TOC entry 217 (class 1259 OID 98322)
 -- Name: _prisma_migrations; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -549,7 +549,7 @@ CREATE TABLE public._prisma_migrations (
 ALTER TABLE public._prisma_migrations OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 65583)
+-- TOC entry 218 (class 1259 OID 98329)
 -- Name: answer_attributes; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -564,7 +564,7 @@ CREATE TABLE public.answer_attributes (
 ALTER TABLE public.answer_attributes OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 65588)
+-- TOC entry 219 (class 1259 OID 98334)
 -- Name: answer_attributes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -580,7 +580,7 @@ CREATE SEQUENCE public.answer_attributes_id_seq
 ALTER SEQUENCE public.answer_attributes_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5370 (class 0 OID 0)
+-- TOC entry 5423 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: answer_attributes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -589,7 +589,7 @@ ALTER SEQUENCE public.answer_attributes_id_seq OWNED BY public.answer_attributes
 
 
 --
--- TOC entry 220 (class 1259 OID 65589)
+-- TOC entry 220 (class 1259 OID 98335)
 -- Name: certificates; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -607,7 +607,7 @@ CREATE TABLE public.certificates (
 ALTER TABLE public.certificates OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 65596)
+-- TOC entry 221 (class 1259 OID 98342)
 -- Name: certificates_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -623,7 +623,7 @@ CREATE SEQUENCE public.certificates_id_seq
 ALTER SEQUENCE public.certificates_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5371 (class 0 OID 0)
+-- TOC entry 5424 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: certificates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -632,7 +632,7 @@ ALTER SEQUENCE public.certificates_id_seq OWNED BY public.certificates.id;
 
 
 --
--- TOC entry 222 (class 1259 OID 65597)
+-- TOC entry 222 (class 1259 OID 98343)
 -- Name: chapter_block_attributes; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -647,7 +647,7 @@ CREATE TABLE public.chapter_block_attributes (
 ALTER TABLE public.chapter_block_attributes OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 65602)
+-- TOC entry 223 (class 1259 OID 98348)
 -- Name: chapter_block_attributes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -663,7 +663,7 @@ CREATE SEQUENCE public.chapter_block_attributes_id_seq
 ALTER SEQUENCE public.chapter_block_attributes_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5372 (class 0 OID 0)
+-- TOC entry 5425 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: chapter_block_attributes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -672,7 +672,7 @@ ALTER SEQUENCE public.chapter_block_attributes_id_seq OWNED BY public.chapter_bl
 
 
 --
--- TOC entry 224 (class 1259 OID 65603)
+-- TOC entry 224 (class 1259 OID 98349)
 -- Name: chapter_blocks; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -690,7 +690,7 @@ CREATE TABLE public.chapter_blocks (
 ALTER TABLE public.chapter_blocks OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 65611)
+-- TOC entry 225 (class 1259 OID 98357)
 -- Name: chapter_blocks_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -706,7 +706,7 @@ CREATE SEQUENCE public.chapter_blocks_id_seq
 ALTER SEQUENCE public.chapter_blocks_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5373 (class 0 OID 0)
+-- TOC entry 5426 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: chapter_blocks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -715,7 +715,7 @@ ALTER SEQUENCE public.chapter_blocks_id_seq OWNED BY public.chapter_blocks.id;
 
 
 --
--- TOC entry 226 (class 1259 OID 65612)
+-- TOC entry 226 (class 1259 OID 98358)
 -- Name: chapters; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -732,7 +732,7 @@ CREATE TABLE public.chapters (
 ALTER TABLE public.chapters OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 65619)
+-- TOC entry 227 (class 1259 OID 98365)
 -- Name: chapters_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -748,7 +748,7 @@ CREATE SEQUENCE public.chapters_id_seq
 ALTER SEQUENCE public.chapters_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5374 (class 0 OID 0)
+-- TOC entry 5427 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: chapters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -757,7 +757,7 @@ ALTER SEQUENCE public.chapters_id_seq OWNED BY public.chapters.id;
 
 
 --
--- TOC entry 228 (class 1259 OID 65620)
+-- TOC entry 228 (class 1259 OID 98366)
 -- Name: course_answers; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -775,7 +775,7 @@ CREATE TABLE public.course_answers (
 ALTER TABLE public.course_answers OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 65628)
+-- TOC entry 229 (class 1259 OID 98374)
 -- Name: course_answers_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -791,7 +791,7 @@ CREATE SEQUENCE public.course_answers_id_seq
 ALTER SEQUENCE public.course_answers_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5375 (class 0 OID 0)
+-- TOC entry 5428 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: course_answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -800,7 +800,7 @@ ALTER SEQUENCE public.course_answers_id_seq OWNED BY public.course_answers.id;
 
 
 --
--- TOC entry 230 (class 1259 OID 65629)
+-- TOC entry 230 (class 1259 OID 98375)
 -- Name: course_logs; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -821,7 +821,7 @@ PARTITION BY RANGE (created_at);
 ALTER TABLE public.course_logs OWNER TO postgres;
 
 --
--- TOC entry 231 (class 1259 OID 65633)
+-- TOC entry 231 (class 1259 OID 98379)
 -- Name: course_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -837,7 +837,7 @@ CREATE SEQUENCE public.course_logs_id_seq
 ALTER SEQUENCE public.course_logs_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5376 (class 0 OID 0)
+-- TOC entry 5429 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: course_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -846,7 +846,7 @@ ALTER SEQUENCE public.course_logs_id_seq OWNED BY public.course_logs.id;
 
 
 --
--- TOC entry 232 (class 1259 OID 65634)
+-- TOC entry 232 (class 1259 OID 98380)
 -- Name: course_logs_y202505; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -866,7 +866,7 @@ CREATE TABLE public.course_logs_y202505 (
 ALTER TABLE public.course_logs_y202505 OWNER TO postgres;
 
 --
--- TOC entry 233 (class 1259 OID 65641)
+-- TOC entry 233 (class 1259 OID 98387)
 -- Name: course_logs_y202506; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -886,7 +886,7 @@ CREATE TABLE public.course_logs_y202506 (
 ALTER TABLE public.course_logs_y202506 OWNER TO postgres;
 
 --
--- TOC entry 234 (class 1259 OID 65648)
+-- TOC entry 234 (class 1259 OID 98394)
 -- Name: course_logs_y202507; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -906,7 +906,72 @@ CREATE TABLE public.course_logs_y202507 (
 ALTER TABLE public.course_logs_y202507 OWNER TO postgres;
 
 --
--- TOC entry 235 (class 1259 OID 65655)
+-- TOC entry 235 (class 1259 OID 98401)
+-- Name: course_logs_y202508; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.course_logs_y202508 (
+    id integer DEFAULT nextval('public.course_logs_id_seq'::regclass) NOT NULL,
+    course_id integer,
+    user_id integer,
+    action_type character varying(50) NOT NULL,
+    old_value text,
+    new_value text,
+    course_title character varying(255),
+    action_description text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE public.course_logs_y202508 OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 98408)
+-- Name: course_notes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.course_notes (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    content text NOT NULL,
+    user_id integer NOT NULL,
+    course_id integer,
+    file_path character varying(255),
+    file_name character varying(255),
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.course_notes OWNER TO postgres;
+
+--
+-- TOC entry 237 (class 1259 OID 98415)
+-- Name: course_notes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.course_notes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.course_notes_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5430 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: course_notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.course_notes_id_seq OWNED BY public.course_notes.id;
+
+
+--
+-- TOC entry 238 (class 1259 OID 98416)
 -- Name: course_questions; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -925,7 +990,7 @@ CREATE TABLE public.course_questions (
 ALTER TABLE public.course_questions OWNER TO postgres;
 
 --
--- TOC entry 236 (class 1259 OID 65663)
+-- TOC entry 239 (class 1259 OID 98424)
 -- Name: course_questions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -941,8 +1006,8 @@ CREATE SEQUENCE public.course_questions_id_seq
 ALTER SEQUENCE public.course_questions_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5377 (class 0 OID 0)
--- Dependencies: 236
+-- TOC entry 5431 (class 0 OID 0)
+-- Dependencies: 239
 -- Name: course_questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -950,7 +1015,7 @@ ALTER SEQUENCE public.course_questions_id_seq OWNED BY public.course_questions.i
 
 
 --
--- TOC entry 237 (class 1259 OID 65664)
+-- TOC entry 240 (class 1259 OID 98425)
 -- Name: courses; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -970,7 +1035,7 @@ CREATE TABLE public.courses (
 ALTER TABLE public.courses OWNER TO postgres;
 
 --
--- TOC entry 238 (class 1259 OID 65672)
+-- TOC entry 241 (class 1259 OID 98433)
 -- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -986,8 +1051,8 @@ CREATE SEQUENCE public.courses_id_seq
 ALTER SEQUENCE public.courses_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5378 (class 0 OID 0)
--- Dependencies: 238
+-- TOC entry 5432 (class 0 OID 0)
+-- Dependencies: 241
 -- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -995,7 +1060,7 @@ ALTER SEQUENCE public.courses_id_seq OWNED BY public.courses.id;
 
 
 --
--- TOC entry 239 (class 1259 OID 65673)
+-- TOC entry 242 (class 1259 OID 98434)
 -- Name: notifications; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1014,7 +1079,7 @@ CREATE TABLE public.notifications (
 ALTER TABLE public.notifications OWNER TO postgres;
 
 --
--- TOC entry 240 (class 1259 OID 65680)
+-- TOC entry 243 (class 1259 OID 98441)
 -- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1030,8 +1095,8 @@ CREATE SEQUENCE public.notifications_id_seq
 ALTER SEQUENCE public.notifications_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5379 (class 0 OID 0)
--- Dependencies: 240
+-- TOC entry 5433 (class 0 OID 0)
+-- Dependencies: 243
 -- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1039,7 +1104,7 @@ ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
 
 
 --
--- TOC entry 241 (class 1259 OID 65681)
+-- TOC entry 244 (class 1259 OID 98442)
 -- Name: permissions; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1055,7 +1120,7 @@ CREATE TABLE public.permissions (
 ALTER TABLE public.permissions OWNER TO postgres;
 
 --
--- TOC entry 242 (class 1259 OID 65688)
+-- TOC entry 245 (class 1259 OID 98449)
 -- Name: permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1071,8 +1136,8 @@ CREATE SEQUENCE public.permissions_id_seq
 ALTER SEQUENCE public.permissions_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5380 (class 0 OID 0)
--- Dependencies: 242
+-- TOC entry 5434 (class 0 OID 0)
+-- Dependencies: 245
 -- Name: permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1080,7 +1145,7 @@ ALTER SEQUENCE public.permissions_id_seq OWNED BY public.permissions.id;
 
 
 --
--- TOC entry 243 (class 1259 OID 65689)
+-- TOC entry 246 (class 1259 OID 98450)
 -- Name: role_permissions; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1095,7 +1160,7 @@ CREATE TABLE public.role_permissions (
 ALTER TABLE public.role_permissions OWNER TO postgres;
 
 --
--- TOC entry 244 (class 1259 OID 65694)
+-- TOC entry 247 (class 1259 OID 98455)
 -- Name: roles; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1111,7 +1176,7 @@ CREATE TABLE public.roles (
 ALTER TABLE public.roles OWNER TO postgres;
 
 --
--- TOC entry 245 (class 1259 OID 65701)
+-- TOC entry 248 (class 1259 OID 98462)
 -- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1127,8 +1192,8 @@ CREATE SEQUENCE public.roles_id_seq
 ALTER SEQUENCE public.roles_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5381 (class 0 OID 0)
--- Dependencies: 245
+-- TOC entry 5435 (class 0 OID 0)
+-- Dependencies: 248
 -- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1136,7 +1201,7 @@ ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
 
 
 --
--- TOC entry 246 (class 1259 OID 65702)
+-- TOC entry 249 (class 1259 OID 98463)
 -- Name: test_block_answers; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1153,7 +1218,7 @@ CREATE TABLE public.test_block_answers (
 ALTER TABLE public.test_block_answers OWNER TO postgres;
 
 --
--- TOC entry 247 (class 1259 OID 65709)
+-- TOC entry 250 (class 1259 OID 98470)
 -- Name: test_block_answers_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1169,8 +1234,8 @@ CREATE SEQUENCE public.test_block_answers_id_seq
 ALTER SEQUENCE public.test_block_answers_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5382 (class 0 OID 0)
--- Dependencies: 247
+-- TOC entry 5436 (class 0 OID 0)
+-- Dependencies: 250
 -- Name: test_block_answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1178,7 +1243,7 @@ ALTER SEQUENCE public.test_block_answers_id_seq OWNED BY public.test_block_answe
 
 
 --
--- TOC entry 248 (class 1259 OID 65710)
+-- TOC entry 251 (class 1259 OID 98471)
 -- Name: test_block_attributes; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1193,7 +1258,7 @@ CREATE TABLE public.test_block_attributes (
 ALTER TABLE public.test_block_attributes OWNER TO postgres;
 
 --
--- TOC entry 249 (class 1259 OID 65715)
+-- TOC entry 252 (class 1259 OID 98476)
 -- Name: test_block_attributes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1209,8 +1274,8 @@ CREATE SEQUENCE public.test_block_attributes_id_seq
 ALTER SEQUENCE public.test_block_attributes_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5383 (class 0 OID 0)
--- Dependencies: 249
+-- TOC entry 5437 (class 0 OID 0)
+-- Dependencies: 252
 -- Name: test_block_attributes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1218,7 +1283,7 @@ ALTER SEQUENCE public.test_block_attributes_id_seq OWNED BY public.test_block_at
 
 
 --
--- TOC entry 250 (class 1259 OID 65716)
+-- TOC entry 253 (class 1259 OID 98477)
 -- Name: test_blocks; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1237,7 +1302,7 @@ CREATE TABLE public.test_blocks (
 ALTER TABLE public.test_blocks OWNER TO postgres;
 
 --
--- TOC entry 251 (class 1259 OID 65725)
+-- TOC entry 254 (class 1259 OID 98486)
 -- Name: test_blocks_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1253,8 +1318,8 @@ CREATE SEQUENCE public.test_blocks_id_seq
 ALTER SEQUENCE public.test_blocks_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5384 (class 0 OID 0)
--- Dependencies: 251
+-- TOC entry 5438 (class 0 OID 0)
+-- Dependencies: 254
 -- Name: test_blocks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1262,7 +1327,7 @@ ALTER SEQUENCE public.test_blocks_id_seq OWNED BY public.test_blocks.id;
 
 
 --
--- TOC entry 252 (class 1259 OID 65726)
+-- TOC entry 255 (class 1259 OID 98487)
 -- Name: tests; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1284,7 +1349,7 @@ CREATE TABLE public.tests (
 ALTER TABLE public.tests OWNER TO postgres;
 
 --
--- TOC entry 253 (class 1259 OID 65736)
+-- TOC entry 256 (class 1259 OID 98497)
 -- Name: tests_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1300,8 +1365,8 @@ CREATE SEQUENCE public.tests_id_seq
 ALTER SEQUENCE public.tests_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5385 (class 0 OID 0)
--- Dependencies: 253
+-- TOC entry 5439 (class 0 OID 0)
+-- Dependencies: 256
 -- Name: tests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1309,7 +1374,7 @@ ALTER SEQUENCE public.tests_id_seq OWNED BY public.tests.id;
 
 
 --
--- TOC entry 254 (class 1259 OID 65737)
+-- TOC entry 257 (class 1259 OID 98498)
 -- Name: user_chapter; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1325,7 +1390,7 @@ CREATE TABLE public.user_chapter (
 ALTER TABLE public.user_chapter OWNER TO postgres;
 
 --
--- TOC entry 255 (class 1259 OID 65742)
+-- TOC entry 258 (class 1259 OID 98503)
 -- Name: user_chapter_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1341,8 +1406,8 @@ CREATE SEQUENCE public.user_chapter_id_seq
 ALTER SEQUENCE public.user_chapter_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5386 (class 0 OID 0)
--- Dependencies: 255
+-- TOC entry 5440 (class 0 OID 0)
+-- Dependencies: 258
 -- Name: user_chapter_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1350,7 +1415,7 @@ ALTER SEQUENCE public.user_chapter_id_seq OWNED BY public.user_chapter.id;
 
 
 --
--- TOC entry 256 (class 1259 OID 65743)
+-- TOC entry 259 (class 1259 OID 98504)
 -- Name: user_courses; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1367,7 +1432,7 @@ CREATE TABLE public.user_courses (
 ALTER TABLE public.user_courses OWNER TO postgres;
 
 --
--- TOC entry 257 (class 1259 OID 65749)
+-- TOC entry 260 (class 1259 OID 98510)
 -- Name: user_courses_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1383,8 +1448,8 @@ CREATE SEQUENCE public.user_courses_id_seq
 ALTER SEQUENCE public.user_courses_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5387 (class 0 OID 0)
--- Dependencies: 257
+-- TOC entry 5441 (class 0 OID 0)
+-- Dependencies: 260
 -- Name: user_courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1392,7 +1457,7 @@ ALTER SEQUENCE public.user_courses_id_seq OWNED BY public.user_courses.id;
 
 
 --
--- TOC entry 258 (class 1259 OID 65750)
+-- TOC entry 261 (class 1259 OID 98511)
 -- Name: user_logs; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1411,7 +1476,7 @@ PARTITION BY RANGE (created_at);
 ALTER TABLE public.user_logs OWNER TO postgres;
 
 --
--- TOC entry 259 (class 1259 OID 65754)
+-- TOC entry 262 (class 1259 OID 98515)
 -- Name: user_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1427,8 +1492,8 @@ CREATE SEQUENCE public.user_logs_id_seq
 ALTER SEQUENCE public.user_logs_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5388 (class 0 OID 0)
--- Dependencies: 259
+-- TOC entry 5442 (class 0 OID 0)
+-- Dependencies: 262
 -- Name: user_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1436,7 +1501,7 @@ ALTER SEQUENCE public.user_logs_id_seq OWNED BY public.user_logs.id;
 
 
 --
--- TOC entry 260 (class 1259 OID 65755)
+-- TOC entry 263 (class 1259 OID 98516)
 -- Name: user_logs_y202505; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1454,7 +1519,7 @@ CREATE TABLE public.user_logs_y202505 (
 ALTER TABLE public.user_logs_y202505 OWNER TO postgres;
 
 --
--- TOC entry 261 (class 1259 OID 65762)
+-- TOC entry 264 (class 1259 OID 98523)
 -- Name: user_logs_y202506; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1472,7 +1537,7 @@ CREATE TABLE public.user_logs_y202506 (
 ALTER TABLE public.user_logs_y202506 OWNER TO postgres;
 
 --
--- TOC entry 262 (class 1259 OID 65769)
+-- TOC entry 265 (class 1259 OID 98530)
 -- Name: user_logs_y202507; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1490,7 +1555,7 @@ CREATE TABLE public.user_logs_y202507 (
 ALTER TABLE public.user_logs_y202507 OWNER TO postgres;
 
 --
--- TOC entry 263 (class 1259 OID 65776)
+-- TOC entry 266 (class 1259 OID 98537)
 -- Name: user_logs_y202508; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1508,7 +1573,7 @@ CREATE TABLE public.user_logs_y202508 (
 ALTER TABLE public.user_logs_y202508 OWNER TO postgres;
 
 --
--- TOC entry 264 (class 1259 OID 65783)
+-- TOC entry 267 (class 1259 OID 98544)
 -- Name: user_logs_y202509; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1526,7 +1591,7 @@ CREATE TABLE public.user_logs_y202509 (
 ALTER TABLE public.user_logs_y202509 OWNER TO postgres;
 
 --
--- TOC entry 265 (class 1259 OID 65790)
+-- TOC entry 268 (class 1259 OID 98551)
 -- Name: user_test_answers; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1545,7 +1610,7 @@ CREATE TABLE public.user_test_answers (
 ALTER TABLE public.user_test_answers OWNER TO postgres;
 
 --
--- TOC entry 266 (class 1259 OID 65797)
+-- TOC entry 269 (class 1259 OID 98558)
 -- Name: user_test_answers_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1561,8 +1626,8 @@ CREATE SEQUENCE public.user_test_answers_id_seq
 ALTER SEQUENCE public.user_test_answers_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5389 (class 0 OID 0)
--- Dependencies: 266
+-- TOC entry 5443 (class 0 OID 0)
+-- Dependencies: 269
 -- Name: user_test_answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1570,7 +1635,7 @@ ALTER SEQUENCE public.user_test_answers_id_seq OWNED BY public.user_test_answers
 
 
 --
--- TOC entry 267 (class 1259 OID 65798)
+-- TOC entry 270 (class 1259 OID 98559)
 -- Name: user_test_attempts; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1590,7 +1655,7 @@ CREATE TABLE public.user_test_attempts (
 ALTER TABLE public.user_test_attempts OWNER TO postgres;
 
 --
--- TOC entry 268 (class 1259 OID 65806)
+-- TOC entry 271 (class 1259 OID 98567)
 -- Name: user_test_attempts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1606,8 +1671,8 @@ CREATE SEQUENCE public.user_test_attempts_id_seq
 ALTER SEQUENCE public.user_test_attempts_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5390 (class 0 OID 0)
--- Dependencies: 268
+-- TOC entry 5444 (class 0 OID 0)
+-- Dependencies: 271
 -- Name: user_test_attempts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1615,7 +1680,7 @@ ALTER SEQUENCE public.user_test_attempts_id_seq OWNED BY public.user_test_attemp
 
 
 --
--- TOC entry 269 (class 1259 OID 65807)
+-- TOC entry 272 (class 1259 OID 98568)
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1633,14 +1698,15 @@ CREATE TABLE public.users (
     reset_password_token character varying(255),
     reset_password_expires time(6) without time zone,
     last_password_change time(6) without time zone,
-    first_login boolean DEFAULT true
+    first_login boolean DEFAULT true,
+    last_login timestamp without time zone
 );
 
 
 ALTER TABLE public.users OWNER TO postgres;
 
 --
--- TOC entry 270 (class 1259 OID 65817)
+-- TOC entry 273 (class 1259 OID 98578)
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1656,8 +1722,8 @@ CREATE SEQUENCE public.users_id_seq
 ALTER SEQUENCE public.users_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5391 (class 0 OID 0)
--- Dependencies: 270
+-- TOC entry 5445 (class 0 OID 0)
+-- Dependencies: 273
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1665,7 +1731,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- TOC entry 271 (class 1259 OID 65818)
+-- TOC entry 274 (class 1259 OID 98579)
 -- Name: verification_tokens; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1681,7 +1747,7 @@ CREATE TABLE public.verification_tokens (
 ALTER TABLE public.verification_tokens OWNER TO postgres;
 
 --
--- TOC entry 272 (class 1259 OID 65822)
+-- TOC entry 275 (class 1259 OID 98583)
 -- Name: verification_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -1697,8 +1763,8 @@ CREATE SEQUENCE public.verification_tokens_id_seq
 ALTER SEQUENCE public.verification_tokens_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5392 (class 0 OID 0)
--- Dependencies: 272
+-- TOC entry 5446 (class 0 OID 0)
+-- Dependencies: 275
 -- Name: verification_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -1706,7 +1772,53 @@ ALTER SEQUENCE public.verification_tokens_id_seq OWNED BY public.verification_to
 
 
 --
--- TOC entry 4858 (class 0 OID 0)
+-- TOC entry 276 (class 1259 OID 98584)
+-- Name: waf_security_events; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.waf_security_events (
+    id integer NOT NULL,
+    event_id character varying(255) NOT NULL,
+    event_type character varying(50) NOT NULL,
+    ip_address character varying(45) NOT NULL,
+    endpoint character varying(255),
+    user_agent text,
+    description text NOT NULL,
+    risk_level character varying(20) DEFAULT 'medium'::character varying,
+    action_taken character varying(50) DEFAULT 'blocked'::character varying,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.waf_security_events OWNER TO postgres;
+
+--
+-- TOC entry 277 (class 1259 OID 98592)
+-- Name: waf_security_events_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.waf_security_events_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.waf_security_events_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5447 (class 0 OID 0)
+-- Dependencies: 277
+-- Name: waf_security_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.waf_security_events_id_seq OWNED BY public.waf_security_events.id;
+
+
+--
+-- TOC entry 4872 (class 0 OID 0)
 -- Name: course_logs_y202505; Type: TABLE ATTACH; Schema: public; Owner: postgres
 --
 
@@ -1714,7 +1826,7 @@ ALTER TABLE ONLY public.course_logs ATTACH PARTITION public.course_logs_y202505 
 
 
 --
--- TOC entry 4859 (class 0 OID 0)
+-- TOC entry 4873 (class 0 OID 0)
 -- Name: course_logs_y202506; Type: TABLE ATTACH; Schema: public; Owner: postgres
 --
 
@@ -1722,7 +1834,7 @@ ALTER TABLE ONLY public.course_logs ATTACH PARTITION public.course_logs_y202506 
 
 
 --
--- TOC entry 4860 (class 0 OID 0)
+-- TOC entry 4874 (class 0 OID 0)
 -- Name: course_logs_y202507; Type: TABLE ATTACH; Schema: public; Owner: postgres
 --
 
@@ -1730,7 +1842,15 @@ ALTER TABLE ONLY public.course_logs ATTACH PARTITION public.course_logs_y202507 
 
 
 --
--- TOC entry 4861 (class 0 OID 0)
+-- TOC entry 4875 (class 0 OID 0)
+-- Name: course_logs_y202508; Type: TABLE ATTACH; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course_logs ATTACH PARTITION public.course_logs_y202508 FOR VALUES FROM ('2025-08-01 00:00:00') TO ('2025-09-01 00:00:00');
+
+
+--
+-- TOC entry 4876 (class 0 OID 0)
 -- Name: user_logs_y202505; Type: TABLE ATTACH; Schema: public; Owner: postgres
 --
 
@@ -1738,7 +1858,7 @@ ALTER TABLE ONLY public.user_logs ATTACH PARTITION public.user_logs_y202505 FOR 
 
 
 --
--- TOC entry 4862 (class 0 OID 0)
+-- TOC entry 4877 (class 0 OID 0)
 -- Name: user_logs_y202506; Type: TABLE ATTACH; Schema: public; Owner: postgres
 --
 
@@ -1746,7 +1866,7 @@ ALTER TABLE ONLY public.user_logs ATTACH PARTITION public.user_logs_y202506 FOR 
 
 
 --
--- TOC entry 4863 (class 0 OID 0)
+-- TOC entry 4878 (class 0 OID 0)
 -- Name: user_logs_y202507; Type: TABLE ATTACH; Schema: public; Owner: postgres
 --
 
@@ -1754,7 +1874,7 @@ ALTER TABLE ONLY public.user_logs ATTACH PARTITION public.user_logs_y202507 FOR 
 
 
 --
--- TOC entry 4864 (class 0 OID 0)
+-- TOC entry 4879 (class 0 OID 0)
 -- Name: user_logs_y202508; Type: TABLE ATTACH; Schema: public; Owner: postgres
 --
 
@@ -1762,7 +1882,7 @@ ALTER TABLE ONLY public.user_logs ATTACH PARTITION public.user_logs_y202508 FOR 
 
 
 --
--- TOC entry 4865 (class 0 OID 0)
+-- TOC entry 4880 (class 0 OID 0)
 -- Name: user_logs_y202509; Type: TABLE ATTACH; Schema: public; Owner: postgres
 --
 
@@ -1770,7 +1890,7 @@ ALTER TABLE ONLY public.user_logs ATTACH PARTITION public.user_logs_y202509 FOR 
 
 
 --
--- TOC entry 4868 (class 2604 OID 65823)
+-- TOC entry 4883 (class 2604 OID 98593)
 -- Name: answer_attributes id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1778,7 +1898,7 @@ ALTER TABLE ONLY public.answer_attributes ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 4869 (class 2604 OID 65824)
+-- TOC entry 4884 (class 2604 OID 98594)
 -- Name: certificates id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1786,7 +1906,7 @@ ALTER TABLE ONLY public.certificates ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 4872 (class 2604 OID 65825)
+-- TOC entry 4887 (class 2604 OID 98595)
 -- Name: chapter_block_attributes id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1794,7 +1914,7 @@ ALTER TABLE ONLY public.chapter_block_attributes ALTER COLUMN id SET DEFAULT nex
 
 
 --
--- TOC entry 4873 (class 2604 OID 65826)
+-- TOC entry 4888 (class 2604 OID 98596)
 -- Name: chapter_blocks id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1802,7 +1922,7 @@ ALTER TABLE ONLY public.chapter_blocks ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 4877 (class 2604 OID 65827)
+-- TOC entry 4892 (class 2604 OID 98597)
 -- Name: chapters id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1810,7 +1930,7 @@ ALTER TABLE ONLY public.chapters ALTER COLUMN id SET DEFAULT nextval('public.cha
 
 
 --
--- TOC entry 4880 (class 2604 OID 65828)
+-- TOC entry 4895 (class 2604 OID 98598)
 -- Name: course_answers id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1818,7 +1938,7 @@ ALTER TABLE ONLY public.course_answers ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 4884 (class 2604 OID 65829)
+-- TOC entry 4899 (class 2604 OID 98599)
 -- Name: course_logs id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1826,7 +1946,15 @@ ALTER TABLE ONLY public.course_logs ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 4892 (class 2604 OID 65830)
+-- TOC entry 4909 (class 2604 OID 98600)
+-- Name: course_notes id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course_notes ALTER COLUMN id SET DEFAULT nextval('public.course_notes_id_seq'::regclass);
+
+
+--
+-- TOC entry 4912 (class 2604 OID 98601)
 -- Name: course_questions id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1834,7 +1962,7 @@ ALTER TABLE ONLY public.course_questions ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 4896 (class 2604 OID 65831)
+-- TOC entry 4916 (class 2604 OID 98602)
 -- Name: courses id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1842,7 +1970,7 @@ ALTER TABLE ONLY public.courses ALTER COLUMN id SET DEFAULT nextval('public.cour
 
 
 --
--- TOC entry 4900 (class 2604 OID 65832)
+-- TOC entry 4920 (class 2604 OID 98603)
 -- Name: notifications id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1850,7 +1978,7 @@ ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 4903 (class 2604 OID 65833)
+-- TOC entry 4923 (class 2604 OID 98604)
 -- Name: permissions id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1858,7 +1986,7 @@ ALTER TABLE ONLY public.permissions ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 4908 (class 2604 OID 65834)
+-- TOC entry 4928 (class 2604 OID 98605)
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1866,7 +1994,7 @@ ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_
 
 
 --
--- TOC entry 4911 (class 2604 OID 65835)
+-- TOC entry 4931 (class 2604 OID 98606)
 -- Name: test_block_answers id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1874,7 +2002,7 @@ ALTER TABLE ONLY public.test_block_answers ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- TOC entry 4914 (class 2604 OID 65836)
+-- TOC entry 4934 (class 2604 OID 98607)
 -- Name: test_block_attributes id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1882,7 +2010,7 @@ ALTER TABLE ONLY public.test_block_attributes ALTER COLUMN id SET DEFAULT nextva
 
 
 --
--- TOC entry 4915 (class 2604 OID 65837)
+-- TOC entry 4935 (class 2604 OID 98608)
 -- Name: test_blocks id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1890,7 +2018,7 @@ ALTER TABLE ONLY public.test_blocks ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 4920 (class 2604 OID 65838)
+-- TOC entry 4940 (class 2604 OID 98609)
 -- Name: tests id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1898,7 +2026,7 @@ ALTER TABLE ONLY public.tests ALTER COLUMN id SET DEFAULT nextval('public.tests_
 
 
 --
--- TOC entry 4926 (class 2604 OID 65839)
+-- TOC entry 4946 (class 2604 OID 98610)
 -- Name: user_chapter id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1906,7 +2034,7 @@ ALTER TABLE ONLY public.user_chapter ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 4929 (class 2604 OID 65840)
+-- TOC entry 4949 (class 2604 OID 98611)
 -- Name: user_courses id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1914,7 +2042,7 @@ ALTER TABLE ONLY public.user_courses ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 4933 (class 2604 OID 65841)
+-- TOC entry 4953 (class 2604 OID 98612)
 -- Name: user_logs id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1922,7 +2050,7 @@ ALTER TABLE ONLY public.user_logs ALTER COLUMN id SET DEFAULT nextval('public.us
 
 
 --
--- TOC entry 4945 (class 2604 OID 65842)
+-- TOC entry 4965 (class 2604 OID 98613)
 -- Name: user_test_answers id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1930,7 +2058,7 @@ ALTER TABLE ONLY public.user_test_answers ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 4948 (class 2604 OID 65843)
+-- TOC entry 4968 (class 2604 OID 98614)
 -- Name: user_test_attempts id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1938,7 +2066,7 @@ ALTER TABLE ONLY public.user_test_attempts ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- TOC entry 4954 (class 2604 OID 65844)
+-- TOC entry 4974 (class 2604 OID 98615)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1946,7 +2074,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 4960 (class 2604 OID 65845)
+-- TOC entry 4980 (class 2604 OID 98616)
 -- Name: verification_tokens id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1954,7 +2082,15 @@ ALTER TABLE ONLY public.verification_tokens ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 5309 (class 0 OID 65576)
+-- TOC entry 4982 (class 2604 OID 98617)
+-- Name: waf_security_events id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.waf_security_events ALTER COLUMN id SET DEFAULT nextval('public.waf_security_events_id_seq'::regclass);
+
+
+--
+-- TOC entry 5357 (class 0 OID 98322)
 -- Dependencies: 217
 -- Data for Name: _prisma_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1965,7 +2101,7 @@ cc8802ab-4ab7-4a55-9878-b5bb0f0013ac	eb03430e2cb43c27ddd6f5f881c349e32ddfc9e6323
 
 
 --
--- TOC entry 5310 (class 0 OID 65583)
+-- TOC entry 5358 (class 0 OID 98329)
 -- Dependencies: 218
 -- Data for Name: answer_attributes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1978,22 +2114,34 @@ COPY public.answer_attributes (id, answer_id, attribute_name, attribute_value) F
 10	99	right_item	1
 11	100	right_item	2
 12	101	right_item	3
+19	136	right_item	Kierunek ramion paraboli
+20	137	right_item	Wpływ na położenie wierzchołka
+21	138	right_item	Punkt przecięcia z osią y
+22	139	right_item	Dyskryminanta
+23	151	right_item	Punkt przecięcia z osią y
+24	152	right_item	Współrzędne wierzchołka
+25	153	right_item	Miejsca zerowe
+26	154	right_item	Technika przekształcania
+27	162	right_item	Dwa różne pierwiastki
+28	163	right_item	Jeden pierwiastek podwójny
+29	164	right_item	Brak rozwiązań rzeczywistych
+30	165	right_item	Związek pierwiastków ze współczynnikami
 \.
 
 
 --
--- TOC entry 5312 (class 0 OID 65589)
+-- TOC entry 5360 (class 0 OID 98335)
 -- Dependencies: 220
 -- Data for Name: certificates; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.certificates (id, user_id, course_id, certificate_code, issued_at, pdf_url, status) FROM stdin;
-27	75	1	CF-DF303494	2025-05-29 12:57:37.344	/uploads/certificates/CF-DF303494.pdf	issued
+28	82	1	CF-AE0D62F0	2025-06-05 13:50:34.53	/uploads/certificates/CF-AE0D62F0.pdf	issued
 \.
 
 
 --
--- TOC entry 5314 (class 0 OID 65597)
+-- TOC entry 5362 (class 0 OID 98343)
 -- Dependencies: 222
 -- Data for Name: chapter_block_attributes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -2006,77 +2154,114 @@ COPY public.chapter_block_attributes (id, block_id, name, value) FROM stdin;
 143	143	content	32422
 144	144	content	Qwerty\n\n
 145	145	content	Podstawy JavaScript - zaktualizowany tytuł
-109282	47650	content	 1. Wprowadzenie do łączenia tabel
-109283	47650	format	,text-center,text-2xl
-109284	47651	content	W relacyjnych bazach danych dane są zwykle przechowywane w wielu powiązanych ze sobą tabelach. Aby skutecznie analizować i zestawiać dane z różnych tabel, konieczne jest ich łączenie za pomocą zapytań SQL. Jednym z najczęściej wykorzystywanych typów łączeń jest INNER JOIN.
-109285	47651	format	text-lg
-109286	47652	content	SELECT kolumny\nFROM tabela1\nINNER JOIN tabela2\nON tabela1.klucz = tabela2.klucz;
-109287	47652	language	javascript
-109288	47652	caption	Składnia 
-109289	47652	showLineNumbers	true
-109290	47652	format	
-109291	47653	content	\n
-109292	47653	format	,text-lg
-109293	47654	type	ordered
-109294	47654	format	text-2xl,italic,underline,text-center,text-red
-109295	47654	items	QWE,ouoh
-109296	47655	content	knhljkhlkhl
-109297	47655	format	,text-xl,text-orange
-109298	47656	content	Lorem ipsum
-109299	47656	format	,text-green
-109300	47657	content	QWEQWEQWEQWEQW
-109301	47657	format	font-bold,text-lg,text-orange
-109302	47658	content	asdasdasdasdasd
-109303	47658	format	font-bold,text-xs,underline,italic,text-green
-109304	47659	items	Jeden,Dwy
-109305	47659	type	ordered
-109306	47659	format	,text-green,text-2xl
-109307	47660	content	ASD
-109308	47660	format	text-sm,font-bold
-109309	47661	content	NOwy asd
-109310	47661	format	font-bold,italic,underline
-109311	47662	content	Paragraf
-109312	47662	format	font-bold,italic,underline
-109313	47663	content	Par2
-109314	47663	format	font-bold
-109315	47664	content	jhb
-109316	47665	content	jhb
-109317	47666	content	jhgjghj
-109318	47666	format	text-red
-109319	47667	content	iqwheikqwneoi;hwqn
-109320	47668	content	ergwererg
-109321	47668	format	font-bold,italic
-109322	47669	content	jhghgj
-109323	47669	format	
-109324	47670	content	asdsaddsadsadsa
-109325	47670	format	italic
-109326	47671	content	asdsaddsadsadsa
-109327	47671	format	italic
-109328	47672	src	http://localhost:4000/uploads/image-1745325157490-688331706.jpg
-109329	47672	alt	lfndtoirttvx.jpg
-109330	47672	caption	
-109331	47672	format	image-sm
-109332	47672	content	
-109333	47673	src	http://localhost:4000/uploads/video-1745330323185-921622002.mp4
-109334	47673	caption	
-109335	47673	format	video-md
-109336	47674	src	http://localhost:4000/uploads/video-1745869505030-873262995.mp4
-109337	47674	caption	
-109338	47674	format	video-md,text-center
-109339	47675	content	dsdasd
-109340	47675	format	
-109341	47676	content	dsdasd
-109342	47676	format	
-109343	47677	language	html
-109344	47677	caption	Procedurka2115
-109345	47677	showLineNumbers	false
-109346	47677	format	
-109347	47677	content	DELIMITER //\nsadasdsad\nCREATE PROCEDURE promote_if_ready(IN id INT)\nBEGIN\n\tDECLARE v_avg_salary DECIMAL(10,2);\n\tDECLARE v_emp_staz INT;\n\tDECLARE v_emp_hire_date DATE;\n\tDECLARE v_emp_salary DECIMAL(10,2);\n\tDECLARE v_emp_title VARCHAR(30);\t\t\n\n\tSELECT AVG(salary) INTO v_avg_salary FROM salaries;\n\tSELECT salary INTO v_emp_salary FROM salaries WHERE emp_no = id AND to_date = '9999-01-01';\n\tSELECT hire_date INTO v_avg_hire_date FROM employees WHERE emp_no = id;\n\tSELECT title INTO v_emp_title FROM titles WHERE emp_no =id;\t\n\n\tSET v_emp_staz = TIMESTAMPDIFF(YEAR,v_emp_hire_date,CURDATE());\n\n\tIF v_emp_staz >= 5 AND v_emp_title != 'Manager' THEN\n\t\tUPDATE titles SET to_date = CURDATE() WHERE emp_no = id;\n\t\tINSERT INTO titles (emp_no,title,from_date,to_date) VALUES (id,'Manager',CURDATE(),'9999-01-01');\n\tEND IF;\nEND //
+115354	50134	content	Równanie kwadratowe to równanie postaci a x kwadrat plus b x plus c równa się zero, gdzie a różne od zera. Rozwiązywanie równań kwadratowych to fundamentalna umiejętność w matematyce, która ma liczne zastosowania praktyczne.
+115355	50134	format	
+115356	50135	content	Podstawowym narzędziem do rozwiązywania równań kwadratowych jest wzór na deltę, czyli dyskryminantę: delta równa się b kwadrat minus cztery a c. Wartość delty determinuje liczbę i rodzaj rozwiązań równania kwadratowego.
+115357	50135	format	
+115358	50136	content	Gdy delta jest większa od zera, równanie ma dwa różne rozwiązania rzeczywiste, które obliczamy ze wzoru: x jeden równa się minus b plus pierwiastek z delty przez dwa a, x dwa równa się minus b minus pierwiastek z delty przez dwa a.
+113411	49386	content	 1. Wprowadzenie do łączenia tabel
+113412	49386	format	,text-center,text-2xl
+113413	49387	content	W relacyjnych bazach danych dane są zwykle przechowywane w wielu powiązanych ze sobą tabelach. Aby skutecznie analizować i zestawiać dane z różnych tabel, konieczne jest ich łączenie za pomocą zapytań SQL. Jednym z najczęściej wykorzystywanych typów łączeń jest INNER JOIN.
+113414	49387	format	text-lg
+113415	49388	content	SELECT kolumny\nFROM tabela1\nINNER JOIN tabela2\nON tabela1.klucz = tabela2.klucz;
+113416	49388	language	javascript
+113417	49388	caption	Składnia 
+113418	49388	showLineNumbers	true
+113419	49388	format	
+113420	49389	content	\n
+113421	49389	format	,text-lg
+113422	49390	type	ordered
+113423	49390	format	text-2xl,italic,underline,text-center,text-red
+113424	49390	items	QWE,ouoh
+113425	49391	content	knhljkhlkhl
+113426	49391	format	,text-xl,text-orange
+113427	49392	content	QWEQWEQWEQWEQW
+113428	49392	format	font-bold,text-lg,text-orange
+113429	49393	content	asdasdasdasdasd
+113430	49393	format	font-bold,text-xs,underline,italic,text-green
+113431	49394	items	Jeden,Dwy
+113432	49394	type	ordered
+113433	49394	format	,text-green,text-2xl
+113434	49395	content	ASD
+113435	49395	format	text-sm,font-bold
+113436	49396	content	NOwy asd
+113437	49396	format	font-bold,italic,underline
+113438	49397	content	Paragraf
+113439	49397	format	font-bold,italic,underline
+113440	49398	content	Par2
+113441	49398	format	font-bold
+113442	49399	content	jhb
+113443	49400	content	jhb
+113444	49401	content	jhgjghj
+113445	49401	format	text-red
+113446	49402	content	Lorem ipsum
+113447	49402	format	,text-green
+113448	49403	content	ergwererg
+113449	49403	format	font-bold,italic
+113450	49404	content	iqwheikqwneoi;hwqn
+113451	49405	content	asdsaddsadsadsa
+113452	49405	format	italic
+113453	49406	src	http://localhost:4000/uploads/image-1745325157490-688331706.jpg
+113454	49406	alt	lfndtoirttvx.jpg
+113455	49406	caption	
+113456	49406	format	image-sm
+113457	49406	content	
+113458	49407	content	jhghgj
+113459	49407	format	
+113460	49408	content	asdsaddsadsadsa
+113461	49408	format	italic
+113462	49409	src	http://localhost:4000/uploads/video-1745330323185-921622002.mp4
+113463	49409	caption	
+113464	49409	format	video-md
+113465	49409	content	
+113466	49410	src	http://localhost:4000/uploads/video-1745869505030-873262995.mp4
+113467	49410	caption	
+113468	49410	format	video-md,text-center
+113469	49411	content	dsdasd
+113470	49411	format	
+113471	49412	content	dsdasd
+113472	49412	format	
+113473	49413	language	html
+113474	49413	caption	Procedurka2115
+113475	49413	showLineNumbers	false
+113476	49413	format	
+113477	49413	content	DELIMITER //\nsadasdsad\nCREATE PROCEDURE promote_if_ready(IN id INT)\nBEGIN\n\tDECLARE v_avg_salary DECIMAL(10,2);\n\tDECLARE v_emp_staz INT;\n\tDECLARE v_emp_hire_date DATE;\n\tDECLARE v_emp_salary DECIMAL(10,2);\n\tDECLARE v_emp_title VARCHAR(30);\t\t\n\n\tSELECT AVG(salary) INTO v_avg_salary FROM salaries;\n\tSELECT salary INTO v_emp_salary FROM salaries WHERE emp_no = id AND to_date = '9999-01-01';\n\tSELECT hire_date INTO v_avg_hire_date FROM employees WHERE emp_no = id;\n\tSELECT title INTO v_emp_title FROM titles WHERE emp_no =id;\t\n\n\tSET v_emp_staz = TIMESTAMPDIFF(YEAR,v_emp_hire_date,CURDATE());\n\n\tIF v_emp_staz >= 5 AND v_emp_title != 'Manager' THEN\n\t\tUPDATE titles SET to_date = CURDATE() WHERE emp_no = id;\n\t\tINSERT INTO titles (emp_no,title,from_date,to_date) VALUES (id,'Manager',CURDATE(),'9999-01-01');\n\tEND IF;\nEND //
+115359	50136	format	
+115360	50137	content	Gdy delta równa się zero, równanie ma jedno rozwiązanie rzeczywiste o krotności dwa, zwane pierwiastkiem podwójnym: x równa się minus b przez dwa a. Geometrycznie oznacza to, że parabola jest styczna do osi x w jednym punkcie.
+115361	50137	format	
+115362	50138	content	Gdy delta jest mniejsza od zera, równanie nie ma rozwiązań rzeczywistych. Parabola nie przecina osi x, lecz znajduje się całkowicie ponad nią gdy a większe od zera lub pod nią gdy a mniejsze od zera.
+115363	50138	format	
+115364	50139	content	Alternatywne metody rozwiązywania równań kwadratowych obejmują rozkład na czynniki, uzupełnianie do kwadratu oraz metody graficzne. Rozkład na czynniki jest szczególnie efektywny, gdy współczynniki równania pozwalają na łatwe wyodrębnienie wspólnych czynników.
+115365	50139	format	
+115366	50140	content	Wzory Vieta łączą pierwiastki równania kwadratowego z jego współczynnikami. Dla równania ax kwadrat plus bx plus c równa się zero, jeśli x jeden i x dwa to pierwiastki, to: x jeden plus x dwa równa się minus b przez a, x jeden razy x dwa równa się c przez a.
+115367	50140	format	
+115378	50146	content	Funkcję kwadratową możemy zapisać w trzech równoważnych postaciach, z których każda ma swoje zastosowania i zalety w różnych sytuacjach obliczeniowych.
+115379	50146	format	
+115380	50147	content	Postać ogólna to najbardziej podstawowa forma zapisu funkcji kwadratowej: f(x) równa się a x kwadrat plus b x plus c. Jest to forma wyjściowa, z której możemy bezpośrednio odczytać współczynniki a, b i c oraz punkt przecięcia z osią y, który wynosi c.
+115381	50147	format	
+115382	50148	content	Postać kanoniczna, zwana również postacią wierzchołkową, ma postać: f(x) równa się a razy x minus p całość do kwadratu plus q, gdzie p i q to współrzędne wierzchołka paraboli. Ta postać jest szczególnie użyteczna przy analizie przekształceń geometrycznych paraboli oraz przy określaniu ekstremum funkcji.
+115383	50148	format	
+115384	50149	content	Postać iloczynowa wykorzystuje miejsca zerowe funkcji i ma postać: f(x) równa się a razy x minus x jeden razy x minus x dwa, gdzie x jeden i x dwa to miejsca zerowe funkcji. Ta postać istnieje tylko wtedy, gdy funkcja ma miejsca zerowe rzeczywiste, czyli gdy dyskryminanta jest większa lub równa zero.
+115385	50149	format	
+115386	50150	content	Przekształcenia między postaciami wymagają znajomości odpowiednich technik algebraicznych. Przejście z postaci ogólnej do kanonicznej odbywa się przez uzupełnienie do kwadratu, natomiast do postaci iloczynowej przez rozłożenie na czynniki.
+115387	50150	format	
+115388	50151	content	Uzupełnianie do kwadratu to technika polegająca na przekształceniu wyrażenia kwadratowego w sumę lub różnicę kwadratu dwumianu i liczby. Dla wyrażenia ax kwadrat plus bx plus c wydzielamy a przed nawias i uzupełniamy wyrażenie w nawiasie do kwadratu dwumianu.
+115389	50151	format	
+117360	51137	content	Funkcja kwadratowa to jedna z najważniejszych funkcji w matematyce, która ma szerokie zastosowanie zarówno w teorii jak i praktyce. Definicja funkcji kwadratowej brzmi następująco: funkcją kwadratową nazywamy funkcję postaci f(x) równa się a x do kwadratu plus b x plus c, gdzie a, b, c to liczby rzeczywiste, przy czym a różne od zera.
+117361	51137	format	,text-green
+117362	51138	content	Parametr a nazywamy współczynnikiem kierunkowym przy x kwadrat i determinuje on kształt paraboli. Gdy a jest większe od zera, parabola ma ramiona skierowane do góry, gdy a jest mniejsze od zera, ramiona są skierowane w dół. Parametr b wpływa na położenie wierzchołka paraboli względem osi y, natomiast parametr c określa punkt przecięcia paraboli z osią y.
+117363	51138	format	
+117364	51139	content	Dziedziną funkcji kwadratowej jest zbiór wszystkich liczb rzeczywistych, co oznaczamy symbolem R. Zbiór wartości funkcji kwadratowej zależy od znaku współczynnika a. Dla a większego od zera zbiorem wartości jest przedział od wartości w wierzchołku do plus nieskończoności, dla a mniejszego od zera jest to przedział od minus nieskończoności do wartości w wierzchołku.
+117365	51139	format	
+117366	51140	content	Wykresem funkcji kwadratowej jest parabola, która jest krzywą drugiego stopnia. Parabola ma charakterystyczną właściwość symetrii względem prostej pionowej przechodzącej przez wierzchołek, którą nazywamy osią symetrii paraboli.
+117367	51140	format	
+117368	51141	content	Wierzchołek paraboli to punkt, w którym funkcja osiąga wartość ekstremalną - maksimum dla a mniejszego od zera lub minimum dla a większego od zera. Współrzędne wierzchołka można obliczyć ze wzorów: x wierzchołka równa się minus b przez dwa a, y wierzchołka równa się minus delta przez cztery a, gdzie delta to dyskryminanta równa b kwadrat minus cztery a c.
+117369	51141	format	
 \.
 
 
 --
--- TOC entry 5316 (class 0 OID 65603)
+-- TOC entry 5364 (class 0 OID 98349)
 -- Dependencies: 224
 -- Data for Name: chapter_blocks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -2089,39 +2274,57 @@ COPY public.chapter_blocks (id, chapter_id, type, content, sort_order, created_a
 143	28	text	\N	2	2025-04-10 10:21:35.274	2025-04-10 10:21:35.274
 144	28	text	\N	3	2025-04-10 10:21:35.276	2025-04-10 10:21:35.276
 145	28	heading	\N	4	2025-04-10 10:21:35.279	2025-04-10 10:21:35.279
-47650	31	text	\N	0	2025-05-28 17:13:28.836	2025-05-28 17:13:28.836
-47651	31	text	\N	1	2025-05-28 17:13:28.838	2025-05-28 17:13:28.838
-47652	31	code	\N	2	2025-05-28 17:13:28.841	2025-05-28 17:13:28.841
-47653	31	heading	\N	3	2025-05-28 17:13:28.843	2025-05-28 17:13:28.843
-47654	31	list	\N	4	2025-05-28 17:13:28.845	2025-05-28 17:13:28.845
-47655	31	text	\N	5	2025-05-28 17:13:28.847	2025-05-28 17:13:28.847
-47656	31	heading	\N	6	2025-05-28 17:13:28.849	2025-05-28 17:13:28.849
-47657	31	heading	\N	7	2025-05-28 17:13:28.851	2025-05-28 17:13:28.851
-47658	31	text	\N	8	2025-05-28 17:13:28.852	2025-05-28 17:13:28.852
-47659	31	list	\N	9	2025-05-28 17:13:28.854	2025-05-28 17:13:28.854
-47660	31	heading	\N	10	2025-05-28 17:13:28.856	2025-05-28 17:13:28.856
-47661	31	text	\N	11	2025-05-28 17:13:28.857	2025-05-28 17:13:28.857
-47662	31	text	\N	12	2025-05-28 17:13:28.859	2025-05-28 17:13:28.859
-47663	31	text	\N	13	2025-05-28 17:13:28.86	2025-05-28 17:13:28.86
-47664	31	text	\N	14	2025-05-28 17:13:28.862	2025-05-28 17:13:28.862
-47665	31	text	\N	15	2025-05-28 17:13:28.863	2025-05-28 17:13:28.863
-47666	31	text	\N	16	2025-05-28 17:13:28.865	2025-05-28 17:13:28.865
-47667	31	text	\N	17	2025-05-28 17:13:28.867	2025-05-28 17:13:28.867
-47668	31	text	\N	18	2025-05-28 17:13:28.869	2025-05-28 17:13:28.869
-47669	31	text	\N	19	2025-05-28 17:13:28.87	2025-05-28 17:13:28.87
-47670	31	text	\N	20	2025-05-28 17:13:28.872	2025-05-28 17:13:28.872
-47671	31	text	\N	21	2025-05-28 17:13:28.874	2025-05-28 17:13:28.874
-47672	31	image	\N	22	2025-05-28 17:13:28.875	2025-05-28 17:13:28.875
-47673	31	video	\N	23	2025-05-28 17:13:28.877	2025-05-28 17:13:28.877
-47674	31	video	\N	24	2025-05-28 17:13:28.879	2025-05-28 17:13:28.879
-47675	31	text	\N	25	2025-05-28 17:13:28.88	2025-05-28 17:13:28.88
-47676	31	text	\N	26	2025-05-28 17:13:28.882	2025-05-28 17:13:28.882
-47677	31	code	\N	27	2025-05-28 17:13:28.883	2025-05-28 17:13:28.883
+49386	31	text	\N	0	2025-05-29 17:32:42.689	2025-05-29 17:32:42.689
+49387	31	text	\N	1	2025-05-29 17:32:42.69	2025-05-29 17:32:42.69
+49388	31	code	\N	2	2025-05-29 17:32:42.692	2025-05-29 17:32:42.692
+49389	31	heading	\N	3	2025-05-29 17:32:42.693	2025-05-29 17:32:42.693
+49390	31	list	\N	4	2025-05-29 17:32:42.694	2025-05-29 17:32:42.694
+49391	31	text	\N	5	2025-05-29 17:32:42.696	2025-05-29 17:32:42.696
+49392	31	heading	\N	6	2025-05-29 17:32:42.698	2025-05-29 17:32:42.698
+49393	31	text	\N	7	2025-05-29 17:32:42.7	2025-05-29 17:32:42.7
+49394	31	list	\N	8	2025-05-29 17:32:42.703	2025-05-29 17:32:42.703
+49395	31	heading	\N	9	2025-05-29 17:32:42.704	2025-05-29 17:32:42.704
+49396	31	text	\N	10	2025-05-29 17:32:42.706	2025-05-29 17:32:42.706
+49397	31	text	\N	11	2025-05-29 17:32:42.707	2025-05-29 17:32:42.707
+49398	31	text	\N	12	2025-05-29 17:32:42.709	2025-05-29 17:32:42.709
+49399	31	text	\N	13	2025-05-29 17:32:42.71	2025-05-29 17:32:42.71
+49400	31	text	\N	14	2025-05-29 17:32:42.712	2025-05-29 17:32:42.712
+49401	31	text	\N	15	2025-05-29 17:32:42.714	2025-05-29 17:32:42.714
+49402	31	heading	\N	16	2025-05-29 17:32:42.716	2025-05-29 17:32:42.716
+49403	31	text	\N	17	2025-05-29 17:32:42.717	2025-05-29 17:32:42.717
+49404	31	text	\N	18	2025-05-29 17:32:42.719	2025-05-29 17:32:42.719
+49405	31	text	\N	19	2025-05-29 17:32:42.72	2025-05-29 17:32:42.72
+49406	31	image	\N	20	2025-05-29 17:32:42.721	2025-05-29 17:32:42.721
+49407	31	text	\N	21	2025-05-29 17:32:42.723	2025-05-29 17:32:42.723
+49408	31	text	\N	22	2025-05-29 17:32:42.724	2025-05-29 17:32:42.724
+49409	31	video	\N	23	2025-05-29 17:32:42.725	2025-05-29 17:32:42.725
+49410	31	video	\N	24	2025-05-29 17:32:42.726	2025-05-29 17:32:42.726
+49411	31	text	\N	25	2025-05-29 17:32:42.728	2025-05-29 17:32:42.728
+49412	31	text	\N	26	2025-05-29 17:32:42.73	2025-05-29 17:32:42.73
+49413	31	code	\N	27	2025-05-29 17:32:42.732	2025-05-29 17:32:42.732
+50134	47	text	\N	0	2025-06-07 08:34:18.236	2025-06-07 08:34:18.236
+50135	47	text	\N	1	2025-06-07 08:34:18.239	2025-06-07 08:34:18.239
+50136	47	text	\N	2	2025-06-07 08:34:18.243	2025-06-07 08:34:18.243
+50137	47	text	\N	3	2025-06-07 08:34:18.247	2025-06-07 08:34:18.247
+50138	47	text	\N	4	2025-06-07 08:34:18.25	2025-06-07 08:34:18.25
+50139	47	text	\N	5	2025-06-07 08:34:18.254	2025-06-07 08:34:18.254
+50140	47	text	\N	6	2025-06-07 08:34:18.257	2025-06-07 08:34:18.257
+50146	46	text	\N	0	2025-06-08 16:07:58.838	2025-06-08 16:07:58.838
+50147	46	text	\N	1	2025-06-08 16:07:58.86	2025-06-08 16:07:58.86
+50148	46	text	\N	2	2025-06-08 16:07:58.863	2025-06-08 16:07:58.863
+50149	46	text	\N	3	2025-06-08 16:07:58.866	2025-06-08 16:07:58.866
+50150	46	text	\N	4	2025-06-08 16:07:58.868	2025-06-08 16:07:58.868
+50151	46	text	\N	5	2025-06-08 16:07:58.872	2025-06-08 16:07:58.872
+51137	45	text	\N	0	2025-06-08 16:11:23.405	2025-06-08 16:11:23.405
+51138	45	text	\N	1	2025-06-08 16:11:23.407	2025-06-08 16:11:23.407
+51139	45	text	\N	2	2025-06-08 16:11:23.409	2025-06-08 16:11:23.409
+51140	45	text	\N	3	2025-06-08 16:11:23.411	2025-06-08 16:11:23.411
+51141	45	text	\N	4	2025-06-08 16:11:23.414	2025-06-08 16:11:23.414
 \.
 
 
 --
--- TOC entry 5318 (class 0 OID 65612)
+-- TOC entry 5366 (class 0 OID 98358)
 -- Dependencies: 226
 -- Data for Name: chapters; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -2131,12 +2334,15 @@ COPY public.chapters (id, course_id, title, wysiwyg_code, created_at, updated_at
 29	4	Wprowadzenie do JavaScript	\N	2025-04-10 09:48:27.677	2025-04-10 09:48:27.696
 27	4	Wprowadzenie do JavaScript	\N	2025-04-10 09:41:00.426	2025-04-10 09:41:00.426
 28	4	Qwerty	\N	2025-04-10 09:47:01.831	2025-04-10 10:21:35.281
-31	1	Złączenia: INNER JOIN	\N	2025-04-10 14:21:23.339	2025-05-28 17:13:28.885
+31	1	Złączenia: INNER JOIN	\N	2025-04-10 14:21:23.339	2025-05-29 17:32:42.734
+47	33	Równania kwadratowe i ich rozwiązywanie	\N	2025-06-07 08:33:49.715	2025-06-07 08:34:18.26
+46	33	Postacie funkcji kwadratowej	\N	2025-06-07 08:33:08.425	2025-06-08 16:07:58.875
+45	33	Definicja i podstawowe właściwości funkcji kwadratowej	\N	2025-06-07 08:32:23.726	2025-06-08 16:11:23.417
 \.
 
 
 --
--- TOC entry 5320 (class 0 OID 65620)
+-- TOC entry 5368 (class 0 OID 98366)
 -- Dependencies: 228
 -- Data for Name: course_answers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -2174,12 +2380,11 @@ COPY public.course_answers (id, content, user_id, question_id, is_accepted, crea
 40	testowa wiadomosc	6	8	f	2025-05-16 14:56:34.095311	2025-05-16 14:56:34.095311
 42	asdasdsadasd	6	8	f	2025-05-16 15:13:21.959816	2025-05-16 15:13:21.959816
 43	asdsadasds	6	8	f	2025-05-16 15:13:25.223181	2025-05-16 15:13:25.223181
-48	Tak zgadza się !!!\n	6	12	f	2025-05-19 23:37:48.973686	2025-05-19 23:37:48.973686
 \.
 
 
 --
--- TOC entry 5323 (class 0 OID 65634)
+-- TOC entry 5371 (class 0 OID 98380)
 -- Dependencies: 232
 -- Data for Name: course_logs_y202505; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -2205,21 +2410,36 @@ COPY public.course_logs_y202505 (id, course_id, user_id, action_type, old_value,
 51	\N	\N	COURSE_DELETED	\N	\N	asdasdsa	Course ID 28 deleted	2025-05-28 12:25:10.418976
 47	\N	\N	COURSE_CREATED	\N	\N	asdasdsa	Kurs utworzony	2025-05-28 12:09:01.669378
 52	\N	\N	COURSE_DELETED	\N	\N	asd qwe	Course ID 26 deleted	2025-05-28 13:37:31.401815
+53	\N	\N	COURSE_DELETED	\N	\N	Jakiś tam kurs	Course ID 27 deleted	2025-05-30 15:39:27.553134
 \.
 
 
 --
--- TOC entry 5324 (class 0 OID 65641)
+-- TOC entry 5372 (class 0 OID 98387)
 -- Dependencies: 233
 -- Data for Name: course_logs_y202506; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.course_logs_y202506 (id, course_id, user_id, action_type, old_value, new_value, course_title, action_description, created_at) FROM stdin;
+54	4	\N	COURSE_UPDATED	\N	\N	Januszex	Kurs zaktualizowany	2025-06-05 15:26:30.661775
+55	1	\N	COURSE_UPDATED	kurs pokazowy	Kurs pokazowy 	Kurs pokazowy 	Zmiana tytułu z "kurs pokazowy" na "Kurs pokazowy "	2025-06-05 15:30:26.473863
+56	1	\N	COURSE_UPDATED	\N	\N	Kurs pokazowy 	Kurs zaktualizowany	2025-06-05 15:34:11.269064
+57	30	\N	COURSE_CREATED	\N	\N	kurs	Kurs utworzony	2025-06-05 16:56:57.255576
+58	\N	\N	COURSE_DELETED	\N	\N	kurs	Course ID 30 deleted	2025-06-07 09:23:39.386384
+63	31	\N	COURSE_CREATED	\N	\N	TEST	Kurs utworzony	2025-06-07 09:53:11.955102
+64	\N	\N	COURSE_DELETED	\N	\N	TEST	Course ID 31 deleted	2025-06-07 09:54:19.920448
+65	4	\N	COURSE_UPDATED	\N	\N	Januszex	Kurs zaktualizowany	2025-06-07 09:58:13.82529
+66	1	\N	COURSE_UPDATED	\N	\N	Kurs pokazowy 	Kurs zaktualizowany	2025-06-07 09:58:58.675342
+67	32	\N	COURSE_CREATED	\N	\N	Funkcje kwadratowe - podstawy	Kurs utworzony	2025-06-07 10:03:27.870112
+68	\N	\N	COURSE_DELETED	\N	\N	Funkcje kwadratowe - podstawy	Course ID 32 deleted	2025-06-07 10:31:33.328287
+69	33	\N	COURSE_CREATED	\N	\N	Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań	Kurs utworzony	2025-06-07 10:32:16.685248
+70	33	\N	COURSE_UPDATED	\N	\N	Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań	Kurs zaktualizowany	2025-06-07 18:45:52.964984
+71	33	\N	COURSE_UPDATED	Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań	Funkcje Kwadratowe - Kompletny Przewodnik	Funkcje Kwadratowe - Kompletny Przewodnik	Zmiana tytułu z "Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań" na "Funkcje Kwadratowe - Kompletny Przewodnik"	2025-06-08 17:43:48.357369
 \.
 
 
 --
--- TOC entry 5325 (class 0 OID 65648)
+-- TOC entry 5373 (class 0 OID 98394)
 -- Dependencies: 234
 -- Data for Name: course_logs_y202507; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -2229,8 +2449,32 @@ COPY public.course_logs_y202507 (id, course_id, user_id, action_type, old_value,
 
 
 --
--- TOC entry 5326 (class 0 OID 65655)
+-- TOC entry 5374 (class 0 OID 98401)
 -- Dependencies: 235
+-- Data for Name: course_logs_y202508; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.course_logs_y202508 (id, course_id, user_id, action_type, old_value, new_value, course_title, action_description, created_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5375 (class 0 OID 98408)
+-- Dependencies: 236
+-- Data for Name: course_notes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.course_notes (id, title, content, user_id, course_id, file_path, file_name, created_at, updated_at) FROM stdin;
+1	Moja notatka	Cześć wrzucam wam moje notatki z baz danych 	6	1	C:/Users/kgruc/OneDrive/Pulpit/CourseFlow-Backend/uploads/document-1748703452619-807210381.png	p2.png	2025-05-31 16:57:32.667172	2025-05-31 16:57:32.667172
+2	a	a	6	4	C:/Users/kgruc/OneDrive/Pulpit/CourseFlow-Backend/uploads/document-1748703481542-339716746.txt	Partycje baza polecenia.txt	2025-05-31 16:58:01.587578	2025-05-31 16:58:01.587578
+3	fsdfsd	dasfds	6	1	C:/Users/kgruc/OneDrive/Pulpit/CourseFlow-Backend/uploads/document-1748884623930-539152158.jpg	lfndtoirttvx.jpg	2025-06-02 19:17:03.943712	2025-06-02 19:17:03.943712
+4	test	test 	82	4	C:/Users/kgruc/OneDrive/Pulpit/CourseFlow-Backend/uploads/document-1749131078097-32163649.jpg	rudy.jpg	2025-06-05 15:44:38.178766	2025-06-05 15:44:38.178766
+\.
+
+
+--
+-- TOC entry 5377 (class 0 OID 98416)
+-- Dependencies: 238
 -- Data for Name: course_questions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2238,35 +2482,33 @@ COPY public.course_questions (id, title, content, user_id, course_id, created_at
 2	Jak działa mechanizm dziedziczenia w JavaScript?	Czy ktoś może wyjaśnić, jak działa dziedziczenie prototypowe w JavaScript i czym różni się od dziedziczenia klasowego znanego z innych języków?	6	\N	2025-05-15 15:23:05.054	2025-05-15 15:23:05.054	0
 5	Dlaczego niebo jest niebieskie	Chce wiedzieć dlaczego niebo jest niebieskie	6	1	2025-05-15 17:43:54.227	2025-05-15 17:43:54.227	0
 3	Jak dodać nowy element do tablicy w JavaScript?	Próbuję dodać nowy element na końcu tablicy w JavaScript. Jaką metodę powinienem użyć? Czy istnieje różnica między metodami push i unshift?	6	4	2025-05-15 15:43:24.082	2025-05-15 15:43:24.082	3
-4	asd	asd	6	\N	2025-05-15 16:46:33.189	2025-05-15 16:46:33.189	1
-7	qwe	qwe	6	1	2025-05-15 20:10:02.795	2025-05-15 20:10:02.795	11
-6	asd	asd	6	1	2025-05-15 20:07:54.616	2025-05-15 20:07:54.616	11
-8	Siema	Siema	6	\N	2025-05-15 21:05:18.7	2025-05-15 21:05:18.7	141
-10	Siema mam pytanie	to jest moje pytanie	6	\N	2025-05-18 14:58:58.961	2025-05-18 14:58:58.961	7
-15	qwerty	qwerty	6	\N	2025-05-20 10:04:08.638	2025-05-20 10:04:08.638	10
-14	asd	asd	6	\N	2025-05-20 10:03:35.347	2025-05-20 10:03:35.347	8
-12	Siemanko	Siemanko	6	4	2025-05-19 20:21:32.553	2025-05-19 20:21:32.553	38
-11	Siemanko mam pytanie	A pytanie to.................	6	\N	2025-05-19 08:23:24.149	2025-05-19 08:23:24.149	2
-17	qweqwe	qweqweqw	6	\N	2025-05-20 10:52:16.55	2025-05-20 10:52:16.55	7
+6	asd	asd	6	1	2025-05-15 20:07:54.616	2025-05-15 20:07:54.616	12
+11	Siemanko mam pytanie	asdasdasdsadsa	6	\N	2025-05-19 08:23:24.149	2025-05-30 10:20:57.644597	13
+7	qwe	qwe	6	1	2025-05-15 20:10:02.795	2025-05-15 20:10:02.795	14
+4	asd	asd	6	\N	2025-05-15 16:46:33.189	2025-05-15 16:46:33.189	2
+8	Siema	Siema	6	\N	2025-05-15 21:05:18.7	2025-05-15 21:05:18.7	146
+10	Siema mam pytanie	to jest moje pytanie	6	\N	2025-05-18 14:58:58.961	2025-05-18 14:58:58.961	17
+18	Test'; DROP TABLE users; --	To jest test SQL injection	6	\N	2025-06-04 15:51:34.206	2025-06-04 15:51:34.206	4
+19	Test XSS	<script>alert('XSS')</script>	6	\N	2025-06-04 15:51:55.865	2025-06-04 15:51:55.865	4
 \.
 
 
 --
--- TOC entry 5328 (class 0 OID 65664)
--- Dependencies: 237
+-- TOC entry 5379 (class 0 OID 98425)
+-- Dependencies: 240
 -- Data for Name: courses; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.courses (id, user_id, title, short_description, course_image, category, is_published, created_at, updated_at) FROM stdin;
-4	6	Januszex	Jak zostać januszem biznesu. Kurs skrócony. 	image-1744113137775-877468046.jpg	biznes	f	2025-04-08 11:52:17.883	2025-04-08 11:52:17.883
-27	6	Jakiś tam kurs	asdasd	\N	design	f	2025-05-19 21:17:13.848	2025-05-19 21:17:13.848
-1	6	kurs pokazowy	Tu jest kurs pokazowy 	image-1743964170219-229743977.jpg	programowanie	f	2025-04-06 18:29:30.271	2025-05-28 09:58:09.15
+4	6	Januszex	Jak zostać januszem biznesu. Kurs skrócony. 	image-1749283093720-271596064.jpg	biznes	f	2025-04-08 11:52:17.883	2025-06-07 07:58:13.82
+1	6	Kurs pokazowy 	Tu jest kurs pokazowy 	image-1749283138502-686185970.jpg	programowanie	f	2025-04-06 18:29:30.271	2025-06-07 07:58:58.673
+33	6	Funkcje Kwadratowe - Kompletny Przewodnik	Szczegółowy kurs poświęcony funkcjom kwadratowych obejmujący wszystkie aspekty teorii i praktyki. Poznasz definicję funkcji kwadratowej, metody rozwiązywania równań, analizę wykresu paraboli, przekształcenia geometryczne.	image-1749314752952-207104451.jpg	matematyka	f	2025-06-07 08:32:16.685	2025-06-08 15:43:48.351
 \.
 
 
 --
--- TOC entry 5330 (class 0 OID 65673)
--- Dependencies: 239
+-- TOC entry 5381 (class 0 OID 98434)
+-- Dependencies: 242
 -- Data for Name: notifications; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2297,13 +2539,28 @@ COPY public.notifications (id, user_id, title, message, type, related_entity_id,
 750	6	Nowy kurs dostępny!	Nowy kurs "qwe" jest już dostępny na platformie.	NEW_COURSE	24	2025-05-17 16:35:48.204974+02	t
 762	6	Nowy kurs dostępny!	Nowy kurs "Testowy kurs" jest już dostępny na platformie.	NEW_COURSE	25	2025-05-17 16:38:52.20272+02	t
 774	6	Nowy kurs dostępny!	Nowy kurs "Nowy kurs" jest już dostępny na platformie.	NEW_COURSE	26	2025-05-17 16:55:55.636423+02	t
-797	75	Witaj w CourseFlow!	Dziękujemy za dołączenie do naszej platformy. Sprawdź dostępne kursy i rozpocznij swoją podróż edukacyjną!	WELCOME	\N	2025-05-29 14:56:35.527+02	f
+801	6	asd	asd	ADMIN_ANNOUNCEMENT	\N	2025-05-31 13:59:08.022+02	t
+805	82	Witaj w CourseFlow!	Dziękujemy za dołączenie do naszej platformy. Sprawdź dostępne kursy i rozpocznij swoją podróż edukacyjną!	WELCOME	\N	2025-06-05 15:37:58.664+02	t
+807	82	Nowy kurs dostępny!	Nowy kurs "kurs" jest już dostępny na platformie.	NEW_COURSE	30	2025-06-05 16:56:57.255576+02	f
+808	6	Nowy kurs dostępny!	Nowy kurs "kurs" jest już dostępny na platformie.	NEW_COURSE	30	2025-06-05 16:56:57.255576+02	t
+810	82	Nowy kurs dostępny!	Nowy kurs "TEST" jest już dostępny na platformie.	NEW_COURSE	31	2025-06-07 09:53:11.955102+02	f
+814	82	Nowy kurs dostępny!	Nowy kurs "Funkcje kwadratowe - podstawy" jest już dostępny na platformie.	NEW_COURSE	32	2025-06-07 10:03:27.870112+02	f
+818	82	Nowy kurs dostępny!	Nowy kurs "Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań" jest już dostępny na platformie.	NEW_COURSE	33	2025-06-07 10:32:16.685248+02	f
+813	6	Nowy kurs dostępny!	Nowy kurs "TEST" jest już dostępny na platformie.	NEW_COURSE	31	2025-06-07 09:53:11.955102+02	t
+817	6	Nowy kurs dostępny!	Nowy kurs "Funkcje kwadratowe - podstawy" jest już dostępny na platformie.	NEW_COURSE	32	2025-06-07 10:03:27.870112+02	t
+821	6	Nowy kurs dostępny!	Nowy kurs "Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań" jest już dostępny na platformie.	NEW_COURSE	33	2025-06-07 10:32:16.685248+02	t
+803	79	asd	asd	ADMIN_ANNOUNCEMENT	\N	2025-05-31 13:59:08.022+02	t
+806	79	Nowy kurs dostępny!	Nowy kurs "kurs" jest już dostępny na platformie.	NEW_COURSE	30	2025-06-05 16:56:57.255576+02	t
+811	79	Nowy kurs dostępny!	Nowy kurs "TEST" jest już dostępny na platformie.	NEW_COURSE	31	2025-06-07 09:53:11.955102+02	t
+815	79	Nowy kurs dostępny!	Nowy kurs "Funkcje kwadratowe - podstawy" jest już dostępny na platformie.	NEW_COURSE	32	2025-06-07 10:03:27.870112+02	t
+819	79	Nowy kurs dostępny!	Nowy kurs "Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań" jest już dostępny na platformie.	NEW_COURSE	33	2025-06-07 10:32:16.685248+02	t
+822	79	Witaj w CourseFlow!	Dziękujemy za dołączenie do naszej platformy. Sprawdź dostępne kursy i rozpocznij swoją podróż edukacyjną!	WELCOME	\N	2025-06-08 17:20:14.276+02	t
 \.
 
 
 --
--- TOC entry 5332 (class 0 OID 65681)
--- Dependencies: 241
+-- TOC entry 5383 (class 0 OID 98442)
+-- Dependencies: 244
 -- Data for Name: permissions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2315,12 +2572,18 @@ COPY public.permissions (id, name, description, created_at, updated_at) FROM std
 9	PANEL_SHOW_COURSES	\N	2025-04-06 20:26:26.094472	2025-04-06 20:26:26.094472
 10	PANEL_SHOW_ADMIN_PANEL	\N	2025-04-06 20:26:26.094472	2025-04-06 20:26:26.094472
 11	PANEL_SHOW_USERS	\N	2025-04-06 20:26:26.094472	2025-04-06 20:26:26.094472
+1	PANEL_SETTINGS_PARTITION	\N	2025-05-31 09:02:17.008898	2025-05-31 09:02:17.008898
+2	PANEL_SHOW_COURSES_LOGS	\N	2025-05-31 09:02:46.907074	2025-05-31 09:02:46.907074
+3	PANEL_SHOW_USER_LOGS	\N	2025-05-31 09:02:55.173766	2025-05-31 09:02:55.173766
+5	PANEL_CREATE_COURSES	\N	2025-05-31 09:03:31.288093	2025-05-31 09:03:31.288093
+12	PANEL_MODIFY_COURSES	\N	2025-05-31 09:04:33.954781	2025-05-31 09:04:33.954781
+13	PANEL_CREATE_NOTIFICATIONS	\N	2025-05-31 09:04:42.427436	2025-05-31 09:04:42.427436
 \.
 
 
 --
--- TOC entry 5334 (class 0 OID 65689)
--- Dependencies: 243
+-- TOC entry 5385 (class 0 OID 98450)
+-- Dependencies: 246
 -- Data for Name: role_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2332,32 +2595,38 @@ COPY public.role_permissions (role_id, permission_id, created_at, updated_at) FR
 1	9	2025-04-06 20:28:29.821322	2025-04-06 20:28:29.821322
 1	10	2025-04-06 20:28:29.821322	2025-04-06 20:28:29.821322
 1	11	2025-04-06 20:28:29.821322	2025-04-06 20:28:29.821322
-3	4	2025-05-11 21:31:24.051647	2025-05-11 21:31:24.051647
-3	9	2025-05-11 21:31:24.099676	2025-05-11 21:31:24.099676
-3	10	2025-05-11 21:31:24.213877	2025-05-11 21:31:24.213877
-7	6	2025-05-11 21:33:17.668718	2025-05-11 21:33:17.668718
-7	10	2025-05-11 21:33:17.713529	2025-05-11 21:33:17.713529
-7	9	2025-05-11 21:33:17.814409	2025-05-11 21:33:17.814409
+1	1	2025-05-31 09:09:24.317312	2025-05-31 09:09:24.317312
+1	2	2025-05-31 09:09:27.453145	2025-05-31 09:09:27.453145
+1	3	2025-05-31 09:09:29.553673	2025-05-31 09:09:29.553673
+1	5	2025-05-31 09:09:34.468237	2025-05-31 09:09:34.468237
+1	12	2025-05-31 09:09:52.138787	2025-05-31 09:09:52.138787
+1	13	2025-05-31 09:09:54.40098	2025-05-31 09:09:54.40098
+7	10	2025-05-31 14:41:56.280219	2025-05-31 14:41:56.280219
+7	9	2025-05-31 14:41:56.346639	2025-05-31 14:41:56.346639
+7	11	2025-05-31 14:41:56.35689	2025-05-31 14:41:56.35689
+7	4	2025-05-31 14:41:56.359529	2025-05-31 14:41:56.359529
+16	8	2025-06-06 16:57:21.026013	2025-06-06 16:57:21.026013
+16	10	2025-06-06 16:57:21.068304	2025-06-06 16:57:21.068304
 \.
 
 
 --
--- TOC entry 5335 (class 0 OID 65694)
--- Dependencies: 244
+-- TOC entry 5386 (class 0 OID 98455)
+-- Dependencies: 247
 -- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.roles (id, name, description, created_at, updated_at) FROM stdin;
 2	user	\N	2025-04-06 20:18:11.248218	2025-04-06 20:18:11.248218
 1	admin	\N	2025-04-06 20:20:53.067592	2025-04-06 20:20:53.067592
-3	Moderator kursów 	\N	2025-04-06 22:56:16.168522	2025-04-06 22:56:16.168522
 7	Mini Admin	\N	2025-05-11 21:33:17.667275	2025-05-11 21:33:17.667275
+16	Testowa rola	\N	2025-06-06 16:57:21.023327	2025-06-06 16:57:21.023327
 \.
 
 
 --
--- TOC entry 5337 (class 0 OID 65702)
--- Dependencies: 246
+-- TOC entry 5388 (class 0 OID 98463)
+-- Dependencies: 249
 -- Data for Name: test_block_answers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2396,12 +2665,63 @@ COPY public.test_block_answers (id, block_id, answer_text, is_correct, feedback,
 60	15	Wszystkie odpowiedzi są poprawne 	t		4
 102	28	Prawda	t		1
 103	28	Fałsz	f		2
+128	36	f(x) = ax + b	f		1
+129	36	f(x) = ax² + bx + c, gdzie a ≠ 0	t		2
+130	36	f(x) = a/x + b	f		3
+131	36	f(x) = a·bˣ	f		4
+132	37	Dziedziną jest zbiór liczb rzeczywistych	t		1
+133	37	Wykresem jest parabola	t		2
+134	37	Ma zawsze dwa miejsca zerowe ✗ (może mieć 0, 1 lub 2)	f		3
+135	37	Współczynnik a określa kierunek ramion paraboli	t		4
+136	38	Parametr a	t		1
+137	38	Parametr b	t		2
+138	38	Parametr c	t		3
+139	38	Delta (Δ)	t		4
+140	39	2	t		1
+141	40	Prawda	t		1
+142	40	Fałsz	f		2
+143	41	Postać ogólna	f		1
+144	41	Postać kanoniczna	t		2
+145	41	Postać iloczynowa	f		3
+146	41	Wszystkie postacie	f		4
+147	42	Miejsca zerowe funkcji	t		1
+148	42	Wierzchołek paraboli	f		2
+149	42	Punkt przecięcia z osią y	f		3
+150	42	Współczynnik kierunkowy a	t		4
+151	43	f(x) = ax² + bx + c	t		1
+152	43	f(x) = a(x-p)² + q	t		2
+153	43	f(x) = a(x-x₁)(x-x₂)	t		3
+154	43	Uzupełnienie do kwadratu	t		4
+155	44	f(x) = (x - 3)² - 1	t		1
+156	45	Prawda	f		1
+157	45	Fałsz	t		2
+158	46	Żadnego	f		1
+159	46	Jedno	t		2
+160	46	Dwa różne	f		3
+161	46	Nieskończenie wiele	f		4
+162	47	Δ > 0 	t		1
+163	47	Δ = 0 	t		2
+164	47	Δ < 0 	t		3
+165	47	Wzory Vieta	t		4
+166	48	25	t		1
+167	49	Prawda	t		1
+168	49	Fałsz	f		2
+169	50	Postać ogólna f(x) = ax² + bx + c 	f		1
+170	50	Postać kanoniczna f(x) = a(x-p)² + q	f		2
+171	50	Postać iloczynowa f(x) = a(x-x₁)(x-x₂)	t		3
+172	50	Wszystkie postacie są równie przydatne	f		4
+173	51	Ramiona paraboli skierowane w dół	t		1
+174	51	Wierzchołek w punkcie (2, 7)	t		2
+175	51	Funkcja ma maksimum globalne	t		3
+176	51	Przecięcie z osią y w punkcie (0, -5)	t		4
+177	52	Prawda	t		1
+178	52	Fałsz	f		2
 \.
 
 
 --
--- TOC entry 5339 (class 0 OID 65710)
--- Dependencies: 248
+-- TOC entry 5390 (class 0 OID 98471)
+-- Dependencies: 251
 -- Data for Name: test_block_attributes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2410,8 +2730,8 @@ COPY public.test_block_attributes (id, block_id, attribute_name, attribute_value
 
 
 --
--- TOC entry 5341 (class 0 OID 65716)
--- Dependencies: 250
+-- TOC entry 5392 (class 0 OID 98477)
+-- Dependencies: 253
 -- Data for Name: test_blocks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2426,12 +2746,29 @@ COPY public.test_blocks (id, test_id, block_type, question_text, points, sort_or
 13	3	single_choice	Z jakiego kraju pochodzi BMW 	1	0	2025-04-29 06:57:08.448	2025-04-29 16:26:57.701
 15	3	single_choice	Dlaczego BMW jest najlepszym autem na rynku	3	1	2025-04-29 07:00:03.884	2025-04-29 16:26:57.701
 28	4	true_false	Czy niebo jest niebieskie 	1	5	2025-05-12 21:19:50.954	2025-05-12 21:19:50.954
+40	12	true_false	Jeśli a > 0, to parabola ma ramiona skierowane w górę	1	4	2025-06-07 08:38:50.313	2025-06-07 08:38:56.733
+39	12	text_input	Dla funkcji f(x) = 2x² - 8x + 3, współrzędna x wierzchołka wynosi: x =	1	3	2025-06-07 08:38:27.061	2025-06-07 08:38:56.733
+38	12	matching	Dopasuj parametry funkcji kwadratowej do ich znaczenia:	1	2	2025-06-07 08:37:45.646	2025-06-07 08:38:56.733
+36	12	single_choice	Jaka jest postać ogólna funkcji kwadratowej?	1	0	2025-06-07 08:35:57.143	2025-06-07 08:38:56.733
+37	12	multiple_choice	Które z poniższych stwierdzeń o funkcji kwadratowej są prawdziwe?	2	1	2025-06-07 08:36:40.062	2025-06-07 08:38:56.733
+41	13	single_choice	Która postać funkcji kwadratowej pozwala bezpośrednio odczytać wierzchołek?	1	1	2025-06-07 08:40:24.558	2025-06-07 08:40:24.558
+42	13	multiple_choice	Które informacje można bezpośrednio odczytać z postaci iloczynowej?	2	2	2025-06-07 08:41:36.845	2025-06-07 08:41:36.845
+43	13	matching	Dopasuj postacie funkcji do informacji, które można z nich odczytać:	2	3	2025-06-07 08:42:28.573	2025-06-07 08:42:28.573
+44	13	text_input	 Funkcja f(x) = x² - 6x + 8 w postaci kanonicznej to f(x) = (x - ___)² - ___	1	4	2025-06-07 08:43:09.107	2025-06-07 08:43:09.107
+45	13	true_false	Postać iloczynowa istnieje dla każdej funkcji kwadratowej.	1	5	2025-06-07 08:43:32.712	2025-06-07 08:43:32.712
+46	14	single_choice	Ile rozwiązań ma równanie kwadratowe, gdy Δ = 0?	1	1	2025-06-07 08:44:38.558	2025-06-07 08:44:38.558
+47	14	matching	Dopasuj wartości dyskryminanty do liczby rozwiązań:	4	2	2025-06-07 08:45:47.606	2025-06-07 08:45:47.606
+48	14	text_input	Dla równania 2x² - 7x + 3 = 0, dyskryminanta Δ = ___	2	3	2025-06-07 08:46:13.658	2025-06-07 08:46:13.658
+49	14	true_false	Jeśli suma pierwiastków równania kwadratowego wynosi 4, to współczynnik b = -4a.	1	4	2025-06-07 08:46:40.441	2025-06-07 08:46:40.441
+50	15	single_choice	Która postać funkcji kwadratowej najlepiej nadaje się do odczytania miejsc zerowych?	1	1	2025-06-07 08:47:49.066	2025-06-07 08:47:49.066
+51	15	multiple_choice	Funkcja f(x) = -3x² + 12x - 5 ma następujące właściwości: (Zaznacz wszystkie poprawne)	3	2	2025-06-07 08:49:11.985	2025-06-07 08:49:11.985
+52	15	true_false	Jeśli dyskryminanta równania kwadratowego jest liczbą ujemną, to funkcja kwadratowa nie ma miejsc zerowych.	1	3	2025-06-07 08:49:34.201	2025-06-07 08:49:34.201
 \.
 
 
 --
--- TOC entry 5343 (class 0 OID 65726)
--- Dependencies: 252
+-- TOC entry 5394 (class 0 OID 98487)
+-- Dependencies: 255
 -- Data for Name: tests; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2439,12 +2776,16 @@ COPY public.tests (id, chapter_id, course_id, author_id, title, description, pas
 3	31	1	6	Test		60	0	2025-04-28 19:47:34.512	2025-04-28 19:47:34.512	f
 4	\N	1	6	asd	ads	70	3	2025-04-29 21:22:55.778	2025-04-30 08:30:54.113	t
 6	38	1	6	Rozdział 3 test		70	9	2025-05-01 06:11:33.048	2025-05-15 13:39:15.952	f
+12	45	33	6	Test do Rozdziału 1		70	3	2025-06-07 08:35:11.473	2025-06-07 08:35:11.473	f
+13	46	33	6	Test do Rozdziału 2		50	6	2025-06-07 08:39:42.347	2025-06-07 08:39:42.347	f
+14	47	33	6	Test do Rozdziału 3		60	10	2025-06-07 08:44:01.924	2025-06-07 08:44:01.924	f
+15	\N	33	6	Test dla całego kursu		50	15	2025-06-07 08:46:58.942	2025-06-07 08:46:58.942	t
 \.
 
 
 --
--- TOC entry 5345 (class 0 OID 65737)
--- Dependencies: 254
+-- TOC entry 5396 (class 0 OID 98498)
+-- Dependencies: 257
 -- Data for Name: user_chapter; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2453,21 +2794,22 @@ COPY public.user_chapter (id, user_id, chapter_id, is_completed, last_viewed) FR
 
 
 --
--- TOC entry 5347 (class 0 OID 65743)
--- Dependencies: 256
+-- TOC entry 5398 (class 0 OID 98504)
+-- Dependencies: 259
 -- Data for Name: user_courses; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.user_courses (id, user_id, course_id, progress, status, created_at) FROM stdin;
 5	6	1	0.00	not_started	2025-05-02 14:59:15.956
 6	6	4	0.00	not_started	2025-05-04 09:09:13.752
-11	75	1	0.00	not_started	2025-05-29 12:56:44.497
+12	82	1	0.00	not_started	2025-06-05 13:45:30.481
+14	6	33	0.00	not_started	2025-06-07 08:51:18.107
 \.
 
 
 --
--- TOC entry 5350 (class 0 OID 65755)
--- Dependencies: 260
+-- TOC entry 5401 (class 0 OID 98516)
+-- Dependencies: 263
 -- Data for Name: user_logs_y202505; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2522,24 +2864,42 @@ COPY public.user_logs_y202505 (id, action_type, user_id, changed_by_user_id, old
 57	USER_DELETED	\N	6	te@te.pl	\N	2025-05-28 13:06:08.887651
 58	ROLE_CHANGED	\N	6	user	Moderator kursów 	2025-05-28 13:06:55.757401
 59	USER_DELETED	\N	6	mdudek@interia.pl	\N	2025-05-28 13:06:58.825735
-60	ROLE_CHANGED	75	6	user	Mini Admin	2025-05-28 13:09:21.187649
-61	ROLE_CHANGED	75	6	Mini Admin	Moderator kursów 	2025-05-28 22:14:01.359062
+60	ROLE_CHANGED	\N	6	user	Mini Admin	2025-05-28 13:09:21.187649
+61	ROLE_CHANGED	\N	6	Mini Admin	Moderator kursów 	2025-05-28 22:14:01.359062
+62	ROLE_CHANGED	\N	6	Moderator kursów 	admin	2025-05-30 12:18:41.063252
+63	ROLE_CHANGED	\N	6	admin	Moderator kursów 	2025-05-30 12:18:49.561208
+64	USER_DELETED	\N	6	a@a.pl	\N	2025-05-30 12:23:56.774046
+66	ROLE_CHANGED	\N	6	user	admin	2025-05-30 19:57:39.313823
+67	USER_DELETED	\N	6	jtokarczyk@interia.pl	\N	2025-05-30 19:58:00.901003
+68	USER_DELETED	\N	6	jtokarczyk@interia.pl	\N	2025-05-30 19:58:00.90304
+65	ROLE_CHANGED	\N	6	user	Mini Admin	2025-05-30 15:28:06.575735
+69	ROLE_CHANGED	\N	6	Mini Admin	admin	2025-05-30 20:08:39.87083
+70	ROLE_CHANGED	\N	6	admin	Mini Admin	2025-05-30 20:08:43.464651
+71	ROLE_CHANGED	\N	6	Mini Admin	admin	2025-05-30 20:08:45.997486
+72	USER_DELETED	\N	6	marcindudek@interia.pl	\N	2025-05-30 20:08:48.81683
+73	USER_DELETED	\N	6	marcindudek@interia.pl	\N	2025-05-30 20:08:48.818304
+80	ROLE_CHANGED	\N	6	user	admin	2025-05-31 11:12:22.592971
 \.
 
 
 --
--- TOC entry 5351 (class 0 OID 65762)
--- Dependencies: 261
+-- TOC entry 5402 (class 0 OID 98523)
+-- Dependencies: 264
 -- Data for Name: user_logs_y202506; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.user_logs_y202506 (id, action_type, user_id, changed_by_user_id, old_value, new_value, created_at) FROM stdin;
+91	ROLE_CHANGED	82	6	user	admin	2025-06-06 16:58:01.764998
+92	ROLE_CHANGED	82	6	admin	Testowa rola	2025-06-06 16:58:04.143948
+93	USER_DELETED	\N	6	krradziak@interia.pl	\N	2025-06-06 17:06:15.721417
+94	USER_DELETED	\N	6	adriannn@interia.pl	\N	2025-06-06 17:06:17.52008
+95	USER_DELETED	\N	\N	qwe@qwe.pl	\N	2025-06-07 10:52:50.147862
 \.
 
 
 --
--- TOC entry 5352 (class 0 OID 65769)
--- Dependencies: 262
+-- TOC entry 5403 (class 0 OID 98530)
+-- Dependencies: 265
 -- Data for Name: user_logs_y202507; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2548,8 +2908,8 @@ COPY public.user_logs_y202507 (id, action_type, user_id, changed_by_user_id, old
 
 
 --
--- TOC entry 5353 (class 0 OID 65776)
--- Dependencies: 263
+-- TOC entry 5404 (class 0 OID 98537)
+-- Dependencies: 266
 -- Data for Name: user_logs_y202508; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2558,8 +2918,8 @@ COPY public.user_logs_y202508 (id, action_type, user_id, changed_by_user_id, old
 
 
 --
--- TOC entry 5354 (class 0 OID 65783)
--- Dependencies: 264
+-- TOC entry 5405 (class 0 OID 98544)
+-- Dependencies: 267
 -- Data for Name: user_logs_y202509; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2568,58 +2928,59 @@ COPY public.user_logs_y202509 (id, action_type, user_id, changed_by_user_id, old
 
 
 --
--- TOC entry 5355 (class 0 OID 65790)
--- Dependencies: 265
+-- TOC entry 5406 (class 0 OID 98551)
+-- Dependencies: 268
 -- Data for Name: user_test_answers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.user_test_answers (id, attempt_id, block_id, selected_answer_id, text_answer, json_answer, is_correct, points_awarded) FROM stdin;
-75	2284	13	49	\N	\N	t	0
-76	2284	15	60	\N	\N	t	0
-77	2285	21	83	\N	\N	t	0
-78	2285	22	85	\N	\N	t	0
-79	2286	19	73	\N	\N	t	0
-80	2286	20	79	\N	\N	t	0
-81	2286	23	\N	seria 3 e90	\N	t	0
-82	2286	26	95	{"rightItem":"M4"}	\N	t	0
-83	2286	26	96	{"rightItem":"Stringer"}	\N	t	0
-84	2286	26	97	{"rightItem":"RS5"}	\N	t	0
-85	2286	26	98	{"rightItem":"CLA"}	\N	t	0
-86	2286	27	99	{"rightItem":"1"}	\N	t	0
-87	2286	27	100	{"rightItem":"2"}	\N	t	0
-88	2286	27	101	{"rightItem":"3"}	\N	t	0
-89	2286	28	102	\N	\N	t	0
+90	2287	13	49	\N	\N	t	0
+91	2287	15	60	\N	\N	t	0
+92	2288	21	83	\N	\N	t	0
+93	2288	22	85	\N	\N	t	0
+94	2289	19	73	\N	\N	t	0
+95	2289	20	79	\N	\N	t	0
+96	2289	23	\N	seria 3 e90	\N	t	0
+97	2289	26	95	{"rightItem":"M4"}	\N	t	0
+98	2289	26	96	{"rightItem":"Stringer"}	\N	t	0
+99	2289	26	97	{"rightItem":"RS5"}	\N	t	0
+100	2289	26	98	{"rightItem":"CLA"}	\N	t	0
+101	2289	27	99	{"rightItem":"1"}	\N	t	0
+102	2289	27	100	{"rightItem":"2"}	\N	t	0
+103	2289	27	101	{"rightItem":"3"}	\N	t	0
+104	2289	28	102	\N	\N	t	0
 \.
 
 
 --
--- TOC entry 5357 (class 0 OID 65798)
--- Dependencies: 267
+-- TOC entry 5408 (class 0 OID 98559)
+-- Dependencies: 270
 -- Data for Name: user_test_attempts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.user_test_attempts (id, user_id, test_id, start_time, end_time, score, max_score, passed, created_at) FROM stdin;
-2284	75	3	2025-05-29 12:56:53.949	2025-05-29 12:56:53.946	4	4	t	2025-05-29 12:56:53.949
-2285	75	6	2025-05-29 12:57:01.268	2025-05-29 12:57:01.267	5	5	t	2025-05-29 12:57:01.268
-2286	75	4	2025-05-29 12:57:37.22	2025-05-29 12:57:37.219	10	10	t	2025-05-29 12:57:37.22
+2287	82	3	2025-06-05 13:49:32.953	2025-06-05 13:49:32.951	4	4	t	2025-06-05 13:49:32.953
+2288	82	6	2025-06-05 13:49:43.554	2025-06-05 13:49:43.553	5	5	t	2025-06-05 13:49:43.554
+2289	82	4	2025-06-05 13:50:34.246	2025-06-05 13:50:34.244	10	10	t	2025-06-05 13:50:34.246
 \.
 
 
 --
--- TOC entry 5359 (class 0 OID 65807)
--- Dependencies: 269
+-- TOC entry 5410 (class 0 OID 98568)
+-- Dependencies: 272
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, first_name, last_name, email, password, created_at, updated_at, role_id, is_verified, verification_token_id, reset_password_token, reset_password_expires, last_password_change, first_login) FROM stdin;
-6	test	test	test@testowy.pl	$2b$10$iY5PO4x5z/cWBKOSbB49UOq8nh8UA0B2ulQoNlriXrrMMsXIi7zOi	2025-04-06 20:18:40.52964	2025-04-06 20:18:40.52964	1	t	\N	\N	\N	\N	f
-75	a	a	a@a.pl	$2b$10$EP.V/vbOsPFEsjNBxqYZcOtGpzE8tQyaVSIGKOAZAj1tDi3wjaCya	2025-05-28 13:08:48.586059	2025-05-28 13:08:48.586059	3	t	\N	\N	\N	\N	f
+COPY public.users (id, first_name, last_name, email, password, created_at, updated_at, role_id, is_verified, verification_token_id, reset_password_token, reset_password_expires, last_password_change, first_login, last_login) FROM stdin;
+82	Marcin	Dudek	marcindudek@interia.pl	$2b$10$HYYI76CgtCHfGTWM3TsCr.Xtz5gUSz.yXWU/GEjyWRZSV1Z/pjAka	2025-06-05 15:37:30.259308	2025-06-06 16:58:04.143948	16	t	\N	\N	\N	\N	f	2025-06-05 15:37:58.654239
+79	Jakub	Tokarczyk	jtokarczyk@interia.pl	$2b$10$CFmLRv0pxyulYosRmye/ruocrJwXOY/JA4y0KMCcDuAT47CHFqkTG	2025-05-31 10:49:57.192135	2025-05-31 10:49:57.192135	2	t	\N	\N	\N	\N	f	2025-06-08 18:02:59.189926
+6	test	test	test@testowy.pl	$2b$10$iY5PO4x5z/cWBKOSbB49UOq8nh8UA0B2ulQoNlriXrrMMsXIi7zOi	2025-04-06 20:18:40.52964	2025-04-06 20:18:40.52964	1	t	\N	\N	\N	\N	f	2025-06-08 18:03:05.08401
 \.
 
 
 --
--- TOC entry 5361 (class 0 OID 65818)
--- Dependencies: 271
+-- TOC entry 5412 (class 0 OID 98579)
+-- Dependencies: 274
 -- Data for Name: verification_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2628,125 +2989,144 @@ COPY public.verification_tokens (id, user_id, verification_token, created_at, ex
 
 
 --
--- TOC entry 5393 (class 0 OID 0)
+-- TOC entry 5414 (class 0 OID 98584)
+-- Dependencies: 276
+-- Data for Name: waf_security_events; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.waf_security_events (id, event_id, event_type, ip_address, endpoint, user_agent, description, risk_level, action_taken, created_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5448 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: answer_attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.answer_attributes_id_seq', 12, true);
+SELECT pg_catalog.setval('public.answer_attributes_id_seq', 30, true);
 
 
 --
--- TOC entry 5394 (class 0 OID 0)
+-- TOC entry 5449 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: certificates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.certificates_id_seq', 27, true);
+SELECT pg_catalog.setval('public.certificates_id_seq', 28, true);
 
 
 --
--- TOC entry 5395 (class 0 OID 0)
+-- TOC entry 5450 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: chapter_block_attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chapter_block_attributes_id_seq', 109347, true);
+SELECT pg_catalog.setval('public.chapter_block_attributes_id_seq', 117369, true);
 
 
 --
--- TOC entry 5396 (class 0 OID 0)
+-- TOC entry 5451 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: chapter_blocks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chapter_blocks_id_seq', 47677, true);
+SELECT pg_catalog.setval('public.chapter_blocks_id_seq', 51141, true);
 
 
 --
--- TOC entry 5397 (class 0 OID 0)
+-- TOC entry 5452 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: chapters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chapters_id_seq', 39, true);
+SELECT pg_catalog.setval('public.chapters_id_seq', 47, true);
 
 
 --
--- TOC entry 5398 (class 0 OID 0)
+-- TOC entry 5453 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: course_answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.course_answers_id_seq', 55, true);
+SELECT pg_catalog.setval('public.course_answers_id_seq', 57, true);
 
 
 --
--- TOC entry 5399 (class 0 OID 0)
+-- TOC entry 5454 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: course_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.course_logs_id_seq', 52, true);
+SELECT pg_catalog.setval('public.course_logs_id_seq', 71, true);
 
 
 --
--- TOC entry 5400 (class 0 OID 0)
--- Dependencies: 236
+-- TOC entry 5455 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: course_notes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.course_notes_id_seq', 4, true);
+
+
+--
+-- TOC entry 5456 (class 0 OID 0)
+-- Dependencies: 239
 -- Name: course_questions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.course_questions_id_seq', 17, true);
+SELECT pg_catalog.setval('public.course_questions_id_seq', 19, true);
 
 
 --
--- TOC entry 5401 (class 0 OID 0)
--- Dependencies: 238
+-- TOC entry 5457 (class 0 OID 0)
+-- Dependencies: 241
 -- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.courses_id_seq', 29, true);
+SELECT pg_catalog.setval('public.courses_id_seq', 33, true);
 
 
 --
--- TOC entry 5402 (class 0 OID 0)
--- Dependencies: 240
+-- TOC entry 5458 (class 0 OID 0)
+-- Dependencies: 243
 -- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifications_id_seq', 797, true);
+SELECT pg_catalog.setval('public.notifications_id_seq', 822, true);
 
 
 --
--- TOC entry 5403 (class 0 OID 0)
--- Dependencies: 242
+-- TOC entry 5459 (class 0 OID 0)
+-- Dependencies: 245
 -- Name: permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.permissions_id_seq', 1, false);
+SELECT pg_catalog.setval('public.permissions_id_seq', 13, true);
 
 
 --
--- TOC entry 5404 (class 0 OID 0)
--- Dependencies: 245
+-- TOC entry 5460 (class 0 OID 0)
+-- Dependencies: 248
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.roles_id_seq', 7, true);
+SELECT pg_catalog.setval('public.roles_id_seq', 16, true);
 
 
 --
--- TOC entry 5405 (class 0 OID 0)
--- Dependencies: 247
+-- TOC entry 5461 (class 0 OID 0)
+-- Dependencies: 250
 -- Name: test_block_answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.test_block_answers_id_seq', 109, true);
+SELECT pg_catalog.setval('public.test_block_answers_id_seq', 178, true);
 
 
 --
--- TOC entry 5406 (class 0 OID 0)
--- Dependencies: 249
+-- TOC entry 5462 (class 0 OID 0)
+-- Dependencies: 252
 -- Name: test_block_attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2754,26 +3134,26 @@ SELECT pg_catalog.setval('public.test_block_attributes_id_seq', 4, true);
 
 
 --
--- TOC entry 5407 (class 0 OID 0)
--- Dependencies: 251
+-- TOC entry 5463 (class 0 OID 0)
+-- Dependencies: 254
 -- Name: test_blocks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.test_blocks_id_seq', 30, true);
+SELECT pg_catalog.setval('public.test_blocks_id_seq', 52, true);
 
 
 --
--- TOC entry 5408 (class 0 OID 0)
--- Dependencies: 253
+-- TOC entry 5464 (class 0 OID 0)
+-- Dependencies: 256
 -- Name: tests_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tests_id_seq', 9, true);
+SELECT pg_catalog.setval('public.tests_id_seq', 15, true);
 
 
 --
--- TOC entry 5409 (class 0 OID 0)
--- Dependencies: 255
+-- TOC entry 5465 (class 0 OID 0)
+-- Dependencies: 258
 -- Name: user_chapter_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2781,61 +3161,70 @@ SELECT pg_catalog.setval('public.user_chapter_id_seq', 1, false);
 
 
 --
--- TOC entry 5410 (class 0 OID 0)
--- Dependencies: 257
+-- TOC entry 5466 (class 0 OID 0)
+-- Dependencies: 260
 -- Name: user_courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_courses_id_seq', 11, true);
+SELECT pg_catalog.setval('public.user_courses_id_seq', 14, true);
 
 
 --
--- TOC entry 5411 (class 0 OID 0)
--- Dependencies: 259
+-- TOC entry 5467 (class 0 OID 0)
+-- Dependencies: 262
 -- Name: user_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_logs_id_seq', 61, true);
+SELECT pg_catalog.setval('public.user_logs_id_seq', 95, true);
 
 
 --
--- TOC entry 5412 (class 0 OID 0)
--- Dependencies: 266
+-- TOC entry 5468 (class 0 OID 0)
+-- Dependencies: 269
 -- Name: user_test_answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_test_answers_id_seq', 89, true);
+SELECT pg_catalog.setval('public.user_test_answers_id_seq', 104, true);
 
 
 --
--- TOC entry 5413 (class 0 OID 0)
--- Dependencies: 268
+-- TOC entry 5469 (class 0 OID 0)
+-- Dependencies: 271
 -- Name: user_test_attempts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_test_attempts_id_seq', 2286, true);
+SELECT pg_catalog.setval('public.user_test_attempts_id_seq', 2289, true);
 
 
 --
--- TOC entry 5414 (class 0 OID 0)
--- Dependencies: 270
+-- TOC entry 5470 (class 0 OID 0)
+-- Dependencies: 273
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 75, true);
+SELECT pg_catalog.setval('public.users_id_seq', 84, true);
 
 
 --
--- TOC entry 5415 (class 0 OID 0)
--- Dependencies: 272
+-- TOC entry 5471 (class 0 OID 0)
+-- Dependencies: 275
 -- Name: verification_tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.verification_tokens_id_seq', 70, true);
+SELECT pg_catalog.setval('public.verification_tokens_id_seq', 79, true);
 
 
 --
--- TOC entry 4963 (class 2606 OID 65847)
+-- TOC entry 5472 (class 0 OID 0)
+-- Dependencies: 277
+-- Name: waf_security_events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.waf_security_events_id_seq', 171, true);
+
+
+--
+-- TOC entry 4987 (class 2606 OID 98619)
 -- Name: _prisma_migrations _prisma_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2844,7 +3233,7 @@ ALTER TABLE ONLY public._prisma_migrations
 
 
 --
--- TOC entry 4965 (class 2606 OID 65849)
+-- TOC entry 4989 (class 2606 OID 98621)
 -- Name: answer_attributes answer_attributes_answer_id_attribute_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2853,7 +3242,7 @@ ALTER TABLE ONLY public.answer_attributes
 
 
 --
--- TOC entry 4967 (class 2606 OID 65851)
+-- TOC entry 4991 (class 2606 OID 98623)
 -- Name: answer_attributes answer_attributes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2862,7 +3251,7 @@ ALTER TABLE ONLY public.answer_attributes
 
 
 --
--- TOC entry 4971 (class 2606 OID 65853)
+-- TOC entry 4995 (class 2606 OID 98625)
 -- Name: certificates certificates_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2871,7 +3260,7 @@ ALTER TABLE ONLY public.certificates
 
 
 --
--- TOC entry 4973 (class 2606 OID 65855)
+-- TOC entry 4997 (class 2606 OID 98627)
 -- Name: chapter_block_attributes chapter_block_attributes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2880,7 +3269,7 @@ ALTER TABLE ONLY public.chapter_block_attributes
 
 
 --
--- TOC entry 4975 (class 2606 OID 65857)
+-- TOC entry 4999 (class 2606 OID 98629)
 -- Name: chapter_blocks chapter_blocks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2889,7 +3278,7 @@ ALTER TABLE ONLY public.chapter_blocks
 
 
 --
--- TOC entry 4977 (class 2606 OID 65859)
+-- TOC entry 5001 (class 2606 OID 98631)
 -- Name: chapters chapters_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2898,7 +3287,7 @@ ALTER TABLE ONLY public.chapters
 
 
 --
--- TOC entry 4979 (class 2606 OID 65861)
+-- TOC entry 5003 (class 2606 OID 98633)
 -- Name: course_answers course_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2907,7 +3296,7 @@ ALTER TABLE ONLY public.course_answers
 
 
 --
--- TOC entry 4983 (class 2606 OID 65863)
+-- TOC entry 5007 (class 2606 OID 98635)
 -- Name: course_logs course_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2916,7 +3305,7 @@ ALTER TABLE ONLY public.course_logs
 
 
 --
--- TOC entry 4990 (class 2606 OID 65865)
+-- TOC entry 5014 (class 2606 OID 98637)
 -- Name: course_logs_y202505 course_logs_y202505_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2925,7 +3314,7 @@ ALTER TABLE ONLY public.course_logs_y202505
 
 
 --
--- TOC entry 4995 (class 2606 OID 65867)
+-- TOC entry 5019 (class 2606 OID 98639)
 -- Name: course_logs_y202506 course_logs_y202506_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2934,7 +3323,7 @@ ALTER TABLE ONLY public.course_logs_y202506
 
 
 --
--- TOC entry 5000 (class 2606 OID 65869)
+-- TOC entry 5024 (class 2606 OID 98641)
 -- Name: course_logs_y202507 course_logs_y202507_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2943,7 +3332,25 @@ ALTER TABLE ONLY public.course_logs_y202507
 
 
 --
--- TOC entry 5006 (class 2606 OID 65871)
+-- TOC entry 5031 (class 2606 OID 98643)
+-- Name: course_logs_y202508 course_logs_y202508_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course_logs_y202508
+    ADD CONSTRAINT course_logs_y202508_pkey PRIMARY KEY (id, created_at);
+
+
+--
+-- TOC entry 5036 (class 2606 OID 98645)
+-- Name: course_notes course_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course_notes
+    ADD CONSTRAINT course_notes_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 5041 (class 2606 OID 98647)
 -- Name: course_questions course_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2952,7 +3359,7 @@ ALTER TABLE ONLY public.course_questions
 
 
 --
--- TOC entry 5009 (class 2606 OID 65873)
+-- TOC entry 5044 (class 2606 OID 98649)
 -- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2961,7 +3368,7 @@ ALTER TABLE ONLY public.courses
 
 
 --
--- TOC entry 5012 (class 2606 OID 65875)
+-- TOC entry 5047 (class 2606 OID 98651)
 -- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2970,7 +3377,7 @@ ALTER TABLE ONLY public.notifications
 
 
 --
--- TOC entry 5014 (class 2606 OID 65877)
+-- TOC entry 5049 (class 2606 OID 98653)
 -- Name: permissions permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2979,7 +3386,7 @@ ALTER TABLE ONLY public.permissions
 
 
 --
--- TOC entry 5016 (class 2606 OID 65879)
+-- TOC entry 5051 (class 2606 OID 98655)
 -- Name: role_permissions role_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2988,7 +3395,7 @@ ALTER TABLE ONLY public.role_permissions
 
 
 --
--- TOC entry 5018 (class 2606 OID 65881)
+-- TOC entry 5053 (class 2606 OID 98657)
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2997,7 +3404,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- TOC entry 5021 (class 2606 OID 65883)
+-- TOC entry 5056 (class 2606 OID 98659)
 -- Name: test_block_answers test_block_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3006,7 +3413,7 @@ ALTER TABLE ONLY public.test_block_answers
 
 
 --
--- TOC entry 5024 (class 2606 OID 65885)
+-- TOC entry 5059 (class 2606 OID 98661)
 -- Name: test_block_attributes test_block_attributes_block_id_attribute_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3015,7 +3422,7 @@ ALTER TABLE ONLY public.test_block_attributes
 
 
 --
--- TOC entry 5026 (class 2606 OID 65887)
+-- TOC entry 5061 (class 2606 OID 98663)
 -- Name: test_block_attributes test_block_attributes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3024,7 +3431,7 @@ ALTER TABLE ONLY public.test_block_attributes
 
 
 --
--- TOC entry 5029 (class 2606 OID 65889)
+-- TOC entry 5064 (class 2606 OID 98665)
 -- Name: test_blocks test_blocks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3033,7 +3440,7 @@ ALTER TABLE ONLY public.test_blocks
 
 
 --
--- TOC entry 5031 (class 2606 OID 65891)
+-- TOC entry 5066 (class 2606 OID 98667)
 -- Name: tests tests_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3042,7 +3449,7 @@ ALTER TABLE ONLY public.tests
 
 
 --
--- TOC entry 5033 (class 2606 OID 65893)
+-- TOC entry 5068 (class 2606 OID 98669)
 -- Name: user_chapter user_chapter_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3051,7 +3458,7 @@ ALTER TABLE ONLY public.user_chapter
 
 
 --
--- TOC entry 5036 (class 2606 OID 65895)
+-- TOC entry 5071 (class 2606 OID 98671)
 -- Name: user_courses user_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3060,7 +3467,7 @@ ALTER TABLE ONLY public.user_courses
 
 
 --
--- TOC entry 5042 (class 2606 OID 65897)
+-- TOC entry 5077 (class 2606 OID 98673)
 -- Name: user_logs user_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3069,7 +3476,7 @@ ALTER TABLE ONLY public.user_logs
 
 
 --
--- TOC entry 5048 (class 2606 OID 65899)
+-- TOC entry 5083 (class 2606 OID 98675)
 -- Name: user_logs_y202505 user_logs_y202505_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3078,7 +3485,7 @@ ALTER TABLE ONLY public.user_logs_y202505
 
 
 --
--- TOC entry 5055 (class 2606 OID 65901)
+-- TOC entry 5090 (class 2606 OID 98677)
 -- Name: user_logs_y202506 user_logs_y202506_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3087,7 +3494,7 @@ ALTER TABLE ONLY public.user_logs_y202506
 
 
 --
--- TOC entry 5062 (class 2606 OID 65903)
+-- TOC entry 5097 (class 2606 OID 98679)
 -- Name: user_logs_y202507 user_logs_y202507_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3096,7 +3503,7 @@ ALTER TABLE ONLY public.user_logs_y202507
 
 
 --
--- TOC entry 5069 (class 2606 OID 65905)
+-- TOC entry 5104 (class 2606 OID 98681)
 -- Name: user_logs_y202508 user_logs_y202508_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3105,7 +3512,7 @@ ALTER TABLE ONLY public.user_logs_y202508
 
 
 --
--- TOC entry 5076 (class 2606 OID 65907)
+-- TOC entry 5111 (class 2606 OID 98683)
 -- Name: user_logs_y202509 user_logs_y202509_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3114,7 +3521,7 @@ ALTER TABLE ONLY public.user_logs_y202509
 
 
 --
--- TOC entry 5081 (class 2606 OID 65909)
+-- TOC entry 5116 (class 2606 OID 98685)
 -- Name: user_test_answers user_test_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3123,7 +3530,7 @@ ALTER TABLE ONLY public.user_test_answers
 
 
 --
--- TOC entry 5085 (class 2606 OID 65911)
+-- TOC entry 5120 (class 2606 OID 98687)
 -- Name: user_test_attempts user_test_attempts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3132,7 +3539,7 @@ ALTER TABLE ONLY public.user_test_attempts
 
 
 --
--- TOC entry 5088 (class 2606 OID 65913)
+-- TOC entry 5123 (class 2606 OID 98689)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3141,7 +3548,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 5090 (class 2606 OID 65915)
+-- TOC entry 5125 (class 2606 OID 98691)
 -- Name: verification_tokens verificationtokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3150,7 +3557,25 @@ ALTER TABLE ONLY public.verification_tokens
 
 
 --
--- TOC entry 4969 (class 1259 OID 65916)
+-- TOC entry 5130 (class 2606 OID 98693)
+-- Name: waf_security_events waf_security_events_event_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.waf_security_events
+    ADD CONSTRAINT waf_security_events_event_id_key UNIQUE (event_id);
+
+
+--
+-- TOC entry 5132 (class 2606 OID 98695)
+-- Name: waf_security_events waf_security_events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.waf_security_events
+    ADD CONSTRAINT waf_security_events_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4993 (class 1259 OID 98696)
 -- Name: certificates_certificate_code_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3158,7 +3583,7 @@ CREATE UNIQUE INDEX certificates_certificate_code_key ON public.certificates USI
 
 
 --
--- TOC entry 4984 (class 1259 OID 65917)
+-- TOC entry 5008 (class 1259 OID 98697)
 -- Name: idx_course_logs_course_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3166,7 +3591,7 @@ CREATE INDEX idx_course_logs_course_id ON ONLY public.course_logs USING btree (c
 
 
 --
--- TOC entry 4987 (class 1259 OID 65918)
+-- TOC entry 5011 (class 1259 OID 98698)
 -- Name: course_logs_y202505_course_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3174,7 +3599,7 @@ CREATE INDEX course_logs_y202505_course_id_idx ON public.course_logs_y202505 USI
 
 
 --
--- TOC entry 4985 (class 1259 OID 65919)
+-- TOC entry 5009 (class 1259 OID 98699)
 -- Name: idx_course_logs_created_at; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3182,7 +3607,7 @@ CREATE INDEX idx_course_logs_created_at ON ONLY public.course_logs USING btree (
 
 
 --
--- TOC entry 4988 (class 1259 OID 65920)
+-- TOC entry 5012 (class 1259 OID 98700)
 -- Name: course_logs_y202505_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3190,7 +3615,7 @@ CREATE INDEX course_logs_y202505_created_at_idx ON public.course_logs_y202505 US
 
 
 --
--- TOC entry 4986 (class 1259 OID 65921)
+-- TOC entry 5010 (class 1259 OID 98701)
 -- Name: idx_course_logs_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3198,7 +3623,7 @@ CREATE INDEX idx_course_logs_user_id ON ONLY public.course_logs USING btree (use
 
 
 --
--- TOC entry 4991 (class 1259 OID 65922)
+-- TOC entry 5015 (class 1259 OID 98702)
 -- Name: course_logs_y202505_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3206,7 +3631,7 @@ CREATE INDEX course_logs_y202505_user_id_idx ON public.course_logs_y202505 USING
 
 
 --
--- TOC entry 4992 (class 1259 OID 65923)
+-- TOC entry 5016 (class 1259 OID 98703)
 -- Name: course_logs_y202506_course_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3214,7 +3639,7 @@ CREATE INDEX course_logs_y202506_course_id_idx ON public.course_logs_y202506 USI
 
 
 --
--- TOC entry 4993 (class 1259 OID 65924)
+-- TOC entry 5017 (class 1259 OID 98704)
 -- Name: course_logs_y202506_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3222,7 +3647,7 @@ CREATE INDEX course_logs_y202506_created_at_idx ON public.course_logs_y202506 US
 
 
 --
--- TOC entry 4996 (class 1259 OID 65925)
+-- TOC entry 5020 (class 1259 OID 98705)
 -- Name: course_logs_y202506_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3230,7 +3655,7 @@ CREATE INDEX course_logs_y202506_user_id_idx ON public.course_logs_y202506 USING
 
 
 --
--- TOC entry 4997 (class 1259 OID 65926)
+-- TOC entry 5021 (class 1259 OID 98706)
 -- Name: course_logs_y202507_course_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3238,7 +3663,7 @@ CREATE INDEX course_logs_y202507_course_id_idx ON public.course_logs_y202507 USI
 
 
 --
--- TOC entry 4998 (class 1259 OID 65927)
+-- TOC entry 5022 (class 1259 OID 98707)
 -- Name: course_logs_y202507_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3246,7 +3671,7 @@ CREATE INDEX course_logs_y202507_created_at_idx ON public.course_logs_y202507 US
 
 
 --
--- TOC entry 5001 (class 1259 OID 65928)
+-- TOC entry 5025 (class 1259 OID 98708)
 -- Name: course_logs_y202507_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3254,7 +3679,31 @@ CREATE INDEX course_logs_y202507_user_id_idx ON public.course_logs_y202507 USING
 
 
 --
--- TOC entry 5004 (class 1259 OID 65929)
+-- TOC entry 5028 (class 1259 OID 98709)
+-- Name: course_logs_y202508_course_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX course_logs_y202508_course_id_idx ON public.course_logs_y202508 USING btree (course_id);
+
+
+--
+-- TOC entry 5029 (class 1259 OID 98710)
+-- Name: course_logs_y202508_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX course_logs_y202508_created_at_idx ON public.course_logs_y202508 USING btree (created_at);
+
+
+--
+-- TOC entry 5032 (class 1259 OID 98711)
+-- Name: course_logs_y202508_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX course_logs_y202508_user_id_idx ON public.course_logs_y202508 USING btree (user_id);
+
+
+--
+-- TOC entry 5039 (class 1259 OID 98712)
 -- Name: course_questions_course_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3262,7 +3711,7 @@ CREATE INDEX course_questions_course_id_idx ON public.course_questions USING btr
 
 
 --
--- TOC entry 5007 (class 1259 OID 65930)
+-- TOC entry 5042 (class 1259 OID 98713)
 -- Name: course_questions_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3270,7 +3719,7 @@ CREATE INDEX course_questions_user_id_idx ON public.course_questions USING btree
 
 
 --
--- TOC entry 4968 (class 1259 OID 65931)
+-- TOC entry 4992 (class 1259 OID 98714)
 -- Name: idx_answer_attributes_answer_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3278,7 +3727,7 @@ CREATE INDEX idx_answer_attributes_answer_id ON public.answer_attributes USING b
 
 
 --
--- TOC entry 4980 (class 1259 OID 65932)
+-- TOC entry 5004 (class 1259 OID 98715)
 -- Name: idx_course_answers_question_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3286,7 +3735,7 @@ CREATE INDEX idx_course_answers_question_id ON public.course_answers USING btree
 
 
 --
--- TOC entry 4981 (class 1259 OID 65933)
+-- TOC entry 5005 (class 1259 OID 98716)
 -- Name: idx_course_answers_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3294,7 +3743,7 @@ CREATE INDEX idx_course_answers_user_id ON public.course_answers USING btree (us
 
 
 --
--- TOC entry 5002 (class 1259 OID 65934)
+-- TOC entry 5026 (class 1259 OID 98717)
 -- Name: idx_course_logs_y202507_action_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3302,7 +3751,7 @@ CREATE INDEX idx_course_logs_y202507_action_type ON public.course_logs_y202507 U
 
 
 --
--- TOC entry 5003 (class 1259 OID 65935)
+-- TOC entry 5027 (class 1259 OID 98718)
 -- Name: idx_course_logs_y202507_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3310,7 +3759,39 @@ CREATE INDEX idx_course_logs_y202507_user_id ON public.course_logs_y202507 USING
 
 
 --
--- TOC entry 5010 (class 1259 OID 65936)
+-- TOC entry 5033 (class 1259 OID 98719)
+-- Name: idx_course_logs_y202508_action_type; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_course_logs_y202508_action_type ON public.course_logs_y202508 USING btree (action_type, created_at);
+
+
+--
+-- TOC entry 5034 (class 1259 OID 98720)
+-- Name: idx_course_logs_y202508_user_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_course_logs_y202508_user_id ON public.course_logs_y202508 USING btree (user_id, created_at);
+
+
+--
+-- TOC entry 5037 (class 1259 OID 98721)
+-- Name: idx_course_notes_course_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_course_notes_course_id ON public.course_notes USING btree (course_id);
+
+
+--
+-- TOC entry 5038 (class 1259 OID 98722)
+-- Name: idx_course_notes_user_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_course_notes_user_id ON public.course_notes USING btree (user_id);
+
+
+--
+-- TOC entry 5045 (class 1259 OID 98723)
 -- Name: idx_notifications_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3318,7 +3799,7 @@ CREATE INDEX idx_notifications_user_id ON public.notifications USING btree (user
 
 
 --
--- TOC entry 5019 (class 1259 OID 65937)
+-- TOC entry 5054 (class 1259 OID 98724)
 -- Name: idx_test_block_answers_block_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3326,7 +3807,7 @@ CREATE INDEX idx_test_block_answers_block_id ON public.test_block_answers USING 
 
 
 --
--- TOC entry 5022 (class 1259 OID 65938)
+-- TOC entry 5057 (class 1259 OID 98725)
 -- Name: idx_test_block_attributes_block_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3334,7 +3815,7 @@ CREATE INDEX idx_test_block_attributes_block_id ON public.test_block_attributes 
 
 
 --
--- TOC entry 5027 (class 1259 OID 65939)
+-- TOC entry 5062 (class 1259 OID 98726)
 -- Name: idx_test_blocks_test_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3342,7 +3823,7 @@ CREATE INDEX idx_test_blocks_test_id ON public.test_blocks USING btree (test_id)
 
 
 --
--- TOC entry 5038 (class 1259 OID 65940)
+-- TOC entry 5073 (class 1259 OID 98727)
 -- Name: idx_user_logs_action_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3350,7 +3831,7 @@ CREATE INDEX idx_user_logs_action_type ON ONLY public.user_logs USING btree (act
 
 
 --
--- TOC entry 5039 (class 1259 OID 65941)
+-- TOC entry 5074 (class 1259 OID 98728)
 -- Name: idx_user_logs_created_at; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3358,7 +3839,7 @@ CREATE INDEX idx_user_logs_created_at ON ONLY public.user_logs USING btree (crea
 
 
 --
--- TOC entry 5040 (class 1259 OID 65942)
+-- TOC entry 5075 (class 1259 OID 98729)
 -- Name: idx_user_logs_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3366,7 +3847,7 @@ CREATE INDEX idx_user_logs_user_id ON ONLY public.user_logs USING btree (user_id
 
 
 --
--- TOC entry 5043 (class 1259 OID 65943)
+-- TOC entry 5078 (class 1259 OID 98730)
 -- Name: idx_user_logs_y202505_action_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3374,7 +3855,7 @@ CREATE INDEX idx_user_logs_y202505_action_type ON public.user_logs_y202505 USING
 
 
 --
--- TOC entry 5044 (class 1259 OID 65944)
+-- TOC entry 5079 (class 1259 OID 98731)
 -- Name: idx_user_logs_y202505_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3382,7 +3863,7 @@ CREATE INDEX idx_user_logs_y202505_user_id ON public.user_logs_y202505 USING btr
 
 
 --
--- TOC entry 5050 (class 1259 OID 65945)
+-- TOC entry 5085 (class 1259 OID 98732)
 -- Name: idx_user_logs_y202506_action_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3390,7 +3871,7 @@ CREATE INDEX idx_user_logs_y202506_action_type ON public.user_logs_y202506 USING
 
 
 --
--- TOC entry 5051 (class 1259 OID 65946)
+-- TOC entry 5086 (class 1259 OID 98733)
 -- Name: idx_user_logs_y202506_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3398,7 +3879,7 @@ CREATE INDEX idx_user_logs_y202506_user_id ON public.user_logs_y202506 USING btr
 
 
 --
--- TOC entry 5057 (class 1259 OID 65947)
+-- TOC entry 5092 (class 1259 OID 98734)
 -- Name: idx_user_logs_y202507_action_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3406,7 +3887,7 @@ CREATE INDEX idx_user_logs_y202507_action_type ON public.user_logs_y202507 USING
 
 
 --
--- TOC entry 5058 (class 1259 OID 65948)
+-- TOC entry 5093 (class 1259 OID 98735)
 -- Name: idx_user_logs_y202507_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3414,7 +3895,7 @@ CREATE INDEX idx_user_logs_y202507_user_id ON public.user_logs_y202507 USING btr
 
 
 --
--- TOC entry 5064 (class 1259 OID 65949)
+-- TOC entry 5099 (class 1259 OID 98736)
 -- Name: idx_user_logs_y202508_action_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3422,7 +3903,7 @@ CREATE INDEX idx_user_logs_y202508_action_type ON public.user_logs_y202508 USING
 
 
 --
--- TOC entry 5065 (class 1259 OID 65950)
+-- TOC entry 5100 (class 1259 OID 98737)
 -- Name: idx_user_logs_y202508_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3430,7 +3911,7 @@ CREATE INDEX idx_user_logs_y202508_user_id ON public.user_logs_y202508 USING btr
 
 
 --
--- TOC entry 5071 (class 1259 OID 65951)
+-- TOC entry 5106 (class 1259 OID 98738)
 -- Name: idx_user_logs_y202509_action_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3438,7 +3919,7 @@ CREATE INDEX idx_user_logs_y202509_action_type ON public.user_logs_y202509 USING
 
 
 --
--- TOC entry 5072 (class 1259 OID 65952)
+-- TOC entry 5107 (class 1259 OID 98739)
 -- Name: idx_user_logs_y202509_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3446,7 +3927,7 @@ CREATE INDEX idx_user_logs_y202509_user_id ON public.user_logs_y202509 USING btr
 
 
 --
--- TOC entry 5078 (class 1259 OID 65953)
+-- TOC entry 5113 (class 1259 OID 98740)
 -- Name: idx_user_test_answers_attempt_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3454,7 +3935,7 @@ CREATE INDEX idx_user_test_answers_attempt_id ON public.user_test_answers USING 
 
 
 --
--- TOC entry 5079 (class 1259 OID 65954)
+-- TOC entry 5114 (class 1259 OID 98741)
 -- Name: idx_user_test_answers_block_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3462,7 +3943,7 @@ CREATE INDEX idx_user_test_answers_block_id ON public.user_test_answers USING bt
 
 
 --
--- TOC entry 5082 (class 1259 OID 65955)
+-- TOC entry 5117 (class 1259 OID 98742)
 -- Name: idx_user_test_attempts_test_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3470,7 +3951,7 @@ CREATE INDEX idx_user_test_attempts_test_id ON public.user_test_attempts USING b
 
 
 --
--- TOC entry 5083 (class 1259 OID 65956)
+-- TOC entry 5118 (class 1259 OID 98743)
 -- Name: idx_user_test_attempts_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3478,7 +3959,31 @@ CREATE INDEX idx_user_test_attempts_user_id ON public.user_test_attempts USING b
 
 
 --
--- TOC entry 5034 (class 1259 OID 65957)
+-- TOC entry 5126 (class 1259 OID 98744)
+-- Name: idx_waf_events_created; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_waf_events_created ON public.waf_security_events USING btree (created_at);
+
+
+--
+-- TOC entry 5127 (class 1259 OID 98745)
+-- Name: idx_waf_events_ip; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_waf_events_ip ON public.waf_security_events USING btree (ip_address);
+
+
+--
+-- TOC entry 5128 (class 1259 OID 98746)
+-- Name: idx_waf_events_type; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_waf_events_type ON public.waf_security_events USING btree (event_type);
+
+
+--
+-- TOC entry 5069 (class 1259 OID 98747)
 -- Name: user_chapter_user_id_chapter_id_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3486,7 +3991,7 @@ CREATE UNIQUE INDEX user_chapter_user_id_chapter_id_key ON public.user_chapter U
 
 
 --
--- TOC entry 5037 (class 1259 OID 65958)
+-- TOC entry 5072 (class 1259 OID 98748)
 -- Name: user_courses_user_id_course_id_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3494,7 +3999,7 @@ CREATE UNIQUE INDEX user_courses_user_id_course_id_key ON public.user_courses US
 
 
 --
--- TOC entry 5045 (class 1259 OID 65959)
+-- TOC entry 5080 (class 1259 OID 98749)
 -- Name: user_logs_y202505_action_type_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3502,7 +4007,7 @@ CREATE INDEX user_logs_y202505_action_type_idx ON public.user_logs_y202505 USING
 
 
 --
--- TOC entry 5046 (class 1259 OID 65960)
+-- TOC entry 5081 (class 1259 OID 98750)
 -- Name: user_logs_y202505_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3510,7 +4015,7 @@ CREATE INDEX user_logs_y202505_created_at_idx ON public.user_logs_y202505 USING 
 
 
 --
--- TOC entry 5049 (class 1259 OID 65961)
+-- TOC entry 5084 (class 1259 OID 98751)
 -- Name: user_logs_y202505_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3518,7 +4023,7 @@ CREATE INDEX user_logs_y202505_user_id_idx ON public.user_logs_y202505 USING btr
 
 
 --
--- TOC entry 5052 (class 1259 OID 65962)
+-- TOC entry 5087 (class 1259 OID 98752)
 -- Name: user_logs_y202506_action_type_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3526,7 +4031,7 @@ CREATE INDEX user_logs_y202506_action_type_idx ON public.user_logs_y202506 USING
 
 
 --
--- TOC entry 5053 (class 1259 OID 65963)
+-- TOC entry 5088 (class 1259 OID 98753)
 -- Name: user_logs_y202506_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3534,7 +4039,7 @@ CREATE INDEX user_logs_y202506_created_at_idx ON public.user_logs_y202506 USING 
 
 
 --
--- TOC entry 5056 (class 1259 OID 65964)
+-- TOC entry 5091 (class 1259 OID 98754)
 -- Name: user_logs_y202506_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3542,7 +4047,7 @@ CREATE INDEX user_logs_y202506_user_id_idx ON public.user_logs_y202506 USING btr
 
 
 --
--- TOC entry 5059 (class 1259 OID 65965)
+-- TOC entry 5094 (class 1259 OID 98755)
 -- Name: user_logs_y202507_action_type_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3550,7 +4055,7 @@ CREATE INDEX user_logs_y202507_action_type_idx ON public.user_logs_y202507 USING
 
 
 --
--- TOC entry 5060 (class 1259 OID 65966)
+-- TOC entry 5095 (class 1259 OID 98756)
 -- Name: user_logs_y202507_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3558,7 +4063,7 @@ CREATE INDEX user_logs_y202507_created_at_idx ON public.user_logs_y202507 USING 
 
 
 --
--- TOC entry 5063 (class 1259 OID 65967)
+-- TOC entry 5098 (class 1259 OID 98757)
 -- Name: user_logs_y202507_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3566,7 +4071,7 @@ CREATE INDEX user_logs_y202507_user_id_idx ON public.user_logs_y202507 USING btr
 
 
 --
--- TOC entry 5066 (class 1259 OID 65968)
+-- TOC entry 5101 (class 1259 OID 98758)
 -- Name: user_logs_y202508_action_type_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3574,7 +4079,7 @@ CREATE INDEX user_logs_y202508_action_type_idx ON public.user_logs_y202508 USING
 
 
 --
--- TOC entry 5067 (class 1259 OID 65969)
+-- TOC entry 5102 (class 1259 OID 98759)
 -- Name: user_logs_y202508_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3582,7 +4087,7 @@ CREATE INDEX user_logs_y202508_created_at_idx ON public.user_logs_y202508 USING 
 
 
 --
--- TOC entry 5070 (class 1259 OID 65970)
+-- TOC entry 5105 (class 1259 OID 98760)
 -- Name: user_logs_y202508_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3590,7 +4095,7 @@ CREATE INDEX user_logs_y202508_user_id_idx ON public.user_logs_y202508 USING btr
 
 
 --
--- TOC entry 5073 (class 1259 OID 65971)
+-- TOC entry 5108 (class 1259 OID 98761)
 -- Name: user_logs_y202509_action_type_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3598,7 +4103,7 @@ CREATE INDEX user_logs_y202509_action_type_idx ON public.user_logs_y202509 USING
 
 
 --
--- TOC entry 5074 (class 1259 OID 65972)
+-- TOC entry 5109 (class 1259 OID 98762)
 -- Name: user_logs_y202509_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3606,7 +4111,7 @@ CREATE INDEX user_logs_y202509_created_at_idx ON public.user_logs_y202509 USING 
 
 
 --
--- TOC entry 5077 (class 1259 OID 65973)
+-- TOC entry 5112 (class 1259 OID 98763)
 -- Name: user_logs_y202509_user_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3614,7 +4119,7 @@ CREATE INDEX user_logs_y202509_user_id_idx ON public.user_logs_y202509 USING btr
 
 
 --
--- TOC entry 5086 (class 1259 OID 65974)
+-- TOC entry 5121 (class 1259 OID 98764)
 -- Name: users_email_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -3622,7 +4127,7 @@ CREATE UNIQUE INDEX users_email_key ON public.users USING btree (email);
 
 
 --
--- TOC entry 5091 (class 0 OID 0)
+-- TOC entry 5133 (class 0 OID 0)
 -- Name: course_logs_y202505_course_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3630,7 +4135,7 @@ ALTER INDEX public.idx_course_logs_course_id ATTACH PARTITION public.course_logs
 
 
 --
--- TOC entry 5092 (class 0 OID 0)
+-- TOC entry 5134 (class 0 OID 0)
 -- Name: course_logs_y202505_created_at_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3638,7 +4143,7 @@ ALTER INDEX public.idx_course_logs_created_at ATTACH PARTITION public.course_log
 
 
 --
--- TOC entry 5093 (class 0 OID 0)
+-- TOC entry 5135 (class 0 OID 0)
 -- Name: course_logs_y202505_pkey; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3646,7 +4151,7 @@ ALTER INDEX public.course_logs_pkey ATTACH PARTITION public.course_logs_y202505_
 
 
 --
--- TOC entry 5094 (class 0 OID 0)
+-- TOC entry 5136 (class 0 OID 0)
 -- Name: course_logs_y202505_user_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3654,7 +4159,7 @@ ALTER INDEX public.idx_course_logs_user_id ATTACH PARTITION public.course_logs_y
 
 
 --
--- TOC entry 5095 (class 0 OID 0)
+-- TOC entry 5137 (class 0 OID 0)
 -- Name: course_logs_y202506_course_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3662,7 +4167,7 @@ ALTER INDEX public.idx_course_logs_course_id ATTACH PARTITION public.course_logs
 
 
 --
--- TOC entry 5096 (class 0 OID 0)
+-- TOC entry 5138 (class 0 OID 0)
 -- Name: course_logs_y202506_created_at_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3670,7 +4175,7 @@ ALTER INDEX public.idx_course_logs_created_at ATTACH PARTITION public.course_log
 
 
 --
--- TOC entry 5097 (class 0 OID 0)
+-- TOC entry 5139 (class 0 OID 0)
 -- Name: course_logs_y202506_pkey; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3678,7 +4183,7 @@ ALTER INDEX public.course_logs_pkey ATTACH PARTITION public.course_logs_y202506_
 
 
 --
--- TOC entry 5098 (class 0 OID 0)
+-- TOC entry 5140 (class 0 OID 0)
 -- Name: course_logs_y202506_user_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3686,7 +4191,7 @@ ALTER INDEX public.idx_course_logs_user_id ATTACH PARTITION public.course_logs_y
 
 
 --
--- TOC entry 5099 (class 0 OID 0)
+-- TOC entry 5141 (class 0 OID 0)
 -- Name: course_logs_y202507_course_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3694,7 +4199,7 @@ ALTER INDEX public.idx_course_logs_course_id ATTACH PARTITION public.course_logs
 
 
 --
--- TOC entry 5100 (class 0 OID 0)
+-- TOC entry 5142 (class 0 OID 0)
 -- Name: course_logs_y202507_created_at_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3702,7 +4207,7 @@ ALTER INDEX public.idx_course_logs_created_at ATTACH PARTITION public.course_log
 
 
 --
--- TOC entry 5101 (class 0 OID 0)
+-- TOC entry 5143 (class 0 OID 0)
 -- Name: course_logs_y202507_pkey; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3710,7 +4215,7 @@ ALTER INDEX public.course_logs_pkey ATTACH PARTITION public.course_logs_y202507_
 
 
 --
--- TOC entry 5102 (class 0 OID 0)
+-- TOC entry 5144 (class 0 OID 0)
 -- Name: course_logs_y202507_user_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3718,7 +4223,39 @@ ALTER INDEX public.idx_course_logs_user_id ATTACH PARTITION public.course_logs_y
 
 
 --
--- TOC entry 5103 (class 0 OID 0)
+-- TOC entry 5145 (class 0 OID 0)
+-- Name: course_logs_y202508_course_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
+--
+
+ALTER INDEX public.idx_course_logs_course_id ATTACH PARTITION public.course_logs_y202508_course_id_idx;
+
+
+--
+-- TOC entry 5146 (class 0 OID 0)
+-- Name: course_logs_y202508_created_at_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
+--
+
+ALTER INDEX public.idx_course_logs_created_at ATTACH PARTITION public.course_logs_y202508_created_at_idx;
+
+
+--
+-- TOC entry 5147 (class 0 OID 0)
+-- Name: course_logs_y202508_pkey; Type: INDEX ATTACH; Schema: public; Owner: postgres
+--
+
+ALTER INDEX public.course_logs_pkey ATTACH PARTITION public.course_logs_y202508_pkey;
+
+
+--
+-- TOC entry 5148 (class 0 OID 0)
+-- Name: course_logs_y202508_user_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
+--
+
+ALTER INDEX public.idx_course_logs_user_id ATTACH PARTITION public.course_logs_y202508_user_id_idx;
+
+
+--
+-- TOC entry 5149 (class 0 OID 0)
 -- Name: user_logs_y202505_action_type_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3726,7 +4263,7 @@ ALTER INDEX public.idx_user_logs_action_type ATTACH PARTITION public.user_logs_y
 
 
 --
--- TOC entry 5104 (class 0 OID 0)
+-- TOC entry 5150 (class 0 OID 0)
 -- Name: user_logs_y202505_created_at_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3734,7 +4271,7 @@ ALTER INDEX public.idx_user_logs_created_at ATTACH PARTITION public.user_logs_y2
 
 
 --
--- TOC entry 5105 (class 0 OID 0)
+-- TOC entry 5151 (class 0 OID 0)
 -- Name: user_logs_y202505_pkey; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3742,7 +4279,7 @@ ALTER INDEX public.user_logs_pkey ATTACH PARTITION public.user_logs_y202505_pkey
 
 
 --
--- TOC entry 5106 (class 0 OID 0)
+-- TOC entry 5152 (class 0 OID 0)
 -- Name: user_logs_y202505_user_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3750,7 +4287,7 @@ ALTER INDEX public.idx_user_logs_user_id ATTACH PARTITION public.user_logs_y2025
 
 
 --
--- TOC entry 5107 (class 0 OID 0)
+-- TOC entry 5153 (class 0 OID 0)
 -- Name: user_logs_y202506_action_type_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3758,7 +4295,7 @@ ALTER INDEX public.idx_user_logs_action_type ATTACH PARTITION public.user_logs_y
 
 
 --
--- TOC entry 5108 (class 0 OID 0)
+-- TOC entry 5154 (class 0 OID 0)
 -- Name: user_logs_y202506_created_at_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3766,7 +4303,7 @@ ALTER INDEX public.idx_user_logs_created_at ATTACH PARTITION public.user_logs_y2
 
 
 --
--- TOC entry 5109 (class 0 OID 0)
+-- TOC entry 5155 (class 0 OID 0)
 -- Name: user_logs_y202506_pkey; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3774,7 +4311,7 @@ ALTER INDEX public.user_logs_pkey ATTACH PARTITION public.user_logs_y202506_pkey
 
 
 --
--- TOC entry 5110 (class 0 OID 0)
+-- TOC entry 5156 (class 0 OID 0)
 -- Name: user_logs_y202506_user_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3782,7 +4319,7 @@ ALTER INDEX public.idx_user_logs_user_id ATTACH PARTITION public.user_logs_y2025
 
 
 --
--- TOC entry 5111 (class 0 OID 0)
+-- TOC entry 5157 (class 0 OID 0)
 -- Name: user_logs_y202507_action_type_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3790,7 +4327,7 @@ ALTER INDEX public.idx_user_logs_action_type ATTACH PARTITION public.user_logs_y
 
 
 --
--- TOC entry 5112 (class 0 OID 0)
+-- TOC entry 5158 (class 0 OID 0)
 -- Name: user_logs_y202507_created_at_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3798,7 +4335,7 @@ ALTER INDEX public.idx_user_logs_created_at ATTACH PARTITION public.user_logs_y2
 
 
 --
--- TOC entry 5113 (class 0 OID 0)
+-- TOC entry 5159 (class 0 OID 0)
 -- Name: user_logs_y202507_pkey; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3806,7 +4343,7 @@ ALTER INDEX public.user_logs_pkey ATTACH PARTITION public.user_logs_y202507_pkey
 
 
 --
--- TOC entry 5114 (class 0 OID 0)
+-- TOC entry 5160 (class 0 OID 0)
 -- Name: user_logs_y202507_user_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3814,7 +4351,7 @@ ALTER INDEX public.idx_user_logs_user_id ATTACH PARTITION public.user_logs_y2025
 
 
 --
--- TOC entry 5115 (class 0 OID 0)
+-- TOC entry 5161 (class 0 OID 0)
 -- Name: user_logs_y202508_action_type_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3822,7 +4359,7 @@ ALTER INDEX public.idx_user_logs_action_type ATTACH PARTITION public.user_logs_y
 
 
 --
--- TOC entry 5116 (class 0 OID 0)
+-- TOC entry 5162 (class 0 OID 0)
 -- Name: user_logs_y202508_created_at_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3830,7 +4367,7 @@ ALTER INDEX public.idx_user_logs_created_at ATTACH PARTITION public.user_logs_y2
 
 
 --
--- TOC entry 5117 (class 0 OID 0)
+-- TOC entry 5163 (class 0 OID 0)
 -- Name: user_logs_y202508_pkey; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3838,7 +4375,7 @@ ALTER INDEX public.user_logs_pkey ATTACH PARTITION public.user_logs_y202508_pkey
 
 
 --
--- TOC entry 5118 (class 0 OID 0)
+-- TOC entry 5164 (class 0 OID 0)
 -- Name: user_logs_y202508_user_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3846,7 +4383,7 @@ ALTER INDEX public.idx_user_logs_user_id ATTACH PARTITION public.user_logs_y2025
 
 
 --
--- TOC entry 5119 (class 0 OID 0)
+-- TOC entry 5165 (class 0 OID 0)
 -- Name: user_logs_y202509_action_type_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3854,7 +4391,7 @@ ALTER INDEX public.idx_user_logs_action_type ATTACH PARTITION public.user_logs_y
 
 
 --
--- TOC entry 5120 (class 0 OID 0)
+-- TOC entry 5166 (class 0 OID 0)
 -- Name: user_logs_y202509_created_at_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3862,7 +4399,7 @@ ALTER INDEX public.idx_user_logs_created_at ATTACH PARTITION public.user_logs_y2
 
 
 --
--- TOC entry 5121 (class 0 OID 0)
+-- TOC entry 5167 (class 0 OID 0)
 -- Name: user_logs_y202509_pkey; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3870,7 +4407,7 @@ ALTER INDEX public.user_logs_pkey ATTACH PARTITION public.user_logs_y202509_pkey
 
 
 --
--- TOC entry 5122 (class 0 OID 0)
+-- TOC entry 5168 (class 0 OID 0)
 -- Name: user_logs_y202509_user_id_idx; Type: INDEX ATTACH; Schema: public; Owner: postgres
 --
 
@@ -3878,7 +4415,7 @@ ALTER INDEX public.idx_user_logs_user_id ATTACH PARTITION public.user_logs_y2025
 
 
 --
--- TOC entry 5158 (class 2620 OID 65975)
+-- TOC entry 5206 (class 2620 OID 98765)
 -- Name: courses after_course_insert; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -3886,7 +4423,7 @@ CREATE TRIGGER after_course_insert AFTER INSERT ON public.courses FOR EACH ROW E
 
 
 --
--- TOC entry 5159 (class 2620 OID 65976)
+-- TOC entry 5207 (class 2620 OID 98766)
 -- Name: courses after_course_update; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -3894,7 +4431,7 @@ CREATE TRIGGER after_course_update AFTER UPDATE ON public.courses FOR EACH ROW E
 
 
 --
--- TOC entry 5162 (class 2620 OID 65977)
+-- TOC entry 5210 (class 2620 OID 98767)
 -- Name: users after_role_changed; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -3902,7 +4439,7 @@ CREATE TRIGGER after_role_changed AFTER UPDATE OF role_id ON public.users FOR EA
 
 
 --
--- TOC entry 5160 (class 2620 OID 65978)
+-- TOC entry 5208 (class 2620 OID 98768)
 -- Name: courses before_course_delete; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -3910,7 +4447,7 @@ CREATE TRIGGER before_course_delete BEFORE DELETE ON public.courses FOR EACH ROW
 
 
 --
--- TOC entry 5163 (class 2620 OID 65979)
+-- TOC entry 5211 (class 2620 OID 98769)
 -- Name: users before_user_deleted; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -3918,7 +4455,7 @@ CREATE TRIGGER before_user_deleted BEFORE DELETE ON public.users FOR EACH ROW EX
 
 
 --
--- TOC entry 5161 (class 2620 OID 65980)
+-- TOC entry 5209 (class 2620 OID 98770)
 -- Name: courses trg_after_course_insert; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -3926,7 +4463,7 @@ CREATE TRIGGER trg_after_course_insert AFTER INSERT ON public.courses FOR EACH R
 
 
 --
--- TOC entry 5123 (class 2606 OID 65981)
+-- TOC entry 5169 (class 2606 OID 98771)
 -- Name: answer_attributes answer_attributes_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3935,7 +4472,7 @@ ALTER TABLE ONLY public.answer_attributes
 
 
 --
--- TOC entry 5124 (class 2606 OID 65986)
+-- TOC entry 5170 (class 2606 OID 98776)
 -- Name: certificates certificates_course_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3944,7 +4481,7 @@ ALTER TABLE ONLY public.certificates
 
 
 --
--- TOC entry 5125 (class 2606 OID 65991)
+-- TOC entry 5171 (class 2606 OID 98781)
 -- Name: certificates certificates_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3953,7 +4490,7 @@ ALTER TABLE ONLY public.certificates
 
 
 --
--- TOC entry 5126 (class 2606 OID 65996)
+-- TOC entry 5172 (class 2606 OID 98786)
 -- Name: chapter_block_attributes chapter_block_attributes_block_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3962,7 +4499,7 @@ ALTER TABLE ONLY public.chapter_block_attributes
 
 
 --
--- TOC entry 5127 (class 2606 OID 66001)
+-- TOC entry 5173 (class 2606 OID 98791)
 -- Name: chapter_blocks chapter_blocks_chapter_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3971,7 +4508,7 @@ ALTER TABLE ONLY public.chapter_blocks
 
 
 --
--- TOC entry 5128 (class 2606 OID 66006)
+-- TOC entry 5174 (class 2606 OID 98796)
 -- Name: chapters chapters_course_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3980,7 +4517,7 @@ ALTER TABLE ONLY public.chapters
 
 
 --
--- TOC entry 5129 (class 2606 OID 66011)
+-- TOC entry 5175 (class 2606 OID 98801)
 -- Name: course_answers course_answers_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3989,7 +4526,7 @@ ALTER TABLE ONLY public.course_answers
 
 
 --
--- TOC entry 5130 (class 2606 OID 66016)
+-- TOC entry 5176 (class 2606 OID 98806)
 -- Name: course_answers course_answers_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3998,7 +4535,7 @@ ALTER TABLE ONLY public.course_answers
 
 
 --
--- TOC entry 5132 (class 2606 OID 66021)
+-- TOC entry 5180 (class 2606 OID 98811)
 -- Name: course_questions course_questions_course_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4007,7 +4544,7 @@ ALTER TABLE ONLY public.course_questions
 
 
 --
--- TOC entry 5133 (class 2606 OID 66026)
+-- TOC entry 5181 (class 2606 OID 98816)
 -- Name: course_questions course_questions_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4016,7 +4553,7 @@ ALTER TABLE ONLY public.course_questions
 
 
 --
--- TOC entry 5134 (class 2606 OID 66031)
+-- TOC entry 5182 (class 2606 OID 98821)
 -- Name: courses courses_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4025,7 +4562,16 @@ ALTER TABLE ONLY public.courses
 
 
 --
--- TOC entry 5131 (class 2606 OID 66050)
+-- TOC entry 5178 (class 2606 OID 98826)
+-- Name: course_notes fk_course; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course_notes
+    ADD CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES public.courses(id);
+
+
+--
+-- TOC entry 5177 (class 2606 OID 98831)
 -- Name: course_logs fk_course_logs_users; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4034,7 +4580,7 @@ ALTER TABLE public.course_logs
 
 
 --
--- TOC entry 5155 (class 2606 OID 66064)
+-- TOC entry 5203 (class 2606 OID 98848)
 -- Name: users fk_role_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4043,16 +4589,25 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 5148 (class 2606 OID 66069)
+-- TOC entry 5179 (class 2606 OID 98853)
+-- Name: course_notes fk_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course_notes
+    ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5196 (class 2606 OID 98858)
 -- Name: user_logs fk_user_logs_changed_by_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.user_logs
-    ADD CONSTRAINT fk_user_logs_changed_by_user_id FOREIGN KEY (changed_by_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+    ADD CONSTRAINT fk_user_logs_changed_by_user_id FOREIGN KEY (changed_by_user_id) REFERENCES public.users(id);
 
 
 --
--- TOC entry 5149 (class 2606 OID 66089)
+-- TOC entry 5197 (class 2606 OID 98878)
 -- Name: user_logs fk_user_logs_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4061,7 +4616,7 @@ ALTER TABLE public.user_logs
 
 
 --
--- TOC entry 5135 (class 2606 OID 66109)
+-- TOC entry 5183 (class 2606 OID 98898)
 -- Name: notifications notifications_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4070,7 +4625,7 @@ ALTER TABLE ONLY public.notifications
 
 
 --
--- TOC entry 5136 (class 2606 OID 66114)
+-- TOC entry 5184 (class 2606 OID 98903)
 -- Name: role_permissions role_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4079,7 +4634,7 @@ ALTER TABLE ONLY public.role_permissions
 
 
 --
--- TOC entry 5137 (class 2606 OID 66119)
+-- TOC entry 5185 (class 2606 OID 98908)
 -- Name: role_permissions role_permissions_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4088,7 +4643,7 @@ ALTER TABLE ONLY public.role_permissions
 
 
 --
--- TOC entry 5138 (class 2606 OID 66124)
+-- TOC entry 5186 (class 2606 OID 98913)
 -- Name: test_block_answers test_block_answers_block_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4097,7 +4652,7 @@ ALTER TABLE ONLY public.test_block_answers
 
 
 --
--- TOC entry 5139 (class 2606 OID 66129)
+-- TOC entry 5187 (class 2606 OID 98918)
 -- Name: test_block_attributes test_block_attributes_block_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4106,7 +4661,7 @@ ALTER TABLE ONLY public.test_block_attributes
 
 
 --
--- TOC entry 5140 (class 2606 OID 66134)
+-- TOC entry 5188 (class 2606 OID 98923)
 -- Name: test_blocks test_blocks_test_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4115,7 +4670,7 @@ ALTER TABLE ONLY public.test_blocks
 
 
 --
--- TOC entry 5141 (class 2606 OID 66139)
+-- TOC entry 5189 (class 2606 OID 98928)
 -- Name: tests tests_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4124,7 +4679,7 @@ ALTER TABLE ONLY public.tests
 
 
 --
--- TOC entry 5142 (class 2606 OID 66144)
+-- TOC entry 5190 (class 2606 OID 98933)
 -- Name: tests tests_chapter_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4133,7 +4688,7 @@ ALTER TABLE ONLY public.tests
 
 
 --
--- TOC entry 5143 (class 2606 OID 66149)
+-- TOC entry 5191 (class 2606 OID 98938)
 -- Name: tests tests_course_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4142,7 +4697,7 @@ ALTER TABLE ONLY public.tests
 
 
 --
--- TOC entry 5144 (class 2606 OID 66154)
+-- TOC entry 5192 (class 2606 OID 98943)
 -- Name: user_chapter user_chapter_chapter_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4151,7 +4706,7 @@ ALTER TABLE ONLY public.user_chapter
 
 
 --
--- TOC entry 5145 (class 2606 OID 66159)
+-- TOC entry 5193 (class 2606 OID 98948)
 -- Name: user_chapter user_chapter_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4160,7 +4715,7 @@ ALTER TABLE ONLY public.user_chapter
 
 
 --
--- TOC entry 5146 (class 2606 OID 66164)
+-- TOC entry 5194 (class 2606 OID 98953)
 -- Name: user_courses user_courses_course_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4169,7 +4724,7 @@ ALTER TABLE ONLY public.user_courses
 
 
 --
--- TOC entry 5147 (class 2606 OID 66169)
+-- TOC entry 5195 (class 2606 OID 98958)
 -- Name: user_courses user_courses_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4178,7 +4733,7 @@ ALTER TABLE ONLY public.user_courses
 
 
 --
--- TOC entry 5150 (class 2606 OID 66174)
+-- TOC entry 5198 (class 2606 OID 98963)
 -- Name: user_test_answers user_test_answers_attempt_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4187,7 +4742,7 @@ ALTER TABLE ONLY public.user_test_answers
 
 
 --
--- TOC entry 5151 (class 2606 OID 66179)
+-- TOC entry 5199 (class 2606 OID 98968)
 -- Name: user_test_answers user_test_answers_block_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4196,7 +4751,7 @@ ALTER TABLE ONLY public.user_test_answers
 
 
 --
--- TOC entry 5152 (class 2606 OID 66184)
+-- TOC entry 5200 (class 2606 OID 98973)
 -- Name: user_test_answers user_test_answers_selected_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4205,7 +4760,7 @@ ALTER TABLE ONLY public.user_test_answers
 
 
 --
--- TOC entry 5153 (class 2606 OID 66189)
+-- TOC entry 5201 (class 2606 OID 98978)
 -- Name: user_test_attempts user_test_attempts_test_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4214,7 +4769,7 @@ ALTER TABLE ONLY public.user_test_attempts
 
 
 --
--- TOC entry 5154 (class 2606 OID 66194)
+-- TOC entry 5202 (class 2606 OID 98983)
 -- Name: user_test_attempts user_test_attempts_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4223,7 +4778,7 @@ ALTER TABLE ONLY public.user_test_attempts
 
 
 --
--- TOC entry 5156 (class 2606 OID 66199)
+-- TOC entry 5204 (class 2606 OID 98988)
 -- Name: users users_id_verificationtoken_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4232,7 +4787,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 5157 (class 2606 OID 66204)
+-- TOC entry 5205 (class 2606 OID 98993)
 -- Name: verification_tokens verificationtokens_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -4241,7 +4796,7 @@ ALTER TABLE ONLY public.verification_tokens
 
 
 --
--- TOC entry 5369 (class 0 OID 0)
+-- TOC entry 5422 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -4249,7 +4804,7 @@ ALTER TABLE ONLY public.verification_tokens
 REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 
 
--- Completed on 2025-05-29 15:51:25
+-- Completed on 2025-06-08 18:16:05
 
 --
 -- PostgreSQL database dump complete

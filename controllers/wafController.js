@@ -6,7 +6,6 @@ const wafController = {
     try {
       const config = getWAFConfig();
 
-      // POBIERZ STATYSTYKI Z BAZY (nie z pamięci)
       const dbStats = await wafModel.getDashboardStats();
 
       if (!dbStats.success) {
@@ -58,7 +57,6 @@ const wafController = {
     try {
       const config = getWAFConfig();
 
-      // WSZYSTKIE DANE Z BAZY
       const dbStats = await wafModel.getDashboardStats();
       const allEvents = await wafModel.getSecurityEvents(null, null, 20, 0);
 
@@ -83,12 +81,10 @@ const wafController = {
         data: {
           provider: "LocalWAF",
 
-          // STATYSTYKI TYLKO Z BAZY
           totalRequests: parseInt(dbStats.stats.total_events) || 0,
           blockedRequests: parseInt(dbStats.stats.total_events) || 0,
           blockRate: dbStats.stats.total_events > 0 ? "100%" : "0%",
 
-          // ZAGROŻENIA Z BAZY (wszystkie czasy)
           threats: {
             rateLimit: parseInt(dbStats.stats.total_rate_limit) || 0,
             sqlInjection: parseInt(dbStats.stats.total_sql_injection) || 0,
@@ -96,7 +92,6 @@ const wafController = {
             total: parseInt(dbStats.stats.total_events) || 0,
           },
 
-          // STATYSTYKI OSTATNIE 24h Z BAZY
           last24h: {
             totalEvents: parseInt(dbStats.stats.last_24h_events) || 0,
             rateLimitBlocks: parseInt(dbStats.stats.last_24h_rate_limit) || 0,
@@ -117,7 +112,6 @@ const wafController = {
             })
           ),
 
-          // EVENTY Z BAZY
           recentEvents: allEvents.events.map((event) => ({
             id: event.event_id,
             timestamp: event.created_at,
@@ -202,6 +196,8 @@ const wafController = {
     try {
       const { config } = req.body;
 
+      console.log("Otrzymana konfiguracja:", config);
+
       if (!config || typeof config !== "object") {
         return res.status(400).json({
           success: false,
@@ -223,10 +219,19 @@ const wafController = {
 
       updateWAFConfig(config);
 
+      const currentConfig = getWAFConfig();
+
+      console.log("Aktualna konfiguracja po zmianie:", currentConfig);
+
       return res.status(200).json({
         success: true,
         message: "Konfiguracja WAF została zaktualizowana",
-        config: getWAFConfig(),
+        config: {
+          rateLimitEnabled: currentConfig.rateLimiting.enabled,
+          rateLimitMax: currentConfig.rateLimiting.maxRequests,
+          sqlInjectionEnabled: currentConfig.sqlInjection.enabled,
+          xssEnabled: currentConfig.xss.enabled,
+        },
       });
     } catch (error) {
       console.error("Błąd aktualizacji konfiguracji WAF:", error);

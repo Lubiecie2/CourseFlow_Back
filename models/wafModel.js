@@ -27,7 +27,6 @@ const wafModel = {
       const countParams = [];
       let whereConditions = [];
 
-      // FILTRY DATY
       if (since) {
         whereConditions.push(`created_at >= $${params.length + 1}`);
         params.push(new Date(since));
@@ -40,20 +39,17 @@ const wafModel = {
         countParams.push(new Date(until));
       }
 
-      // DODAJ WHERE CLAUSE
       if (whereConditions.length > 0) {
         const whereClause = ` WHERE ${whereConditions.join(" AND ")}`;
         query += whereClause;
         countQuery += whereClause;
       }
 
-      // SORTOWANIE I PAGINACJA
       query += ` ORDER BY created_at DESC LIMIT $${params.length + 1} OFFSET $${
         params.length + 2
       }`;
       params.push(limit, offset);
 
-      // WYKONAJ ZAPYTANIA
       const [events, totalResult] = await Promise.all([
         db.query(query, params),
         db.query(countQuery, countParams),
@@ -84,7 +80,6 @@ const wafModel = {
     try {
       const last24h = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
-      // ROZSZERZONE STATYSTYKI - wszystkie czasy + ostatnie 24h
       const statsQuery = `
         SELECT 
           -- Wszystkie czasy (dla wykresów zagrożeń)
@@ -101,7 +96,6 @@ const wafModel = {
         FROM waf_security_events
       `;
 
-      // TOP ATAKUJĄCE IP (ostatnie 7 dni)
       const last7days = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
       const topIPsQuery = `
         SELECT 
@@ -114,7 +108,6 @@ const wafModel = {
         LIMIT 5
       `;
 
-      // TOP ATAKOWANE ENDPOINTY (ostatnie 7 dni)
       const topEndpointsQuery = `
         SELECT 
           endpoint, 
