@@ -5,7 +5,7 @@
 -- Dumped from database version 17.4
 -- Dumped by pg_dump version 17.4
 
--- Started on 2025-06-08 18:16:05
+-- Started on 2025-06-10 10:06:43
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2159,73 +2159,26 @@ COPY public.chapter_block_attributes (id, block_id, name, value) FROM stdin;
 115356	50135	content	Podstawowym narzędziem do rozwiązywania równań kwadratowych jest wzór na deltę, czyli dyskryminantę: delta równa się b kwadrat minus cztery a c. Wartość delty determinuje liczbę i rodzaj rozwiązań równania kwadratowego.
 115357	50135	format	
 115358	50136	content	Gdy delta jest większa od zera, równanie ma dwa różne rozwiązania rzeczywiste, które obliczamy ze wzoru: x jeden równa się minus b plus pierwiastek z delty przez dwa a, x dwa równa się minus b minus pierwiastek z delty przez dwa a.
-113411	49386	content	 1. Wprowadzenie do łączenia tabel
-113412	49386	format	,text-center,text-2xl
-113413	49387	content	W relacyjnych bazach danych dane są zwykle przechowywane w wielu powiązanych ze sobą tabelach. Aby skutecznie analizować i zestawiać dane z różnych tabel, konieczne jest ich łączenie za pomocą zapytań SQL. Jednym z najczęściej wykorzystywanych typów łączeń jest INNER JOIN.
-113414	49387	format	text-lg
-113415	49388	content	SELECT kolumny\nFROM tabela1\nINNER JOIN tabela2\nON tabela1.klucz = tabela2.klucz;
-113416	49388	language	javascript
-113417	49388	caption	Składnia 
-113418	49388	showLineNumbers	true
-113419	49388	format	
-113420	49389	content	\n
-113421	49389	format	,text-lg
-113422	49390	type	ordered
-113423	49390	format	text-2xl,italic,underline,text-center,text-red
-113424	49390	items	QWE,ouoh
-113425	49391	content	knhljkhlkhl
-113426	49391	format	,text-xl,text-orange
-113427	49392	content	QWEQWEQWEQWEQW
-113428	49392	format	font-bold,text-lg,text-orange
-113429	49393	content	asdasdasdasdasd
-113430	49393	format	font-bold,text-xs,underline,italic,text-green
-113431	49394	items	Jeden,Dwy
-113432	49394	type	ordered
-113433	49394	format	,text-green,text-2xl
-113434	49395	content	ASD
-113435	49395	format	text-sm,font-bold
-113436	49396	content	NOwy asd
-113437	49396	format	font-bold,italic,underline
-113438	49397	content	Paragraf
-113439	49397	format	font-bold,italic,underline
-113440	49398	content	Par2
-113441	49398	format	font-bold
-113442	49399	content	jhb
-113443	49400	content	jhb
-113444	49401	content	jhgjghj
-113445	49401	format	text-red
-113446	49402	content	Lorem ipsum
-113447	49402	format	,text-green
-113448	49403	content	ergwererg
-113449	49403	format	font-bold,italic
-113450	49404	content	iqwheikqwneoi;hwqn
-113451	49405	content	asdsaddsadsadsa
-113452	49405	format	italic
-113453	49406	src	http://localhost:4000/uploads/image-1745325157490-688331706.jpg
-113454	49406	alt	lfndtoirttvx.jpg
-113455	49406	caption	
-113456	49406	format	image-sm
-113457	49406	content	
-113458	49407	content	jhghgj
-113459	49407	format	
-113460	49408	content	asdsaddsadsadsa
-113461	49408	format	italic
-113462	49409	src	http://localhost:4000/uploads/video-1745330323185-921622002.mp4
-113463	49409	caption	
-113464	49409	format	video-md
-113465	49409	content	
-113466	49410	src	http://localhost:4000/uploads/video-1745869505030-873262995.mp4
-113467	49410	caption	
-113468	49410	format	video-md,text-center
-113469	49411	content	dsdasd
-113470	49411	format	
-113471	49412	content	dsdasd
-113472	49412	format	
-113473	49413	language	html
-113474	49413	caption	Procedurka2115
-113475	49413	showLineNumbers	false
-113476	49413	format	
-113477	49413	content	DELIMITER //\nsadasdsad\nCREATE PROCEDURE promote_if_ready(IN id INT)\nBEGIN\n\tDECLARE v_avg_salary DECIMAL(10,2);\n\tDECLARE v_emp_staz INT;\n\tDECLARE v_emp_hire_date DATE;\n\tDECLARE v_emp_salary DECIMAL(10,2);\n\tDECLARE v_emp_title VARCHAR(30);\t\t\n\n\tSELECT AVG(salary) INTO v_avg_salary FROM salaries;\n\tSELECT salary INTO v_emp_salary FROM salaries WHERE emp_no = id AND to_date = '9999-01-01';\n\tSELECT hire_date INTO v_avg_hire_date FROM employees WHERE emp_no = id;\n\tSELECT title INTO v_emp_title FROM titles WHERE emp_no =id;\t\n\n\tSET v_emp_staz = TIMESTAMPDIFF(YEAR,v_emp_hire_date,CURDATE());\n\n\tIF v_emp_staz >= 5 AND v_emp_title != 'Manager' THEN\n\t\tUPDATE titles SET to_date = CURDATE() WHERE emp_no = id;\n\t\tINSERT INTO titles (emp_no,title,from_date,to_date) VALUES (id,'Manager',CURDATE(),'9999-01-01');\n\tEND IF;\nEND //
+123060	53520	content	Lorem ipsum
+123061	53520	format	,text-center,text-2xl
+123062	53521	content	Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+123063	53521	format	text-lg
+123064	53522	content	Lorem ipsum dolor sit amet consectetur adipiscing elit. \nQuisque faucibus ex sapien vitae pellentesque sem placerat. \nIn id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. \nPulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. \nUt hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+123065	53522	language	csharp
+123066	53522	caption	Lorem ipsum
+123067	53522	showLineNumbers	true
+123068	53522	format	
+123069	53523	src	http://localhost:4000/uploads/video-1745869505030-873262995.mp4
+123070	53523	caption	
+123071	53523	format	video-md,text-center
+123072	53524	src	http://localhost:4000/uploads/image-1745325157490-688331706.jpg
+123073	53524	alt	lfndtoirttvx.jpg
+123074	53524	caption	
+123075	53524	format	text-center,image-sm
+123076	53524	content	
+123077	53525	items	Lorem ipsum,dolor sit amet consectetur adipiscing elit,Quisque faucibus ex sapien vitae pellentesque sem placerat,In id cursus mi pretium tellus duis convallis.
+123078	53525	type	unordered
+123079	53525	format	text-base
 115359	50136	format	
 115360	50137	content	Gdy delta równa się zero, równanie ma jedno rozwiązanie rzeczywiste o krotności dwa, zwane pierwiastkiem podwójnym: x równa się minus b przez dwa a. Geometrycznie oznacza to, że parabola jest styczna do osi x w jednym punkcie.
 115361	50137	format	
@@ -2235,6 +2188,13 @@ COPY public.chapter_block_attributes (id, block_id, name, value) FROM stdin;
 115365	50139	format	
 115366	50140	content	Wzory Vieta łączą pierwiastki równania kwadratowego z jego współczynnikami. Dla równania ax kwadrat plus bx plus c równa się zero, jeśli x jeden i x dwa to pierwiastki, to: x jeden plus x dwa równa się minus b przez a, x jeden razy x dwa równa się c przez a.
 115367	50140	format	
+123080	53526	content	Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor
+123081	53526	format	,text-green,text-xl,font-bold,italic
+123082	53527	content	Lorem ipsum
+123083	53527	format	,text-red,text-right,text-xl
+118668	51753	content	
+118669	51753	format	
+118670	51754	content	
 115378	50146	content	Funkcję kwadratową możemy zapisać w trzech równoważnych postaciach, z których każda ma swoje zastosowania i zalety w różnych sytuacjach obliczeniowych.
 115379	50146	format	
 115380	50147	content	Postać ogólna to najbardziej podstawowa forma zapisu funkcji kwadratowej: f(x) równa się a x kwadrat plus b x plus c. Jest to forma wyjściowa, z której możemy bezpośrednio odczytać współczynniki a, b i c oraz punkt przecięcia z osią y, który wynosi c.
@@ -2243,20 +2203,23 @@ COPY public.chapter_block_attributes (id, block_id, name, value) FROM stdin;
 115383	50148	format	
 115384	50149	content	Postać iloczynowa wykorzystuje miejsca zerowe funkcji i ma postać: f(x) równa się a razy x minus x jeden razy x minus x dwa, gdzie x jeden i x dwa to miejsca zerowe funkcji. Ta postać istnieje tylko wtedy, gdy funkcja ma miejsca zerowe rzeczywiste, czyli gdy dyskryminanta jest większa lub równa zero.
 115385	50149	format	
+118671	51754	format	
+118672	51755	content	qew
+118673	51755	format	
 115386	50150	content	Przekształcenia między postaciami wymagają znajomości odpowiednich technik algebraicznych. Przejście z postaci ogólnej do kanonicznej odbywa się przez uzupełnienie do kwadratu, natomiast do postaci iloczynowej przez rozłożenie na czynniki.
 115387	50150	format	
 115388	50151	content	Uzupełnianie do kwadratu to technika polegająca na przekształceniu wyrażenia kwadratowego w sumę lub różnicę kwadratu dwumianu i liczby. Dla wyrażenia ax kwadrat plus bx plus c wydzielamy a przed nawias i uzupełniamy wyrażenie w nawiasie do kwadratu dwumianu.
 115389	50151	format	
-117360	51137	content	Funkcja kwadratowa to jedna z najważniejszych funkcji w matematyce, która ma szerokie zastosowanie zarówno w teorii jak i praktyce. Definicja funkcji kwadratowej brzmi następująco: funkcją kwadratową nazywamy funkcję postaci f(x) równa się a x do kwadratu plus b x plus c, gdzie a, b, c to liczby rzeczywiste, przy czym a różne od zera.
-117361	51137	format	,text-green
-117362	51138	content	Parametr a nazywamy współczynnikiem kierunkowym przy x kwadrat i determinuje on kształt paraboli. Gdy a jest większe od zera, parabola ma ramiona skierowane do góry, gdy a jest mniejsze od zera, ramiona są skierowane w dół. Parametr b wpływa na położenie wierzchołka paraboli względem osi y, natomiast parametr c określa punkt przecięcia paraboli z osią y.
-117363	51138	format	
-117364	51139	content	Dziedziną funkcji kwadratowej jest zbiór wszystkich liczb rzeczywistych, co oznaczamy symbolem R. Zbiór wartości funkcji kwadratowej zależy od znaku współczynnika a. Dla a większego od zera zbiorem wartości jest przedział od wartości w wierzchołku do plus nieskończoności, dla a mniejszego od zera jest to przedział od minus nieskończoności do wartości w wierzchołku.
-117365	51139	format	
-117366	51140	content	Wykresem funkcji kwadratowej jest parabola, która jest krzywą drugiego stopnia. Parabola ma charakterystyczną właściwość symetrii względem prostej pionowej przechodzącej przez wierzchołek, którą nazywamy osią symetrii paraboli.
-117367	51140	format	
-117368	51141	content	Wierzchołek paraboli to punkt, w którym funkcja osiąga wartość ekstremalną - maksimum dla a mniejszego od zera lub minimum dla a większego od zera. Współrzędne wierzchołka można obliczyć ze wzorów: x wierzchołka równa się minus b przez dwa a, y wierzchołka równa się minus delta przez cztery a, gdzie delta to dyskryminanta równa b kwadrat minus cztery a c.
-117369	51141	format	
+118350	51632	content	Funkcja kwadratowa to jedna z najważniejszych funkcji w matematyce, która ma szerokie zastosowanie zarówno w teorii jak i praktyce. Definicja funkcji kwadratowej brzmi następująco: funkcją kwadratową nazywamy funkcję postaci f(x) równa się a x do kwadratu plus b x plus c, gdzie a, b, c to liczby rzeczywiste, przy czym a różne od zera.
+118351	51632	format	
+118352	51633	content	Parametr a nazywamy współczynnikiem kierunkowym przy x kwadrat i determinuje on kształt paraboli. Gdy a jest większe od zera, parabola ma ramiona skierowane do góry, gdy a jest mniejsze od zera, ramiona są skierowane w dół. Parametr b wpływa na położenie wierzchołka paraboli względem osi y, natomiast parametr c określa punkt przecięcia paraboli z osią y.
+118353	51633	format	
+118354	51634	content	Dziedziną funkcji kwadratowej jest zbiór wszystkich liczb rzeczywistych, co oznaczamy symbolem R. Zbiór wartości funkcji kwadratowej zależy od znaku współczynnika a. Dla a większego od zera zbiorem wartości jest przedział od wartości w wierzchołku do plus nieskończoności, dla a mniejszego od zera jest to przedział od minus nieskończoności do wartości w wierzchołku.
+118355	51634	format	
+118356	51635	content	Wykresem funkcji kwadratowej jest parabola, która jest krzywą drugiego stopnia. Parabola ma charakterystyczną właściwość symetrii względem prostej pionowej przechodzącej przez wierzchołek, którą nazywamy osią symetrii paraboli.
+118357	51635	format	
+118358	51636	content	Wierzchołek paraboli to punkt, w którym funkcja osiąga wartość ekstremalną - maksimum dla a mniejszego od zera lub minimum dla a większego od zera. Współrzędne wierzchołka można obliczyć ze wzorów: x wierzchołka równa się minus b przez dwa a, y wierzchołka równa się minus delta przez cztery a, gdzie delta to dyskryminanta równa b kwadrat minus cztery a c.
+118359	51636	format	
 \.
 
 
@@ -2274,34 +2237,14 @@ COPY public.chapter_blocks (id, chapter_id, type, content, sort_order, created_a
 143	28	text	\N	2	2025-04-10 10:21:35.274	2025-04-10 10:21:35.274
 144	28	text	\N	3	2025-04-10 10:21:35.276	2025-04-10 10:21:35.276
 145	28	heading	\N	4	2025-04-10 10:21:35.279	2025-04-10 10:21:35.279
-49386	31	text	\N	0	2025-05-29 17:32:42.689	2025-05-29 17:32:42.689
-49387	31	text	\N	1	2025-05-29 17:32:42.69	2025-05-29 17:32:42.69
-49388	31	code	\N	2	2025-05-29 17:32:42.692	2025-05-29 17:32:42.692
-49389	31	heading	\N	3	2025-05-29 17:32:42.693	2025-05-29 17:32:42.693
-49390	31	list	\N	4	2025-05-29 17:32:42.694	2025-05-29 17:32:42.694
-49391	31	text	\N	5	2025-05-29 17:32:42.696	2025-05-29 17:32:42.696
-49392	31	heading	\N	6	2025-05-29 17:32:42.698	2025-05-29 17:32:42.698
-49393	31	text	\N	7	2025-05-29 17:32:42.7	2025-05-29 17:32:42.7
-49394	31	list	\N	8	2025-05-29 17:32:42.703	2025-05-29 17:32:42.703
-49395	31	heading	\N	9	2025-05-29 17:32:42.704	2025-05-29 17:32:42.704
-49396	31	text	\N	10	2025-05-29 17:32:42.706	2025-05-29 17:32:42.706
-49397	31	text	\N	11	2025-05-29 17:32:42.707	2025-05-29 17:32:42.707
-49398	31	text	\N	12	2025-05-29 17:32:42.709	2025-05-29 17:32:42.709
-49399	31	text	\N	13	2025-05-29 17:32:42.71	2025-05-29 17:32:42.71
-49400	31	text	\N	14	2025-05-29 17:32:42.712	2025-05-29 17:32:42.712
-49401	31	text	\N	15	2025-05-29 17:32:42.714	2025-05-29 17:32:42.714
-49402	31	heading	\N	16	2025-05-29 17:32:42.716	2025-05-29 17:32:42.716
-49403	31	text	\N	17	2025-05-29 17:32:42.717	2025-05-29 17:32:42.717
-49404	31	text	\N	18	2025-05-29 17:32:42.719	2025-05-29 17:32:42.719
-49405	31	text	\N	19	2025-05-29 17:32:42.72	2025-05-29 17:32:42.72
-49406	31	image	\N	20	2025-05-29 17:32:42.721	2025-05-29 17:32:42.721
-49407	31	text	\N	21	2025-05-29 17:32:42.723	2025-05-29 17:32:42.723
-49408	31	text	\N	22	2025-05-29 17:32:42.724	2025-05-29 17:32:42.724
-49409	31	video	\N	23	2025-05-29 17:32:42.725	2025-05-29 17:32:42.725
-49410	31	video	\N	24	2025-05-29 17:32:42.726	2025-05-29 17:32:42.726
-49411	31	text	\N	25	2025-05-29 17:32:42.728	2025-05-29 17:32:42.728
-49412	31	text	\N	26	2025-05-29 17:32:42.73	2025-05-29 17:32:42.73
-49413	31	code	\N	27	2025-05-29 17:32:42.732	2025-05-29 17:32:42.732
+53520	31	text	\N	0	2025-06-10 08:04:44.817	2025-06-10 08:04:44.817
+53521	31	text	\N	1	2025-06-10 08:04:44.833	2025-06-10 08:04:44.833
+53522	31	code	\N	2	2025-06-10 08:04:44.834	2025-06-10 08:04:44.834
+53523	31	video	\N	3	2025-06-10 08:04:44.836	2025-06-10 08:04:44.836
+53524	31	image	\N	4	2025-06-10 08:04:44.839	2025-06-10 08:04:44.839
+53525	31	list	\N	5	2025-06-10 08:04:44.841	2025-06-10 08:04:44.841
+53526	31	text	\N	6	2025-06-10 08:04:44.842	2025-06-10 08:04:44.842
+53527	31	text	\N	7	2025-06-10 08:04:44.845	2025-06-10 08:04:44.845
 50134	47	text	\N	0	2025-06-07 08:34:18.236	2025-06-07 08:34:18.236
 50135	47	text	\N	1	2025-06-07 08:34:18.239	2025-06-07 08:34:18.239
 50136	47	text	\N	2	2025-06-07 08:34:18.243	2025-06-07 08:34:18.243
@@ -2309,17 +2252,20 @@ COPY public.chapter_blocks (id, chapter_id, type, content, sort_order, created_a
 50138	47	text	\N	4	2025-06-07 08:34:18.25	2025-06-07 08:34:18.25
 50139	47	text	\N	5	2025-06-07 08:34:18.254	2025-06-07 08:34:18.254
 50140	47	text	\N	6	2025-06-07 08:34:18.257	2025-06-07 08:34:18.257
+51753	38	text	\N	0	2025-06-09 20:09:35.439	2025-06-09 20:09:35.439
 50146	46	text	\N	0	2025-06-08 16:07:58.838	2025-06-08 16:07:58.838
 50147	46	text	\N	1	2025-06-08 16:07:58.86	2025-06-08 16:07:58.86
 50148	46	text	\N	2	2025-06-08 16:07:58.863	2025-06-08 16:07:58.863
 50149	46	text	\N	3	2025-06-08 16:07:58.866	2025-06-08 16:07:58.866
 50150	46	text	\N	4	2025-06-08 16:07:58.868	2025-06-08 16:07:58.868
 50151	46	text	\N	5	2025-06-08 16:07:58.872	2025-06-08 16:07:58.872
-51137	45	text	\N	0	2025-06-08 16:11:23.405	2025-06-08 16:11:23.405
-51138	45	text	\N	1	2025-06-08 16:11:23.407	2025-06-08 16:11:23.407
-51139	45	text	\N	2	2025-06-08 16:11:23.409	2025-06-08 16:11:23.409
-51140	45	text	\N	3	2025-06-08 16:11:23.411	2025-06-08 16:11:23.411
-51141	45	text	\N	4	2025-06-08 16:11:23.414	2025-06-08 16:11:23.414
+51754	38	text	\N	1	2025-06-09 20:09:35.441	2025-06-09 20:09:35.441
+51755	38	text	\N	2	2025-06-09 20:09:35.443	2025-06-09 20:09:35.443
+51632	45	text	\N	0	2025-06-08 20:51:48.449	2025-06-08 20:51:48.449
+51633	45	text	\N	1	2025-06-08 20:51:48.45	2025-06-08 20:51:48.45
+51634	45	text	\N	2	2025-06-08 20:51:48.453	2025-06-08 20:51:48.453
+51635	45	text	\N	3	2025-06-08 20:51:48.455	2025-06-08 20:51:48.455
+51636	45	text	\N	4	2025-06-08 20:51:48.456	2025-06-08 20:51:48.456
 \.
 
 
@@ -2330,14 +2276,14 @@ COPY public.chapter_blocks (id, chapter_id, type, content, sort_order, created_a
 --
 
 COPY public.chapters (id, course_id, title, wysiwyg_code, created_at, updated_at) FROM stdin;
-38	1	Rozdział 3	\N	2025-04-23 09:45:37.978	2025-04-23 09:45:37.978
 29	4	Wprowadzenie do JavaScript	\N	2025-04-10 09:48:27.677	2025-04-10 09:48:27.696
 27	4	Wprowadzenie do JavaScript	\N	2025-04-10 09:41:00.426	2025-04-10 09:41:00.426
 28	4	Qwerty	\N	2025-04-10 09:47:01.831	2025-04-10 10:21:35.281
-31	1	Złączenia: INNER JOIN	\N	2025-04-10 14:21:23.339	2025-05-29 17:32:42.734
 47	33	Równania kwadratowe i ich rozwiązywanie	\N	2025-06-07 08:33:49.715	2025-06-07 08:34:18.26
 46	33	Postacie funkcji kwadratowej	\N	2025-06-07 08:33:08.425	2025-06-08 16:07:58.875
-45	33	Definicja i podstawowe właściwości funkcji kwadratowej	\N	2025-06-07 08:32:23.726	2025-06-08 16:11:23.417
+45	33	Definicja i podstawowe właściwości funkcji kwadratowej	\N	2025-06-07 08:32:23.726	2025-06-08 20:51:48.458
+31	1	Lorem Ipsum	\N	2025-04-10 14:21:23.339	2025-06-10 08:04:44.847
+38	1	Rozdział 3	\N	2025-04-23 09:45:37.978	2025-06-09 20:09:35.445
 \.
 
 
@@ -2435,6 +2381,13 @@ COPY public.course_logs_y202506 (id, course_id, user_id, action_type, old_value,
 69	33	\N	COURSE_CREATED	\N	\N	Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań	Kurs utworzony	2025-06-07 10:32:16.685248
 70	33	\N	COURSE_UPDATED	\N	\N	Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań	Kurs zaktualizowany	2025-06-07 18:45:52.964984
 71	33	\N	COURSE_UPDATED	Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań	Funkcje Kwadratowe - Kompletny Przewodnik	Funkcje Kwadratowe - Kompletny Przewodnik	Zmiana tytułu z "Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań" na "Funkcje Kwadratowe - Kompletny Przewodnik"	2025-06-08 17:43:48.357369
+72	4	\N	COURSE_UPDATED	\N	\N	Januszex	Kurs zaktualizowany	2025-06-08 22:31:29.983996
+73	1	\N	COURSE_UPDATED	\N	\N	Kurs pokazowy 	Kurs zaktualizowany	2025-06-08 22:44:04.152974
+74	34	\N	COURSE_CREATED	\N	\N	Przykładowy kurs	Kurs utworzony	2025-06-09 00:21:22.665525
+75	\N	\N	COURSE_DELETED	\N	\N	Przykładowy kurs	Course ID 34 deleted	2025-06-09 17:54:03.79632
+76	35	\N	COURSE_CREATED	\N	\N	asdasd	Kurs utworzony	2025-06-10 09:36:21.149907
+77	\N	\N	COURSE_DELETED	\N	\N	asdasd	Course ID 35 deleted	2025-06-10 09:36:43.197107
+79	4	\N	COURSE_UPDATED	\N	\N	Januszex	Kurs zaktualizowany	2025-06-10 10:01:54.147865
 \.
 
 
@@ -2488,8 +2441,6 @@ COPY public.course_questions (id, title, content, user_id, course_id, created_at
 4	asd	asd	6	\N	2025-05-15 16:46:33.189	2025-05-15 16:46:33.189	2
 8	Siema	Siema	6	\N	2025-05-15 21:05:18.7	2025-05-15 21:05:18.7	146
 10	Siema mam pytanie	to jest moje pytanie	6	\N	2025-05-18 14:58:58.961	2025-05-18 14:58:58.961	17
-18	Test'; DROP TABLE users; --	To jest test SQL injection	6	\N	2025-06-04 15:51:34.206	2025-06-04 15:51:34.206	4
-19	Test XSS	<script>alert('XSS')</script>	6	\N	2025-06-04 15:51:55.865	2025-06-04 15:51:55.865	4
 \.
 
 
@@ -2500,9 +2451,9 @@ COPY public.course_questions (id, title, content, user_id, course_id, created_at
 --
 
 COPY public.courses (id, user_id, title, short_description, course_image, category, is_published, created_at, updated_at) FROM stdin;
-4	6	Januszex	Jak zostać januszem biznesu. Kurs skrócony. 	image-1749283093720-271596064.jpg	biznes	f	2025-04-08 11:52:17.883	2025-06-07 07:58:13.82
-1	6	Kurs pokazowy 	Tu jest kurs pokazowy 	image-1749283138502-686185970.jpg	programowanie	f	2025-04-06 18:29:30.271	2025-06-07 07:58:58.673
 33	6	Funkcje Kwadratowe - Kompletny Przewodnik	Szczegółowy kurs poświęcony funkcjom kwadratowych obejmujący wszystkie aspekty teorii i praktyki. Poznasz definicję funkcji kwadratowej, metody rozwiązywania równań, analizę wykresu paraboli, przekształcenia geometryczne.	image-1749314752952-207104451.jpg	matematyka	f	2025-06-07 08:32:16.685	2025-06-08 15:43:48.351
+1	6	Kurs pokazowy 	Tu jest kurs pokazowy 	image-1749415444100-187904830.jpg	programowanie	f	2025-04-06 18:29:30.271	2025-06-08 20:44:04.151
+4	6	Januszex	Jak zostać januszem biznesu. Kurs skrócony. 	image-1749542514072-849844830.jpg	biznes	f	2025-04-08 11:52:17.883	2025-06-10 08:01:54.14
 \.
 
 
@@ -2555,6 +2506,15 @@ COPY public.notifications (id, user_id, title, message, type, related_entity_id,
 815	79	Nowy kurs dostępny!	Nowy kurs "Funkcje kwadratowe - podstawy" jest już dostępny na platformie.	NEW_COURSE	32	2025-06-07 10:03:27.870112+02	t
 819	79	Nowy kurs dostępny!	Nowy kurs "Funkcje Kwadratowe - Kompletny Przewodnik od Podstaw do Zastosowań" jest już dostępny na platformie.	NEW_COURSE	33	2025-06-07 10:32:16.685248+02	t
 822	79	Witaj w CourseFlow!	Dziękujemy za dołączenie do naszej platformy. Sprawdź dostępne kursy i rozpocznij swoją podróż edukacyjną!	WELCOME	\N	2025-06-08 17:20:14.276+02	t
+823	82	Nowy kurs dostępny!	Nowy kurs "Przykładowy kurs" jest już dostępny na platformie.	NEW_COURSE	34	2025-06-09 00:21:22.665525+02	f
+825	79	Nowy kurs dostępny!	Nowy kurs "Przykładowy kurs" jest już dostępny na platformie.	NEW_COURSE	34	2025-06-09 00:21:22.665525+02	f
+824	6	Nowy kurs dostępny!	Nowy kurs "Przykładowy kurs" jest już dostępny na platformie.	NEW_COURSE	34	2025-06-09 00:21:22.665525+02	t
+827	87	Witaj w CourseFlow!	Dziękujemy za dołączenie do naszej platformy. Sprawdź dostępne kursy i rozpocznij swoją podróż edukacyjną!	WELCOME	\N	2025-06-10 09:34:56.907+02	f
+828	85	Nowy kurs dostępny!	Nowy kurs "asdasd" jest już dostępny na platformie.	NEW_COURSE	35	2025-06-10 09:36:21.149907+02	f
+829	79	Nowy kurs dostępny!	Nowy kurs "asdasd" jest już dostępny na platformie.	NEW_COURSE	35	2025-06-10 09:36:21.149907+02	f
+830	82	Nowy kurs dostępny!	Nowy kurs "asdasd" jest już dostępny na platformie.	NEW_COURSE	35	2025-06-10 09:36:21.149907+02	f
+831	87	Nowy kurs dostępny!	Nowy kurs "asdasd" jest już dostępny na platformie.	NEW_COURSE	35	2025-06-10 09:36:21.149907+02	f
+832	6	Nowy kurs dostępny!	Nowy kurs "asdasd" jest już dostępny na platformie.	NEW_COURSE	35	2025-06-10 09:36:21.149907+02	t
 \.
 
 
@@ -2569,7 +2529,6 @@ COPY public.permissions (id, name, description, created_at, updated_at) FROM std
 6	PANEL_EDIT_USERS	\N	2025-04-06 20:26:26.094472	2025-04-06 20:26:26.094472
 7	PANEL_CREATE_ROLE	\N	2025-04-06 20:26:26.094472	2025-04-06 20:26:26.094472
 8	PANEL_SHOW_TESTS	\N	2025-04-06 20:26:26.094472	2025-04-06 20:26:26.094472
-9	PANEL_SHOW_COURSES	\N	2025-04-06 20:26:26.094472	2025-04-06 20:26:26.094472
 10	PANEL_SHOW_ADMIN_PANEL	\N	2025-04-06 20:26:26.094472	2025-04-06 20:26:26.094472
 11	PANEL_SHOW_USERS	\N	2025-04-06 20:26:26.094472	2025-04-06 20:26:26.094472
 1	PANEL_SETTINGS_PARTITION	\N	2025-05-31 09:02:17.008898	2025-05-31 09:02:17.008898
@@ -2592,7 +2551,6 @@ COPY public.role_permissions (role_id, permission_id, created_at, updated_at) FR
 1	6	2025-04-06 20:28:29.821322	2025-04-06 20:28:29.821322
 1	7	2025-04-06 20:28:29.821322	2025-04-06 20:28:29.821322
 1	8	2025-04-06 20:28:29.821322	2025-04-06 20:28:29.821322
-1	9	2025-04-06 20:28:29.821322	2025-04-06 20:28:29.821322
 1	10	2025-04-06 20:28:29.821322	2025-04-06 20:28:29.821322
 1	11	2025-04-06 20:28:29.821322	2025-04-06 20:28:29.821322
 1	1	2025-05-31 09:09:24.317312	2025-05-31 09:09:24.317312
@@ -2602,11 +2560,14 @@ COPY public.role_permissions (role_id, permission_id, created_at, updated_at) FR
 1	12	2025-05-31 09:09:52.138787	2025-05-31 09:09:52.138787
 1	13	2025-05-31 09:09:54.40098	2025-05-31 09:09:54.40098
 7	10	2025-05-31 14:41:56.280219	2025-05-31 14:41:56.280219
-7	9	2025-05-31 14:41:56.346639	2025-05-31 14:41:56.346639
 7	11	2025-05-31 14:41:56.35689	2025-05-31 14:41:56.35689
 7	4	2025-05-31 14:41:56.359529	2025-05-31 14:41:56.359529
-16	8	2025-06-06 16:57:21.026013	2025-06-06 16:57:21.026013
-16	10	2025-06-06 16:57:21.068304	2025-06-06 16:57:21.068304
+21	8	2025-06-09 00:05:11.540636	2025-06-09 00:05:11.540636
+21	3	2025-06-09 00:05:11.615698	2025-06-09 00:05:11.615698
+21	10	2025-06-09 00:05:11.621577	2025-06-09 00:05:11.621577
+21	11	2025-06-09 00:05:11.630428	2025-06-09 00:05:11.630428
+21	2	2025-06-09 00:05:11.635875	2025-06-09 00:05:11.635875
+22	10	2025-06-09 19:55:33.146637	2025-06-09 19:55:33.146637
 \.
 
 
@@ -2620,7 +2581,8 @@ COPY public.roles (id, name, description, created_at, updated_at) FROM stdin;
 2	user	\N	2025-04-06 20:18:11.248218	2025-04-06 20:18:11.248218
 1	admin	\N	2025-04-06 20:20:53.067592	2025-04-06 20:20:53.067592
 7	Mini Admin	\N	2025-05-11 21:33:17.667275	2025-05-11 21:33:17.667275
-16	Testowa rola	\N	2025-06-06 16:57:21.023327	2025-06-06 16:57:21.023327
+21	test	\N	2025-06-09 00:04:59.353117	2025-06-09 00:04:59.353117
+22	qwe	\N	2025-06-09 19:55:33.135731	2025-06-09 19:55:33.135731
 \.
 
 
@@ -2738,14 +2700,8 @@ COPY public.test_block_attributes (id, block_id, attribute_name, attribute_value
 COPY public.test_blocks (id, test_id, block_type, question_text, points, sort_order, created_at, updated_at) FROM stdin;
 21	6	single_choice	Ile dni ma marzec	2	1	2025-05-01 06:12:03.133	2025-05-01 06:12:03.133
 22	6	single_choice	W jakim klubie gra Lewandowski (Goat)	3	2	2025-05-01 06:13:01.531	2025-05-01 06:13:01.531
-20	4	single_choice	Ile to 5+5	3	0	2025-04-30 08:03:36.409	2025-05-06 10:03:07.002
-23	4	text_input	Jak sie nazywa najlepszy model BMW 	3	1	2025-05-05 06:44:57.907	2025-05-06 10:03:07.002
-26	4	matching	Dopasuj model auta do marki 	1	3	2025-05-06 05:41:23.907	2025-05-06 10:03:07.002
-19	4	single_choice	Ile to jest 2+2	1	2	2025-04-30 08:03:21.58	2025-05-06 10:03:07.002
-27	4	matching	Dopasuj Cyfry	1	4	2025-05-06 10:03:53.123	2025-05-06 10:03:53.123
 13	3	single_choice	Z jakiego kraju pochodzi BMW 	1	0	2025-04-29 06:57:08.448	2025-04-29 16:26:57.701
 15	3	single_choice	Dlaczego BMW jest najlepszym autem na rynku	3	1	2025-04-29 07:00:03.884	2025-04-29 16:26:57.701
-28	4	true_false	Czy niebo jest niebieskie 	1	5	2025-05-12 21:19:50.954	2025-05-12 21:19:50.954
 40	12	true_false	Jeśli a > 0, to parabola ma ramiona skierowane w górę	1	4	2025-06-07 08:38:50.313	2025-06-07 08:38:56.733
 39	12	text_input	Dla funkcji f(x) = 2x² - 8x + 3, współrzędna x wierzchołka wynosi: x =	1	3	2025-06-07 08:38:27.061	2025-06-07 08:38:56.733
 38	12	matching	Dopasuj parametry funkcji kwadratowej do ich znaczenia:	1	2	2025-06-07 08:37:45.646	2025-06-07 08:38:56.733
@@ -2763,6 +2719,12 @@ COPY public.test_blocks (id, test_id, block_type, question_text, points, sort_or
 50	15	single_choice	Która postać funkcji kwadratowej najlepiej nadaje się do odczytania miejsc zerowych?	1	1	2025-06-07 08:47:49.066	2025-06-07 08:47:49.066
 51	15	multiple_choice	Funkcja f(x) = -3x² + 12x - 5 ma następujące właściwości: (Zaznacz wszystkie poprawne)	3	2	2025-06-07 08:49:11.985	2025-06-07 08:49:11.985
 52	15	true_false	Jeśli dyskryminanta równania kwadratowego jest liczbą ujemną, to funkcja kwadratowa nie ma miejsc zerowych.	1	3	2025-06-07 08:49:34.201	2025-06-07 08:49:34.201
+19	4	single_choice	Ile to jest 2+2	1	2	2025-04-30 08:03:21.58	2025-06-09 20:22:26.303
+23	4	text_input	Jak sie nazywa najlepszy model BMW 	3	1	2025-05-05 06:44:57.907	2025-06-09 20:22:26.303
+20	4	single_choice	Ile to 5+5	3	0	2025-04-30 08:03:36.409	2025-06-09 20:22:26.303
+27	4	matching	Dopasuj Cyfry	1	4	2025-05-06 10:03:53.123	2025-06-09 20:22:26.303
+26	4	matching	Dopasuj model auta do marki 	1	3	2025-05-06 05:41:23.907	2025-06-09 20:22:26.303
+28	4	true_false	Czy niebo jest niebieskie 	1	5	2025-05-12 21:19:50.954	2025-06-09 20:22:26.303
 \.
 
 
@@ -2894,6 +2856,33 @@ COPY public.user_logs_y202506 (id, action_type, user_id, changed_by_user_id, old
 93	USER_DELETED	\N	6	krradziak@interia.pl	\N	2025-06-06 17:06:15.721417
 94	USER_DELETED	\N	6	adriannn@interia.pl	\N	2025-06-06 17:06:17.52008
 95	USER_DELETED	\N	\N	qwe@qwe.pl	\N	2025-06-07 10:52:50.147862
+96	ROLE_CHANGED	82	6	Testowa rola	admin	2025-06-08 22:42:58.792168
+97	ROLE_CHANGED	82	6	admin	Mini Admin	2025-06-08 22:43:00.75451
+98	ROLE_CHANGED	82	6	Mini Admin	Testowa rola	2025-06-08 22:43:03.087581
+99	ROLE_CHANGED	82	6	Testowa rola	user	2025-06-08 22:43:05.141364
+100	ROLE_CHANGED	79	6	user	Mini Admin	2025-06-08 22:43:08.703133
+101	ROLE_CHANGED	79	6	Mini Admin	user	2025-06-08 22:43:10.283801
+102	ROLE_CHANGED	79	6	user	Testowa rola	2025-06-08 22:43:12.059391
+103	ROLE_CHANGED	79	6	Testowa rola	user	2025-06-08 22:43:13.644766
+104	ROLE_CHANGED	82	6	user	Zarządzanie użytkownikami 	2025-06-08 22:50:49.149959
+105	ROLE_CHANGED	82	6	Zarządzanie użytkownikami 	Testowa rola	2025-06-08 23:46:43.104257
+106	ROLE_CHANGED	82	\N	\N	\N	2025-06-08 23:49:22.06275
+107	ROLE_CHANGED	82	6	\N	user	2025-06-08 23:50:04.159683
+108	ROLE_CHANGED	82	6	user	Zarządzanie użytkownikami 	2025-06-08 23:50:14.58378
+109	ROLE_CHANGED	82	6	\N	\N	2025-06-08 23:50:20.254113
+110	ROLE_CHANGED	82	6	\N	user	2025-06-08 23:51:26.229439
+111	ROLE_CHANGED	6	6	admin	user	2025-06-08 23:55:32.154182
+112	ROLE_CHANGED	6	\N	user	admin	2025-06-08 23:56:55.216966
+113	ROLE_CHANGED	79	6	user	Mini Admin	2025-06-08 23:59:15.644241
+114	ROLE_CHANGED	79	6	Mini Admin	przykładową role 	2025-06-09 00:00:09.429552
+115	ROLE_CHANGED	79	6	przykładową role 	Mini Admin	2025-06-09 00:01:33.603664
+116	ROLE_CHANGED	79	6	Mini Admin	testowa rola 	2025-06-09 00:02:19.501367
+117	ROLE_CHANGED	79	\N	\N	\N	2025-06-09 00:03:49.961142
+118	ROLE_CHANGED	79	6	\N	user	2025-06-09 00:03:56.316995
+119	ROLE_CHANGED	79	6	user	test	2025-06-09 00:05:18.397549
+120	ROLE_CHANGED	79	6	test	user	2025-06-09 14:03:47.415964
+121	ROLE_CHANGED	79	6	user	qwe	2025-06-09 19:55:38.310943
+122	USER_DELETED	\N	6	mmaria@interia.pl	\N	2025-06-10 09:31:58.717382
 \.
 
 
@@ -2972,9 +2961,11 @@ COPY public.user_test_attempts (id, user_id, test_id, start_time, end_time, scor
 --
 
 COPY public.users (id, first_name, last_name, email, password, created_at, updated_at, role_id, is_verified, verification_token_id, reset_password_token, reset_password_expires, last_password_change, first_login, last_login) FROM stdin;
-82	Marcin	Dudek	marcindudek@interia.pl	$2b$10$HYYI76CgtCHfGTWM3TsCr.Xtz5gUSz.yXWU/GEjyWRZSV1Z/pjAka	2025-06-05 15:37:30.259308	2025-06-06 16:58:04.143948	16	t	\N	\N	\N	\N	f	2025-06-05 15:37:58.654239
-79	Jakub	Tokarczyk	jtokarczyk@interia.pl	$2b$10$CFmLRv0pxyulYosRmye/ruocrJwXOY/JA4y0KMCcDuAT47CHFqkTG	2025-05-31 10:49:57.192135	2025-05-31 10:49:57.192135	2	t	\N	\N	\N	\N	f	2025-06-08 18:02:59.189926
-6	test	test	test@testowy.pl	$2b$10$iY5PO4x5z/cWBKOSbB49UOq8nh8UA0B2ulQoNlriXrrMMsXIi7zOi	2025-04-06 20:18:40.52964	2025-04-06 20:18:40.52964	1	t	\N	\N	\N	\N	f	2025-06-08 18:03:05.08401
+85	Adrian	nowak	anowak@interia.pl	$2b$10$DZyIjrP//6YUM0oTMN4qn.OuCDLqzUYvvBOkagTQxoitFqpxLF9He	2025-06-09 19:32:06.085867	2025-06-09 19:32:06.085867	2	f	80	\N	\N	\N	t	2025-06-09 19:32:22.010366
+79	Jakub	Tokarczyk	jtokarczyk@interia.pl	$2b$10$CFmLRv0pxyulYosRmye/ruocrJwXOY/JA4y0KMCcDuAT47CHFqkTG	2025-05-31 10:49:57.192135	2025-06-09 19:55:38.310943	22	t	\N	\N	\N	\N	f	2025-06-09 19:55:46.509376
+82	Marcin	Dudek	marcindudek@interia.pl	$2b$10$HYYI76CgtCHfGTWM3TsCr.Xtz5gUSz.yXWU/GEjyWRZSV1Z/pjAka	2025-06-05 15:37:30.259308	2025-06-08 23:51:26.229439	2	t	\N	\N	\N	\N	f	2025-06-08 23:50:33.11962
+87	krzyszyof	Wyszowski	kwyszowski@interia.pl	$2b$10$KywHQ8OI02p5BWnOffRSBug2co394Fq6RVFK7.Mx9svlYqi0Ue.BC	2025-06-10 09:32:35.850637	2025-06-10 09:32:35.850637	2	t	\N	\N	\N	\N	f	2025-06-10 09:34:56.904736
+6	test	test	test@testowy.pl	$2b$10$iY5PO4x5z/cWBKOSbB49UOq8nh8UA0B2ulQoNlriXrrMMsXIi7zOi	2025-04-06 20:18:40.52964	2025-06-08 23:55:32.154182	1	t	\N	\N	\N	\N	f	2025-06-10 09:35:28.074053
 \.
 
 
@@ -2985,6 +2976,7 @@ COPY public.users (id, first_name, last_name, email, password, created_at, updat
 --
 
 COPY public.verification_tokens (id, user_id, verification_token, created_at, expires_at) FROM stdin;
+80	85	$2b$10$i2s8.zc2Zo2GXyCdyke1NeIIBEnvxnKOP4Ht8TEVYz3rr2oN4tqxi	2025-06-09 19:32:20.366235	2025-06-09 19:42:20.364
 \.
 
 
@@ -2995,6 +2987,19 @@ COPY public.verification_tokens (id, user_id, verification_token, created_at, ex
 --
 
 COPY public.waf_security_events (id, event_id, event_type, ip_address, endpoint, user_agent, description, risk_level, action_taken, created_at) FROM stdin;
+172	evt_1749415908493_h35qcuehe	rate_limit	::1	/api/courses/33/chapters/45		Rate limit exceeded: 100 requests	medium	blocked	2025-06-08 22:51:48.537304
+173	evt_1749415908717_00x2lm68c	rate_limit	::1	/api/courses/33/chapters/45		Rate limit exceeded: 100 requests	medium	blocked	2025-06-08 22:51:48.718795
+174	evt_1749415908951_ib9cgdqa7	rate_limit	::1	/api/courses/33/chapters/45		Rate limit exceeded: 100 requests	medium	blocked	2025-06-08 22:51:48.953087
+175	evt_1749415909208_pvjtx3yvc	rate_limit	::1	/api/courses/33/chapters/45		Rate limit exceeded: 100 requests	medium	blocked	2025-06-08 22:51:49.209222
+176	evt_1749415909569_bm53w3jna	rate_limit	::1	/api/courses/33/chapters/45		Rate limit exceeded: 100 requests	medium	blocked	2025-06-08 22:51:49.570393
+177	evt_1749415909756_am72sl5md	rate_limit	::1	/api/courses/33/chapters/45		Rate limit exceeded: 100 requests	medium	blocked	2025-06-08 22:51:49.758726
+178	evt_1749415910025_pqsw2j1gl	rate_limit	::1	/api/courses/33/chapters/45		Rate limit exceeded: 100 requests	medium	blocked	2025-06-08 22:51:50.026967
+179	evt_1749415910221_bhkyhavrt	rate_limit	::1	/api/courses/33/chapters/45		Rate limit exceeded: 100 requests	medium	blocked	2025-06-08 22:51:50.222177
+180	evt_1749484285511_gxuw454z9	sql_injection	::ffff:127.0.0.1	/api/questions	vscode-restclient	SQL injection attempt in field 'title': Test'; DROP TABLE users; --	high	blocked	2025-06-09 17:51:25.566251
+181	evt_1749484294704_1afunqw6h	sql_injection	::ffff:127.0.0.1	/api/questions	vscode-restclient	SQL injection attempt in field 'title': Test'; DROP TABLE users; --	high	blocked	2025-06-09 17:51:34.705455
+182	evt_1749484295479_wtfn96ukl	sql_injection	::ffff:127.0.0.1	/api/questions	vscode-restclient	SQL injection attempt in field 'title': Test'; DROP TABLE users; --	high	blocked	2025-06-09 17:51:35.485933
+183	evt_1749484301719_i1mpuxm8i	xss	::ffff:127.0.0.1	/api/questions	vscode-restclient	XSS attempt in field 'content': <script>alert('XSS')</script>	high	blocked	2025-06-09 17:51:41.72075
+184	evt_1749484303522_sjnna753w	xss	::ffff:127.0.0.1	/api/questions	vscode-restclient	XSS attempt in field 'content': <script>alert('XSS')</script>	high	blocked	2025-06-09 17:51:43.522985
 \.
 
 
@@ -3013,7 +3018,7 @@ SELECT pg_catalog.setval('public.answer_attributes_id_seq', 30, true);
 -- Name: certificates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.certificates_id_seq', 28, true);
+SELECT pg_catalog.setval('public.certificates_id_seq', 29, true);
 
 
 --
@@ -3022,7 +3027,7 @@ SELECT pg_catalog.setval('public.certificates_id_seq', 28, true);
 -- Name: chapter_block_attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chapter_block_attributes_id_seq', 117369, true);
+SELECT pg_catalog.setval('public.chapter_block_attributes_id_seq', 123083, true);
 
 
 --
@@ -3031,7 +3036,7 @@ SELECT pg_catalog.setval('public.chapter_block_attributes_id_seq', 117369, true)
 -- Name: chapter_blocks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chapter_blocks_id_seq', 51141, true);
+SELECT pg_catalog.setval('public.chapter_blocks_id_seq', 53527, true);
 
 
 --
@@ -3040,7 +3045,7 @@ SELECT pg_catalog.setval('public.chapter_blocks_id_seq', 51141, true);
 -- Name: chapters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chapters_id_seq', 47, true);
+SELECT pg_catalog.setval('public.chapters_id_seq', 48, true);
 
 
 --
@@ -3058,7 +3063,7 @@ SELECT pg_catalog.setval('public.course_answers_id_seq', 57, true);
 -- Name: course_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.course_logs_id_seq', 71, true);
+SELECT pg_catalog.setval('public.course_logs_id_seq', 79, true);
 
 
 --
@@ -3085,7 +3090,7 @@ SELECT pg_catalog.setval('public.course_questions_id_seq', 19, true);
 -- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.courses_id_seq', 33, true);
+SELECT pg_catalog.setval('public.courses_id_seq', 35, true);
 
 
 --
@@ -3094,7 +3099,7 @@ SELECT pg_catalog.setval('public.courses_id_seq', 33, true);
 -- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifications_id_seq', 822, true);
+SELECT pg_catalog.setval('public.notifications_id_seq', 832, true);
 
 
 --
@@ -3112,7 +3117,7 @@ SELECT pg_catalog.setval('public.permissions_id_seq', 13, true);
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.roles_id_seq', 16, true);
+SELECT pg_catalog.setval('public.roles_id_seq', 22, true);
 
 
 --
@@ -3121,7 +3126,7 @@ SELECT pg_catalog.setval('public.roles_id_seq', 16, true);
 -- Name: test_block_answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.test_block_answers_id_seq', 178, true);
+SELECT pg_catalog.setval('public.test_block_answers_id_seq', 184, true);
 
 
 --
@@ -3139,7 +3144,7 @@ SELECT pg_catalog.setval('public.test_block_attributes_id_seq', 4, true);
 -- Name: test_blocks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.test_blocks_id_seq', 52, true);
+SELECT pg_catalog.setval('public.test_blocks_id_seq', 54, true);
 
 
 --
@@ -3148,7 +3153,7 @@ SELECT pg_catalog.setval('public.test_blocks_id_seq', 52, true);
 -- Name: tests_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tests_id_seq', 15, true);
+SELECT pg_catalog.setval('public.tests_id_seq', 16, true);
 
 
 --
@@ -3166,7 +3171,7 @@ SELECT pg_catalog.setval('public.user_chapter_id_seq', 1, false);
 -- Name: user_courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_courses_id_seq', 14, true);
+SELECT pg_catalog.setval('public.user_courses_id_seq', 15, true);
 
 
 --
@@ -3175,7 +3180,7 @@ SELECT pg_catalog.setval('public.user_courses_id_seq', 14, true);
 -- Name: user_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_logs_id_seq', 95, true);
+SELECT pg_catalog.setval('public.user_logs_id_seq', 122, true);
 
 
 --
@@ -3184,7 +3189,7 @@ SELECT pg_catalog.setval('public.user_logs_id_seq', 95, true);
 -- Name: user_test_answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_test_answers_id_seq', 104, true);
+SELECT pg_catalog.setval('public.user_test_answers_id_seq', 119, true);
 
 
 --
@@ -3193,7 +3198,7 @@ SELECT pg_catalog.setval('public.user_test_answers_id_seq', 104, true);
 -- Name: user_test_attempts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_test_attempts_id_seq', 2289, true);
+SELECT pg_catalog.setval('public.user_test_attempts_id_seq', 2292, true);
 
 
 --
@@ -3202,7 +3207,7 @@ SELECT pg_catalog.setval('public.user_test_attempts_id_seq', 2289, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 84, true);
+SELECT pg_catalog.setval('public.users_id_seq', 87, true);
 
 
 --
@@ -3211,7 +3216,7 @@ SELECT pg_catalog.setval('public.users_id_seq', 84, true);
 -- Name: verification_tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.verification_tokens_id_seq', 79, true);
+SELECT pg_catalog.setval('public.verification_tokens_id_seq', 82, true);
 
 
 --
@@ -3220,7 +3225,7 @@ SELECT pg_catalog.setval('public.verification_tokens_id_seq', 79, true);
 -- Name: waf_security_events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.waf_security_events_id_seq', 171, true);
+SELECT pg_catalog.setval('public.waf_security_events_id_seq', 244, true);
 
 
 --
@@ -4804,7 +4809,7 @@ ALTER TABLE ONLY public.verification_tokens
 REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 
 
--- Completed on 2025-06-08 18:16:05
+-- Completed on 2025-06-10 10:06:43
 
 --
 -- PostgreSQL database dump complete
