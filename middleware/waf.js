@@ -294,14 +294,26 @@ module.exports = {
   getWAFConfig: () => wafConfig,
   updateWAFConfig: (newConfig) => {
     if (newConfig.rateLimiting) {
-      Object.assign(wafConfig.rateLimiting, newConfig.rateLimiting);
+      if (newConfig.rateLimiting.enabled !== undefined) {
+        wafConfig.rateLimiting.enabled = newConfig.rateLimiting.enabled;
+      }
+      if (newConfig.rateLimiting.maxRequests !== undefined) {
+        wafConfig.rateLimiting.maxRequests = newConfig.rateLimiting.maxRequests;
+      }
     }
+
     if (newConfig.sqlInjection) {
-      Object.assign(wafConfig.sqlInjection, newConfig.sqlInjection);
+      if (newConfig.sqlInjection.enabled !== undefined) {
+        wafConfig.sqlInjection.enabled = newConfig.sqlInjection.enabled;
+      }
     }
+
     if (newConfig.xss) {
-      Object.assign(wafConfig.xss, newConfig.xss);
+      if (newConfig.xss.enabled !== undefined) {
+        wafConfig.xss.enabled = newConfig.xss.enabled;
+      }
     }
-    console.log("🛡️ WAF Configuration updated:", newConfig);
+
+    console.log("WAF Config updated:", wafConfig);
   },
 };
