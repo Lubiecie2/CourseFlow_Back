@@ -14,7 +14,6 @@ const prisma = new PrismaClient();
 const NotificationModel = require("../models/notificationModel");
 const cacheService = require("../services/cacheServices");
 const USERS_CACHE_KEY = "users:all";
-
 const authController = {
   register: async (req, res) => {
     try {
@@ -30,25 +29,13 @@ const authController = {
 
       const user = await User.create(email, password, firstName, lastName);
 
-      await db.query("DELETE FROM verification_tokens WHERE user_id = $1", [
-        user.id,
-      ]);
-
-      const plainToken = generateVerificationToken();
-      const tokenSalt = await bcrypt.genSalt(10);
-      const tokenHash = await bcrypt.hash(plainToken, tokenSalt);
-
-      const tokenId = await User.createVerificationToken(user.id, tokenHash);
-
-      await User.updateVerificationTokenId(user.id, tokenId);
-
-      await sendVerificationEmail(email, plainToken);
+      await User.verifyUser(user.id);
 
       const USERS_CACHE_KEY = "admin:all_users";
       await cacheService.invalidate(USERS_CACHE_KEY);
 
       res.status(201).json({
-        message: "User created. A verification email has been sent.",
+        message: "User created successfully",
         user,
       });
     } catch (err) {
@@ -79,16 +66,17 @@ const authController = {
         user.id,
       ]);
 
-      if (!user.is_verified) {
-        return res.status(200).json({
-          message: "User not verified",
-          user: {
-            id: user.id,
-            email: user.email,
-            is_verified: false,
-          },
-        });
-      }
+      // USUŃ TEN BLOK:
+      // if (!user.is_verified) {
+      //   return res.status(200).json({
+      //     message: "User not verified",
+      //     user: {
+      //       id: user.id,
+      //       email: user.email,
+      //       is_verified: false,
+      //     },
+      //   });
+      // }
 
       const token = await jweToken.createToken({
         id: user.id,
