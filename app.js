@@ -46,7 +46,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(
   cors({
-    origin: ["http://localhost", "http://localhost:3000"],
+    origin: [
+      "http://localhost",
+      "http://localhost:3000",
+      "https://courseflow.pl",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
@@ -60,7 +64,7 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "API Documentation for CourseFlow Learning Platform",
     },
-    servers: [{ url: "http://localhost:4000" }],
+    servers: [{ url: "https://api.courseflow.pl" }],
     components: {
       securitySchemes: {
         bearerAuth: {

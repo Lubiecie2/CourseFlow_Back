@@ -287,8 +287,7 @@ const authController = {
         },
       });
 
-      const frontendBaseUrl =
-        process.env.FRONTEND_URL || "http://localhost:3000";
+      const frontendBaseUrl = "https://courseflow.pl";
       const resetUrl = `${frontendBaseUrl}/setNewPassword?token=${plainToken}`;
 
       try {

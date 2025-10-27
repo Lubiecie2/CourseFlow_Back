@@ -246,7 +246,7 @@ const chapterController = {
       return res.status(200).json({
         success: true,
         message: "Zdjęcie zostało pomyślnie przesłane",
-        imageUrl: `http://localhost:4000/uploads/${fileName}`,
+        imageUrl: `https://api.courseflow.pl/uploads/${fileName}`,
       });
     } catch (error) {
       console.error("Błąd podczas przesyłania zdjęcia:", error);
@@ -281,7 +281,7 @@ const chapterController = {
       return res.status(200).json({
         success: true,
         message: "Film został pomyślnie przesłany",
-        videoUrl: `http://localhost:4000/uploads/${fileName}`,
+        videoUrl: `https://api.courseflow.pl/uploads/${fileName}`,
       });
     } catch (error) {
       console.error("Błąd podczas przesyłania filmu:", error);

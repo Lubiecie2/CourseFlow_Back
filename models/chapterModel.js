@@ -209,10 +209,12 @@ const chapterModel = {
   uploadChapterImage: async (filePath) => {
     try {
       const fileName = filePath.split("/").pop();
+      // Na stałe wskazujemy produkcyjny host (bez env)
+      const uploadsBase = "https://api.courseflow.pl/uploads";
       return {
         success: true,
         fileName: fileName,
-        imageUrl: `http://localhost:4000/uploads/${fileName}`,
+        imageUrl: `${uploadsBase}/${fileName}`,
       };
     } catch (error) {
       console.error("Błąd podczas zapisywania obrazu rozdziału:", error);
@@ -226,10 +228,11 @@ const chapterModel = {
   uploadChapterVideo: async (filePath) => {
     try {
       const fileName = filePath.split("/").pop();
+      const uploadsBase = "https://api.courseflow.pl/uploads";
       return {
         success: true,
         fileName: fileName,
-        videoUrl: `http://localhost:4000/uploads/${fileName}`,
+        videoUrl: `${uploadsBase}/${fileName}`,
       };
     } catch (error) {
       console.error("Błąd podczas zapisywania filmu rozdziału:", error);
