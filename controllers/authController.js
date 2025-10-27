@@ -66,7 +66,6 @@ const authController = {
         user.id,
       ]);
 
-      // USUŃ TEN BLOK:
       // if (!user.is_verified) {
       //   return res.status(200).json({
       //     message: "User not verified",
@@ -101,6 +100,7 @@ const authController = {
       res
         .cookie("access_token", token, {
           httpOnly: false,
+          domain: "courseflow.pl",
           secure: true,
           maxAge: hours * 60 * 1000 * 60,
         })
