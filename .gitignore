@@ -17,7 +17,7 @@ benchmarks/graphs
 .env.*
 !.env.example
 
-uploads/
+
 
 gitstat_result.json
 

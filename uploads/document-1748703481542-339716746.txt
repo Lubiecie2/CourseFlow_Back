@@ -1,0 +1,123 @@
+==================== Funkcja do zarządzania partycjami ====================
+
+CREATE OR REPLACE FUNCTION create_monthly_partition(
+    table_name TEXT,
+    year INT,
+    month INT
+) RETURNS TEXT AS $$
+DECLARE
+    partition_name TEXT;
+    start_date DATE;
+    end_date DATE;
+BEGIN
+
+    partition_name := table_name || '_y' || year || LPAD(month::TEXT, 2, '0');
+    
+    start_date := make_date(year, month, 1);
+    IF month = 12 THEN
+        end_date := make_date(year + 1, 1, 1);
+    ELSE
+        end_date := make_date(year, month + 1, 1);
+    END IF;
+    
+    PERFORM 1 FROM pg_tables WHERE tablename = partition_name;
+    IF FOUND THEN
+        RETURN 'Partycja już istnieje: ' || partition_name;
+    END IF;
+    
+    EXECUTE format(
+        'CREATE TABLE IF NOT EXISTS %I PARTITION OF %I FOR VALUES FROM (%L) TO (%L)',
+        partition_name, table_name, start_date, end_date
+    );
+    
+    EXECUTE format(
+        'CREATE INDEX %I ON %I (user_id, created_at)',
+        'idx_' || partition_name || '_user_id', 
+        partition_name
+    );
+    
+    EXECUTE format(
+        'CREATE INDEX %I ON %I (action_type, created_at)',
+        'idx_' || partition_name || '_action_type', 
+        partition_name
+    );
+    
+    RETURN 'Utworzono partycję: ' || partition_name;
+END;
+$$ LANGUAGE plpgsql;
+
+==================== Funkcja odłączająca partycje ====================
+
+CREATE OR REPLACE FUNCTION detach_partition(
+    table_name TEXT,
+    year INT,
+    month INT
+) RETURNS TEXT AS $$
+DECLARE
+    partition_name TEXT;
+BEGIN
+
+    partition_name := table_name || '_y' || year || LPAD(month::TEXT, 2, '0');
+    
+    PERFORM 1 
+    FROM pg_inherits i
+    JOIN pg_class parent ON i.inhparent = parent.oid
+    JOIN pg_class child ON i.inhrelid = child.oid
+    WHERE parent.relname = table_name AND child.relname = partition_name;
+    
+    IF NOT FOUND THEN
+        RETURN 'Partycja nie istnieje lub jest już odłączona: ' || partition_name;
+    END IF;
+    
+    EXECUTE format('ALTER TABLE %I DETACH PARTITION %I', table_name, partition_name);
+    
+    RETURN 'Odłączono partycję: ' || partition_name;
+END;
+$$ LANGUAGE plpgsql;
+
+==================== Funkcja do podłączenia partycji ====================
+
+CREATE OR REPLACE FUNCTION attach_partition(
+    table_name TEXT,
+    year INT,
+    month INT
+) RETURNS TEXT AS $$
+DECLARE
+    partition_name TEXT;
+    start_date DATE;
+    end_date DATE;
+BEGIN
+
+    partition_name := table_name || '_y' || year || LPAD(month::TEXT, 2, '0');
+    
+    PERFORM 1 FROM pg_tables WHERE tablename = partition_name;
+    IF NOT FOUND THEN
+        RETURN 'Tabela partycji nie istnieje: ' || partition_name;
+    END IF;
+    
+
+    PERFORM 1 
+    FROM pg_inherits i
+    JOIN pg_class parent ON i.inhparent = parent.oid
+    JOIN pg_class child ON i.inhrelid = child.oid
+    WHERE parent.relname = table_name AND child.relname = partition_name;
+    
+    IF FOUND THEN
+        RETURN 'Partycja jest już podłączona: ' || partition_name;
+    END IF;
+    
+    start_date := make_date(year, month, 1);
+    IF month = 12 THEN
+        end_date := make_date(year + 1, 1, 1);
+    ELSE
+        end_date := make_date(year, month + 1, 1);
+    END IF;
+    
+    EXECUTE format(
+        'ALTER TABLE %I ATTACH PARTITION %I FOR VALUES FROM (%L) TO (%L)',
+        table_name, partition_name, start_date, end_date
+    );
+    
+    RETURN 'Podłączono partycję: ' || partition_name;
+END;
+$$ LANGUAGE plpgsql;
